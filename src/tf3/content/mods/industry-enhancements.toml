@@ -3,7 +3,7 @@ group = "enhancements"
 order = 3
 status = "soon"
 publish = true
-version = "0.7.12"
+version = "0.7.13"
 card = "Correct figures for industries with two recipes, every worker and what they are doing, plot growth, and columns for comparing industries."
 card_image = "site/card-industry-enhancements"
 lead = "The industry window and the statistics window's Industries tab leave out much of what decides an industry's output: the canning factory's second recipe shows the first one's figures, workers who don't count for the worker boost appear nowhere, and nothing says when a farm or mine will grow. This mod corrects the figures, lists every worker and what each one is doing, shows when raw producers next try to grow, and gives the Industries tab columns, a cargo filter and a mark for industries that can't expand."
@@ -12,7 +12,7 @@ compat = "Works alongside [Cargo Enhancements](mod:cargo-enhancements) and [To-D
 
 [[section]]
 title = "Industry window"
-features = ["recipeFigures", "plotGrowth", "inactiveWorkers", "workerStatus"]
+features = ["recipeFigures", "plotGrowth", "workerStatus"]
 
 [[section]]
 title = "Statistics window"
@@ -70,35 +70,20 @@ pins = [
   { n = 2, x = 31.2, y = 69.2, text = "The tooltip says so, and still gives the chance the try would have." },
 ]
 
-[feature.inactiveWorkers]
+[feature.workerStatus]
 where = ["industry-window", "statistics"]
-why = "The worker boost counts only workers who arrived by your lines in the last 2 years. The Boosters card shows only their count and lists only them, so workers who walk, drive or stopped coming by line appear nowhere."
-what = "The Boosters card's count adds the others in brackets: 11 (8)/10 means 11 came by line, 8 more work there, and 10 are needed for the boost. The expanded list shows the others below at 0 %, each with how they get to work (walking, car or lines), or a button to the new workplace of a worker who now works elsewhere, and a button to their home."
-how = ["Open an industry with workplaces.", "Read the Boosters card's count; expand the card for the list."]
+why = """
+The worker boost counts only workers who arrived by your lines in the last 2 years, and the Boosters card shows and lists only them: workers who walk, drive or stopped coming by line appear nowhere.
+
+The list also says who works here, not what they are doing: stuck at a stop for months, walking, or already at work.
+"""
+what = """
+The Boosters card's count adds the other workers in brackets: 11 (8)/10 means 11 came by line, 8 more work there, and 10 are needed for the boost. The statistics Industries tab's Workplaces column shows the same count.
+
+The worker list shows every worker, those who don't count for the boost at 0 %, with what each is doing now: at home, shopping or at work (green), walking, driving, waiting at a stop (a stopwatch and the vehicle they wait for), or riding, with a dot in the line's colour. Then where the trip goes, for how many days, the worker's happiness, how far their home town is, and Time Left as a % from red (0 %) to green (100 %).
+"""
 good = [
   "The boost needs workers by line in half the workplaces: the last figure of the count.",
-  "Point at a home button for the town; sort by it to group workers by town.",
-  "With [Worker Status](#worker-status) on, the list shows Worker Status's columns instead.",
-]
-also = "The statistics Industries tab's Workplaces column shows the same count, with the filled workplaces in the tooltip."
-
-[[feature.inactiveWorkers.figure]]
-shot = "IE-03"
-alt = "Abenberg Weaving Mill's Boosters card: worker count 0 (20)/10 and a list of workers at 0 percent"
-caption = "Abenberg Weaving Mill: twenty people work here, but none came by line, so the boost is off. The game alone shows 0/10 and an empty list. Shown without Worker Status, in an earlier version."
-dim = true
-boxes = [ { x = 3.9, y = 9.1, w = 86.3, h = 22 }, { x = 4.3, y = 36.5, w = 85.5, h = 60.8 } ]
-pins = [
-  { n = 1, x = 29.5, y = 19.9, text = "0 (20)/10: none came by line (they count for the boost), 20 more work here, 10 are needed." },
-  { n = 2, x = 54.3, y = 41.6, text = "Each row: how the worker gets to work (walking, car or lines) and a button to their home." },
-  { n = 3, x = 77.2, y = 41.6, text = "Workers who don't count for the boost are listed too, at 0 %." },
-]
-
-[feature.workerStatus]
-where = ["industry-window"]
-why = "The worker list says who works here, not what they are doing: stuck at a stop for months, walking, or already at work."
-what = "The Boosters card's worker list shows what each worker is doing now: at home, shopping or at work (green), walking, driving, waiting at a stop (a stopwatch and the vehicle they wait for), or riding, with a dot in the line's colour. Then where the trip goes, for how many days, the worker's happiness, how far their home town is, and Time Left as a % from red (0 %) to green (100 %)."
-good = [
   "Point at Now for the line, the stop and where the worker gets off; click it to open the worker's window.",
   "Click the trip's destination to open that building. A grey workplace marks a worker who now works elsewhere.",
   "A wait over 30 days shows in red, since it makes people unhappy. \"12 d+\" means the list didn't see the state begin.",
@@ -107,7 +92,7 @@ good = [
 ]
 
 [[feature.workerStatus.figure]]
-caption = "Wellington Canning Factory in a 1998 save. Left is the game's Time Left, coloured from red to green; the (16) in the count comes from [Inactive Workers](#inactive-workers)."
+caption = "Wellington Canning Factory in a 1998 save. Left is the game's Time Left, coloured from red to green; the (16) in the count are workers who don't count for the boost."
 [feature.workerStatus.figure.before]
 shot = "IE-04a-stock"
 alt = "The game's worker list: a location button, the worker's name and a Time Left bar per row."
@@ -130,10 +115,11 @@ shot = "IE-04b"
 alt = "The worker list with a tooltip on the first worker: Waiting at Windsor Road, Line: Frodsham - Passengers 1, Gets off at Park Avenue, Commutes here by your lines."
 caption = "Halesworth Livestock Farm, with the pointer on the first worker's Now."
 dim = true
-boxes = [ { x = 48.5, y = 0, w = 46.5, h = 67 } ]
+boxes = [ { x = 3.9, y = 0, w = 91.4, h = 67 } ]
 pins = [
-  { n = 1, x = 80.5, y = 47, text = "The line, the stop and where the worker gets off: waiting at Windsor Road for Frodsham - Passengers 1." },
-  { n = 2, x = 72.3, y = 35.9, text = "126 days waiting, in red: past 30 days the wait makes people unhappy." },
+  { n = 1, x = 22, y = 8.4, text = "16 (10)/10: 16 came by line and count for the boost, 10 more work here, 10 are needed." },
+  { n = 2, x = 49.5, y = 29, text = "126 days waiting, in red: past 30 days the wait makes people unhappy." },
+  { n = 3, x = 66.8, y = 47, text = "The line, the stop and where the worker gets off: waiting at Windsor Road for Frodsham - Passengers 1." },
 ]
 
 [feature.industryColumns]

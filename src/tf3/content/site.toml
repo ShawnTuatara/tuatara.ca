@@ -85,7 +85,7 @@ caption = "An industry window with Industry Enhancements, Cargo Enhancements and
 pins = [
   { n = 1, x = 40, y = 13.6, mod = "industry-enhancements", anchor = "recipe-figures", text = "Production: each recipe its own figures; plots and the next growth try." },
   { n = 2, x = 40, y = 28.1, mod = "todo-list", text = "To-Do card: open tasks about this industry, + for a new one." },
-  { n = 3, x = 29.5, y = 41.9, mod = "industry-enhancements", anchor = "inactive-workers", text = "Boosters: every worker counted, not only those who came by line." },
+  { n = 3, x = 29.5, y = 41.9, mod = "industry-enhancements", anchor = "worker-status", text = "Boosters: every worker counted, not only those who came by line." },
   { n = 4, x = 44.3, y = 53.6, mod = "industry-enhancements", anchor = "worker-status", text = "Worker list: what each worker is doing now." },
   { n = 5, x = 40, y = 69, mod = "cargo-enhancements", text = "Input / Output Stocks, expanded: cargo filter, distance column and slider." },
   { n = 6, x = 40, y = 89.8, mod = "cargo-enhancements", text = "Supply Chains: opens the supply chain planner." },
