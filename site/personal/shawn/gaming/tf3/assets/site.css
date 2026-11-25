@@ -259,6 +259,8 @@ figcaption { margin: 10px 0 0; font-size: .9rem; color: var(--muted); line-heigh
 .pair-half.mod .label::before { background: var(--accent-very-light); }
 .pair-half.mod .shot-frame { box-shadow: var(--shadow), 0 0 0 2px var(--accent-light); }
 .pair-half.view .label::before { display: none; }
+/* the stock game's pins and legend numbers muted grey ("basic"); the mod's keep the Highlight yellow */
+.pair-half.stock .pin, .pair-half.stock .legend .n { background: var(--muted); }
 @media (max-width: 600px) { .pair-half { padding-left: 10px; border-left-width: 3px; } }
 .pending { border: 1px dashed var(--base-very-light); border-radius: var(--radius-card); background: var(--base-dark-medium); color: var(--muted); padding: 18px; font-size: .88rem; min-height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
 .pending b { color: var(--text); font-family: ui-monospace, Consolas, monospace; font-size: .85rem; font-weight: 400; }

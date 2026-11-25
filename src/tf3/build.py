@@ -270,8 +270,8 @@ def figures(figs: list, folder: str, drafts: bool, where: str) -> str:
             stock = "before_label" not in fig and "after_label" not in fig
             kinds = ("stock", "mod") if stock else ("view", "view")
             out.append(f'<div class="pair">{cap}'
-                       f'<div class="pair-half {kinds[0]}"><span class="label">{esc(fig.get("before_label", "Stock game"))}</span>{a}</div>'
-                       f'<div class="pair-half {kinds[1]}"><span class="label">{esc(fig.get("after_label", "With the mod"))}</span>{b}</div></div>')
+                       f'<div class="pair-half {kinds[0]}"><span class="label">{esc(fig.get("before_label", "Stock Game UI"))}</span>{a}</div>'
+                       f'<div class="pair-half {kinds[1]}"><span class="label">{esc(fig.get("after_label", "UI with Mod"))}</span>{b}</div></div>')
         else:
             out.append(figure(fig, folder, drafts, w))
     return "".join(out)
