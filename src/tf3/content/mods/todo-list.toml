@@ -58,11 +58,11 @@ why = """
 A task is usually about something on the map: a town, an industry, a line. Finding it again means searching the map or the statistics window, and opening a town's window doesn't remind you of what you meant to do there.
 """
 what = """
-Tasks can link to towns, industries, stations, lines and warehouses. Their windows get a To-Do card: how many open tasks are about this element, a + to start a new task about it, and a chain to add it to the task you clicked in the list. Expanded, the card lists those tasks, each with a tick box and buttons to edit or delete it. In the list, each linked element shows as a tag under the task's text: click it to go there and open its window.
+Tasks can link to towns, industries, stations, lines and warehouses. Their windows get a To-Do card: how many open tasks are about this element, a + to start a new task about it, and a chain to add it to the task picked in the To-Do window (it works only while that window is open with a task clicked). Expanded, the card lists those tasks, each with a tick box and buttons to edit or delete it. In the list, each linked element shows as a tag under the task's text: click it to go there and open its window.
 """
 how = [
   "Open a town, industry, station, line or warehouse and find its To-Do card.",
-  "Click + to start a task about it; or click a task in the list, then the chain to add this element to it.",
+  "Click + to start a task about it. To add this element to an existing task, open the To-Do window, click the task there, then click the chain on the element's card.",
   "Click the card to expand it and work through its tasks without opening the list.",
 ]
 good = [
@@ -79,6 +79,6 @@ pins = [
   { n = 1, x = 21, y = 56, text = "Open tasks about this town; a click opens them in the list." },
   { n = 2, x = 69.2, y = 56, text = "Adds the tasks already done to the card." },
   { n = 3, x = 78.9, y = 56, text = "+ starts a new task about this town." },
-  { n = 4, x = 87.4, y = 56, text = "The chain adds the town to the task you clicked in the list; greyed while none is." },
+  { n = 4, x = 87.4, y = 56, text = "The chain links the town to a task: with the To-Do window open, click a task there, then the chain. Greyed while the window is closed, no task is picked, or the task already has this town." },
   { n = 5, x = 55, y = 69.4, text = "The tasks about it: tick, edit or delete them here." },
 ]
