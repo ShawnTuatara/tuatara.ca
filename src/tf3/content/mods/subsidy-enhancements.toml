@@ -96,9 +96,9 @@ pins = [
 
 [[feature.greenRing.figure]]
 shot = "SU-03c"
-alt = "A subsidy tile with a yellow ring, and below it the game's card: Subsidy in Progress, transporting workers to Cheltenham Logging Camp, 8 Months."
+alt = "A subsidy tile with a yellow ring, and below it the game's card: Subsidy in Progress, transporting workers to Cheltenham Logging Camp, 7 Months 16 Days."
 caption = "Hovering an in-progress subsidy's tile."
 pins = [
   { n = 1, x = 40, y = 8, text = "The yellow ring: this subsidy is in progress." },
-  { n = 2, x = 63, y = 55, text = "The game's card: Subsidy in Progress, 8 months left to fulfil it." },
+  { n = 2, x = 63, y = 55, text = "The game's card: Subsidy in Progress, 7 months left to fulfil it." },
 ]

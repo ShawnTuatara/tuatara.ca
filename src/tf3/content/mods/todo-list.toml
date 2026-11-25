@@ -32,14 +32,14 @@ good = [
 
 [[feature.todoList.figure]]
 shot = "TD-01"
-alt = "The To-Do List window: To Do (5) and Done (0) tabs, filter buttons, an eye and a plus, then five tasks, the last one tagged Whaley Bridge."
-caption = "Five open tasks; the last is linked to a town."
+alt = "The To-Do List window: To Do (8) and Done (7) tabs, filter buttons, an eye and a plus, then eight tasks, most tagged with the stations, industries and towns they are about."
+caption = "Eight open tasks, the first long enough to wrap; most are linked to something on the map."
 pins = [
-  { n = 1, x = 70, y = 12, text = "Filter buttons, one per kind of element, and the eye: only the tasks about something on screen." },
-  { n = 2, x = 93.5, y = 28, text = "+ adds a task at the top." },
-  { n = 3, x = 6.8, y = 31, text = "Drag a task by its grip to reorder it; tick it when it's done." },
-  { n = 4, x = 87.7, y = 31, text = "Edit or delete a task." },
-  { n = 5, x = 31, y = 88, text = "A tag links the task to a town: click it to go there and open its window." },
+  { n = 1, x = 70, y = 13.3, text = "Filter buttons, one per kind of element, and the eye: only the tasks about something on screen." },
+  { n = 2, x = 93.5, y = 13.3, text = "+ adds a task at the top." },
+  { n = 3, x = 6.1, y = 35.1, text = "Drag a task by its grip to reorder it; tick it when it's done." },
+  { n = 4, x = 86.4, y = 35.1, text = "Edit or delete a task." },
+  { n = 5, x = 42.6, y = 79.7, text = "A tag links the task to a town, here Haverhill: click it to go there and open its window." },
 ]
 
 [[feature.todoList.figure]]
@@ -73,14 +73,14 @@ good = [
 
 [[feature.elementLinks.figure]]
 shot = "TD-03"
-alt = "Whaley Bridge's town window: under the Small Suburb card, a To-Do card with 1 open task, a checked-box button, a plus and a chain, expanded to the task Add a second bus line in Whaley Bridge."
-caption = "Whaley Bridge's town window, its To-Do card expanded."
+alt = "Cheltenham's town window: under the Small Village card, a To-Do card with 1 open task, a checked-clipboard button, a plus and a chain, expanded to the task Add a bus line in Cheltenham."
+caption = "Cheltenham's town window, its To-Do card expanded."
 dim = true
-boxes = [ { x = 4.5, y = 61.5, w = 91.5, h = 38 } ]
+boxes = [ { x = 4.5, y = 49, w = 91.5, h = 27 } ]
 pins = [
-  { n = 1, x = 26, y = 76.5, text = "Open tasks about this town; a click opens them in the list." },
-  { n = 2, x = 72.5, y = 68, text = "Adds the tasks already done to the card." },
-  { n = 3, x = 82, y = 68, text = "+ starts a new task about this town." },
-  { n = 4, x = 91, y = 68, text = "The chain adds the town to the task you clicked in the list; greyed while none is." },
-  { n = 5, x = 71, y = 90.5, text = "The tasks about it: tick, edit or delete them here." },
+  { n = 1, x = 21, y = 56, text = "Open tasks about this town; a click opens them in the list." },
+  { n = 2, x = 69.2, y = 56, text = "Adds the tasks already done to the card." },
+  { n = 3, x = 78.9, y = 56, text = "+ starts a new task about this town." },
+  { n = 4, x = 87.4, y = 56, text = "The chain adds the town to the task you clicked in the list; greyed while none is." },
+  { n = 5, x = 55, y = 69.4, text = "The tasks about it: tick, edit or delete them here." },
 ]

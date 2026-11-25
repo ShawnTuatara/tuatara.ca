@@ -315,12 +315,12 @@ what = "Town buildings keep their district colours (residential, commercial, ind
 
 [[feature.districtColors.figure]]
 shot = "LE-07"
-alt = "A town seen from above with a bus line in green; buildings are coloured green, blue and yellow by district."
-caption = "A town while a stop is added to a bus line, the one view where the game shows these colours too. With the mod they stay in every Line Manager view."
+alt = "A town seen from above with its bus lines; buildings are coloured green, blue and yellow by district."
+caption = "Petworth in the Line Manager's main view, no line selected and no stop being added. The game shows these colours only while you add or move a stop."
 pins = [
-  { n = 1, x = 38, y = 10, text = "Industrial: yellow." },
-  { n = 2, x = 60, y = 22, text = "Commercial: blue." },
-  { n = 3, x = 18, y = 48, text = "Residential: green." },
+  { n = 1, x = 47.5, y = 29, text = "Industrial: yellow." },
+  { n = 2, x = 71, y = 43, text = "Commercial: blue." },
+  { n = 3, x = 23.5, y = 35.5, text = "Residential: green." },
 ]
 
 [feature.lineCatchment]

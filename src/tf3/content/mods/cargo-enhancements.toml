@@ -58,7 +58,7 @@ shot = "CE-01b-meat"
 alt = "The same map with about ten arrows left, all to livestock farms, and the meat button picked in the Input Stocks card."
 pins = [
   { n = 1, x = 86.5, y = 56.1, text = "Meat picked: the table lists only livestock farms." },
-  { n = 2, x = 39.8, y = 52, text = "Only meat's arrows are left, one to each livestock farm that could supply it." },
+  { n = 2, x = 45.7, y = 60, text = "Only meat's arrows are left, one to each livestock farm that could supply it." },
 ]
 
 [feature.boosterSources]
@@ -126,8 +126,8 @@ caption = "Carlton Colville Warehouse stores fertilizer and crude oil. Its Consu
 pins = [
   { n = 1, x = 44, y = 21, text = "Consumers: where the stored cargo can go. Suppliers: where more of it can come from." },
   { n = 2, x = 33, y = 32, text = "Crude oil picked: the oil refineries that could take it." },
-  { n = 3, x = 95.5, y = 52, text = "Carlton Colville Oil Refinery is 611 m away and holds 2 of 800." },
-  { n = 4, x = 95.5, y = 66.5, text = "Stored: Haywards Heath Oil Refinery already holds 745 of 800." },
+  { n = 3, x = 95.5, y = 52, text = "Carlton Colville Oil Refinery is 611 m away and holds none of its 800." },
+  { n = 4, x = 95.5, y = 66.5, text = "Stored: Haywards Heath Oil Refinery already holds 792 of 800." },
 ]
 
 [[feature.warehouseFlows.figure]]

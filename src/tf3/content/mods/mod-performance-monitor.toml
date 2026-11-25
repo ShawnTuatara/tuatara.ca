@@ -38,14 +38,14 @@ good = [
 
 [[feature.monitor.figure]]
 shot = "PM-01"
-alt = "The Mod Performance window: 33 fps at 30.1 ms, mods 0.09 ms or 0.3 %, the game paused, a line of simulation timings, a row per mod with ms, Peak, Calls and Sim columns, and four hitches."
+alt = "The Mod Performance window: 58 fps at 17.3 ms, mods 0.32 ms or 1.9 %, the game paused, a line of simulation timings, a row per mod with a UI time bar, ms, Peak, Calls and Sim columns, and four hitches."
 caption = "A large world, paused: most mods ran nothing and are greyed out."
 pins = [
-  { n = 1, x = 26.3, y = 9.3, text = "33 frames a second, 30.1 ms each; all mods together take 0.09 ms of that (0.3 %)." },
-  { n = 2, x = 51.7, y = 9.3, text = "The game's own interface scripts, 1.88 ms a frame." },
+  { n = 1, x = 26.3, y = 9.3, text = "58 frames a second, 17.3 ms each; all mods together take 0.32 ms of that (1.9 %)." },
+  { n = 2, x = 51.7, y = 9.3, text = "The game's own interface scripts, 1.53 ms a frame." },
   { n = 3, x = 83.8, y = 9.3, text = "The game speed, here Paused. While the game runs: game time per real second, yellow or red when the simulation can't keep up." },
   { n = 4, x = 90, y = 14, text = "The simulation's own timings: time per step, how busy it is and the mods' game scripts' share, the sync with the interface, and the Destination Changes value in use." },
-  { n = 5, x = 44, y = 21.3, text = "A row per mod, heaviest first: time per frame with a bar, its worst frame in the last 2 seconds (Peak), calls per frame and game script time (Sim)." },
+  { n = 5, x = 44, y = 21.3, text = "A row per mod, heaviest first: time per frame with a bar (UI time), its worst frame in the last 2 seconds (Peak), calls per frame and game script time (Sim). The game's own scripts and the monitor sit at the bottom, in lighter grey." },
 ]
 
 [[feature.monitor.figure]]
@@ -55,17 +55,17 @@ caption = "Line Enhancements' row opened."
 pins = [
   { n = 1, x = 50, y = 24.5, text = "Its heaviest pieces: what each is (here wrappers and a per-frame step) and its name, with time per frame, longest call and calls." },
   { n = 2, x = 80.5, y = 39.5, text = "Sim: each mod's game scripts, in ms per real second." },
-  { n = 3, x = 93.5, y = 50.5, text = "Badges: crossed tools for a mod with game scripts, a spanner for one that wraps functions of the game's own scripts." },
-  { n = 4, x = 35, y = 70.6, text = "Greyed out: mods that ran nothing in the interface." },
+  { n = 3, x = 92.3, y = 48.1, text = "Badges: crossed tools for a mod with game scripts, a spanner for one that wraps functions of the game's own scripts." },
+  { n = 4, x = 25.6, y = 74.1, text = "Greyed out: mods that ran nothing in the interface." },
 ]
 
 [[feature.monitor.figure]]
 shot = "PM-03"
-alt = "The Hitches list: four frames of 58 to 88 ms, each with the share of interface scripts and the mods that took the most of it."
+alt = "The Hitches list: four frames of 78 to 386 ms, each with the share of interface scripts and the mods that took the most of it."
 caption = "The last hitches, newest first."
 pins = [
   { n = 1, x = 86, y = 27, text = "How long ago, the frame's length, how much of it interface scripts took, and the mods that took the most." },
-  { n = 2, x = 3, y = 40, text = "A long frame with little script time is the game's own work, not a mod's." },
+  { n = 2, x = 3, y = 36, text = "A long frame with little script time is the game's own work, not a mod's." },
   { n = 3, x = 64, y = 89, text = "The monitor's own cost, and how much it times." },
 ]
 

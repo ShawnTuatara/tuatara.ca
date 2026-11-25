@@ -33,9 +33,9 @@ pins = [
 ]
 [feature.recipeFigures.figure.after]
 shot = "IE-01"
-alt = "The same Production card with the mod: the fish row reads 202, the meat row 99, both with 151 sheet metal and 301 cans."
+alt = "The same Production card with the mod: the fish row reads 210, the meat row 94, both with 152 sheet metal and 304 cans."
 pins = [
-  { n = 1, x = 19, y = 81, text = "The meat row's own figure: 99 meat a year." },
+  { n = 1, x = 19, y = 81, text = "The meat row's own figure: 94 meat a year." },
   { n = 2, x = 47, y = 81, text = "Sheet metal and cans, which both recipes use, show the industry's total on both rows." },
 ]
 
@@ -59,6 +59,15 @@ pins = [
   { n = 1, x = 9.5, y = 51, text = "Plots built of the most this farm may have: 18 of 19." },
   { n = 2, x = 38.5, y = 51, text = "The next try to add a plot, in 3 months. Yellow: it may succeed." },
   { n = 3, x = 92.5, y = 65, text = "The chance: 100 % production × 39 % shipped gives 28 %, on a scale from none at 25 % to sure at 75 %." },
+]
+
+[[feature.plotGrowth.figure]]
+shot = "IE-07h"
+alt = "A logging camp's Production card: 17/20 and 28 days in grey under the plots icon, a red blocked line, and a tooltip that says the try adds no plot unless the way is clear."
+caption = "Cheltenham Logging Camp, blocked from further expansion, with the pointer on the next try."
+pins = [
+  { n = 1, x = 39.5, y = 45.5, text = "The next try, in grey: the industry is blocked, so the try won't add a plot." },
+  { n = 2, x = 31.2, y = 69.2, text = "The tooltip says so, and still gives the chance the try would have." },
 ]
 
 [feature.inactiveWorkers]
@@ -107,11 +116,11 @@ pins = [
 ]
 [feature.workerStatus.figure.after]
 shot = "IE-04a"
-alt = "The worker list with the mod: columns Now, To, For, happiness, home distance and Left; four workers waiting 42 to 48 days in red."
+alt = "The worker list with the mod: columns Now, To, For, happiness, home distance and Left; three workers waiting 56 to 59 days in red, two riding."
 pins = [
   { n = 1, x = 25.5, y = 44, text = "Now: a stopwatch and a bus or train means waiting at a stop for it; the dot is the line's colour." },
   { n = 2, x = 37.5, y = 44, text = "To: where the trip goes, here this factory. Click it to open that building." },
-  { n = 3, x = 50.5, y = 44, text = "For: days in that state. These four have waited over 30 days, so it is red." },
+  { n = 3, x = 50.5, y = 44, text = "For: days in that state. The three who wait have waited over 30 days, so it is red; a dash means the state began before this session, so the days are unknown." },
   { n = 4, x = 64, y = 44, text = "The worker's happiness, as the person window shows it." },
   { n = 5, x = 79, y = 44, text = "The distance to the worker's home town. Click it to open the home." },
 ]
@@ -170,11 +179,11 @@ pins = [
 ]
 [feature.statisticsTotals.figure.after]
 shot = "IE-05d"
-alt = "The Industries tab with the mod: each canning factory on two lines; Wellington Canning Factory takes 202 fish, 99 meat and 151 sheet metal and makes 301 cans, Workload 87 %."
+alt = "The Industries tab with the mod: each canning factory on two lines; Wellington Canning Factory takes 210 fish, 94 meat and 152 sheet metal and makes 304 cans, Workload 88 %."
 pins = [
-  { n = 1, x = 62, y = 64, text = "Input counts each cargo once: 202 fish, 99 meat and 151 sheet metal. Sheet metal, which both recipes use, shows its total on both lines." },
-  { n = 2, x = 68.5, y = 64, text = "Output: 301 cans, on both lines since both recipes make them." },
-  { n = 3, x = 50.7, y = 54, text = "Workload 87 %: the input against the largest recipe running all year with the boost on now, since the factory runs one recipe at a time." },
+  { n = 1, x = 61.6, y = 89, text = "Input counts each cargo once: 210 fish, 94 meat and 152 sheet metal. Sheet metal, which both recipes use, shows its total on both lines." },
+  { n = 2, x = 67.0, y = 89, text = "Output: 304 cans, on both lines since both recipes make them." },
+  { n = 3, x = 49.1, y = 89, text = "Workload 88 %: the input against the largest recipe running all year with the boost on now, since the factory runs one recipe at a time." },
 ]
 
 [feature.blockedExpansion]
@@ -192,6 +201,16 @@ caption = "A 2010 save, sorted by the Problems column."
 pins = [
   { n = 1, x = 53.5, y = 50, text = "The mark: Burgkunstadt Crop Farm is blocked from further expansion. Click it to open the farm." },
   { n = 2, x = 45.5, y = 30, text = "Sort by the Problems column to bring blocked industries to the top." },
+]
+
+[[feature.blockedExpansion.figure]]
+shot = "IE-07g"
+alt = "The Industries tab with the pointer on the red problem mark of Cheltenham Logging Camp: a tooltip reads Industry is blocked from further expansion."
+caption = "Hover the mark for the game's own message."
+pins = [
+  { n = 1, x = 17.2, y = 36.5, text = "The mark: this logging camp is blocked from further expansion." },
+  { n = 2, x = 39.5, y = 53.5, text = "Its tooltip, the same message the industry window shows." },
+  { n = 3, x = 27.5, y = 36.5, text = "The plots column's next try is grey: a blocked industry adds no plot." },
 ]
 
 [[feature.blockedExpansion.figure]]

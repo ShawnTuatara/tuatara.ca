@@ -28,7 +28,7 @@ alt = "Buy Vehicles at a road depot in the table layout: buses and trucks, each 
 caption = "Buying buses and trucks at a road depot, in the store's table layout."
 pins = [
   { n = 1, x = 93, y = 31, text = "The new column's header, the game's running cost icon: click it to sort." },
-  { n = 2, x = 96, y = 37.5, text = "The AEC Routemaster costs $133,062 a year to run, beside its $798,372 price." },
+  { n = 2, x = 88.3, y = 36.5, text = "The AEC Routemaster costs $133,062 a year to run, beside its $798,372 price." },
 ]
 
 [feature.replaceComparison]

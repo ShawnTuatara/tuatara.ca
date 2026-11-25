@@ -42,21 +42,20 @@ shot = "WE-01d"
 alt = "The Warehouses tab with the mod: a strip of slot tiles per warehouse, then Free, Next Full, the change a year and Upkeep."
 pins = [
   { n = 1, x = 45.5, y = 20.5, text = "A tile per slot, grouped by kind: a fertilizer slot, a free Bulk slot and eight crude oil slots. Green bars: a line unloads that cargo here now." },
-  { n = 2, x = 73.8, y = 20.5, text = "Next Full: the cargo to act on first. Crude oil is full in about a month, so it is yellow." },
-  { n = 3, x = 90.5, y = 20.5, text = "That cargo's change over the last year: 61 more brought in than taken out." },
+  { n = 2, x = 74.3, y = 37.9, text = "Next Full: the cargo to act on first. Coal at Colchester Warehouse - Up River (L) is full in 10 months, so it is yellow." },
+  { n = 3, x = 83.5, y = 37.9, text = "That cargo's change over the last year: 96 more brought in than taken out." },
   { n = 4, x = 67, y = 45.6, text = "Free: slots no cargo is held for, two at Droitwich Spa." },
 ]
 
 [[feature.statisticsTab.figure]]
 shot = "WE-01g"
-alt = "Close-up of the Stocks column: slot tiles with fill bars, outlined free and held slots, filter icons on pinned slots, and a tooltip listing the cargos a free Bulk slot takes."
+alt = "Close-up of the Stocks column: slot tiles with fill bars, outlined free slots, filter icons on pinned slots, and a tooltip listing the cargos a free Bulk slot takes."
 caption = "The Stocks column up close, with the pointer on Carlton Colville's free Bulk slot."
 pins = [
-  { n = 1, x = 24.5, y = 30, text = "Slots are grouped by kind, with the kind's colour underneath: yellow for Bulk." },
+  { n = 1, x = 25.0, y = 26.5, text = "Slots are grouped by kind, with the kind's colour underneath: yellow for Bulk." },
   { n = 2, x = 57.5, y = 36.5, text = "Hover a tile for what it holds or takes: this free Bulk slot takes any of seven cargos." },
   { n = 3, x = 58.5, y = 56, text = "Grey outlines: two free slots, counted under Free." },
-  { n = 4, x = 25, y = 76, text = "A green outline and a dim icon: a slot held for fish, which a line brings but is out of stock now. Free leaves it out." },
-  { n = 5, x = 38.5, y = 86, text = "A filter icon marks a slot pinned to one cargo." },
+  { n = 4, x = 38.5, y = 86, text = "A filter icon marks a slot pinned to one cargo." },
 ]
 
 [feature.stocksCard]
@@ -88,8 +87,8 @@ shot = "WE-02b"
 alt = "The Stocks card with the mod: fertilizer and crude oil on green, each with its change a year and the time until full."
 pins = [
   { n = 1, x = 30.5, y = 50, text = "Green: one of your lines unloads this cargo here now." },
-  { n = 2, x = 72, y = 74.5, text = "Crude oil's change over the last year, with the game's tendency arrow, and the time until full, yellow within a year." },
-  { n = 3, x = 32, y = 78, text = "Fertilizer falls by 30 a year, so it has no time until full." },
+  { n = 2, x = 70.5, y = 71.3, text = "Crude oil: 3,996 of 4,000 stored and no change over the last year, so a dash stands where the time until full would be." },
+  { n = 3, x = 37.5, y = 78, text = "Fertilizer falls by 32 a year, so it has no time until full either." },
 ]
 
 [[feature.stocksCard.figure]]
