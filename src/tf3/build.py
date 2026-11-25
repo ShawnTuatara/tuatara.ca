@@ -36,8 +36,8 @@ SITE_URL = "https://tuatara.ca/"
 TF3_URL = SITE_URL + TF3_PATH + "/"
 
 GROUPS = [
-    ("enhancements", "Enhancements", "One mod per game system, one switch per feature."),
-    ("tools", "Tools", "Windows of their own."),
+    ("enhancements", "Enhancements", "Additions to the game's own windows and features, one switch per feature."),
+    ("tools", "Tools", "For players who run many mods: performance figures and a stutter fix."),
     ("bugfixes", "Bug fixes", "Work-arounds for game bugs, each removable once the game is fixed."),
 ]
 STATUS = {
@@ -503,10 +503,10 @@ def feature_section(m: Mod, f: Feature, drafts: bool) -> str:
     if f.param:
         default = f.param["default"]
         setting = f'<span class="setting">Setting: <b>{esc(f.param["name"])}</b> · {esc(default)} by default</span>'
-    wide = d.get("layout") == "wide" or any("before" in fig for fig in d.get("figure", []))
-    text_html = f'<div class="feature-text{" cols" if wide or not figs else ""}">{"".join(text)}</div>'
-    grid = "feature-grid stack" if wide else "feature-grid"
-    inner = f'<div class="{grid}"><div class="feature-figs">{figs}</div>{text_html}</div>' if figs else text_html
+    # Screenshots first at full width, then the text in columns below them (user, 2026-11-24:
+    # text beside the figures looked out of proportion).
+    text_html = f'<div class="feature-text cols">{"".join(text)}</div>'
+    inner = f'<div class="feature-figs">{figs}</div>{text_html}' if figs else text_html
     return (f'<section class="window feature" id="{esc(f.anchor)}"><div class="feature-head"><h2>{esc(f.title)}</h2>{setting}</div>'
             f"{inner}</section>")
 

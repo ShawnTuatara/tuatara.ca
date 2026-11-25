@@ -173,7 +173,6 @@ a.card:hover { border-color: var(--accent-light); background: var(--base-light-m
 .link-list { margin: 0; padding-left: 1.2em; font-size: 1.1rem; }
 .pair-caption { margin-top: 10px; font-size: .9rem; color: var(--muted); }
 .feature-figs { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
-.feature-grid.stack { grid-template-columns: minmax(0, 1fr); }
 /* Text under full-width figures (or with no figure) runs in two columns on wide screens */
 .feature-text.cols { columns: 2 320px; column-gap: 36px; }
 .feature-text.cols > h3 { break-after: avoid; }
@@ -194,7 +193,8 @@ a.card:hover { border-color: var(--accent-light); background: var(--base-light-m
 .feature-head h2 { margin: 0; }
 .setting { font-size: .82rem; color: var(--muted); background: var(--base-medium); border: 1px solid var(--base-very-light); border-radius: 999px; padding: 1px 10px; }
 .setting b { color: var(--text); font-weight: 700; }
-.feature-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
+/* A feature: its screenshots at full width, then its text below (never beside: user, 2026-11-24) */
+.feature-figs + .feature-text { margin-top: 26px; }
 .feature-text h3 { display: flex; align-items: center; gap: 10px; font-size: 1.05rem; color: var(--text-2); margin: 18px 0 6px; }
 .feature-text h3::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgb(255 255 255 / .38), rgb(255 255 255 / .1)); }
 .feature-text h3:first-child { margin-top: 0; }
@@ -273,7 +273,7 @@ table.settings td:first-child { white-space: nowrap; }
 .site-foot .wrap > div { background: var(--window); border-radius: var(--radius-window); padding: 14px 20px; }
 
 @media (max-width: 860px) {
-  .hero-grid, .where, .feature-grid, .mod-head .hero-grid { grid-template-columns: 1fr; }
+  .hero-grid, .where, .mod-head .hero-grid { grid-template-columns: 1fr; }
   .pair { grid-template-columns: 1fr; }
   .head-nav { margin-left: -12px; }
   .site-head { position: static; }

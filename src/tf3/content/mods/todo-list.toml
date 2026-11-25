@@ -1,6 +1,6 @@
 modid = "tuatara_todo_list"
-group = "tools"
-order = 1
+group = "enhancements"
+order = 10
 status = "soon"
 publish = false
 version = "0.7.10"
