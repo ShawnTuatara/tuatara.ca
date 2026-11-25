@@ -262,10 +262,16 @@ def figures(figs: list, folder: str, drafts: bool, where: str) -> str:
         if "before" in fig:
             a = figure(fig["before"], folder, drafts, w + " (before)")
             b = figure(fig["after"], folder, drafts, w + " (after)")
-            # the two shots one above the other, each with its legend beside it; the shared caption first
+            # the two shots one above the other, each with its legend beside it; the shared caption first.
+            # Without labels of its own a pair is the stock game against the mod: tagged and edged grey /
+            # blue so the viewer always knows which UI they look at (user, 2026-11-25); labelled pairs
+            # compare two views with the mod and get neutral tags.
             cap = f'<p class="pair-caption">{md(fig["caption"])}</p>' if fig.get("caption") else ""
-            out.append(f'<div class="pair">{cap}<div><span class="label">{esc(fig.get("before_label", "Game"))}</span>{a}</div>'
-                       f'<div><span class="label">{esc(fig.get("after_label", "With the mod"))}</span>{b}</div></div>')
+            stock = "before_label" not in fig and "after_label" not in fig
+            kinds = ("stock", "mod") if stock else ("view", "view")
+            out.append(f'<div class="pair">{cap}'
+                       f'<div class="pair-half {kinds[0]}"><span class="label">{esc(fig.get("before_label", "Stock game"))}</span>{a}</div>'
+                       f'<div class="pair-half {kinds[1]}"><span class="label">{esc(fig.get("after_label", "With the mod"))}</span>{b}</div></div>')
         else:
             out.append(figure(fig, folder, drafts, w))
     return "".join(out)

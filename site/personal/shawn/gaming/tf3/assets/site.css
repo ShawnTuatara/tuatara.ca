@@ -244,8 +244,22 @@ figcaption { margin: 10px 0 0; font-size: .9rem; color: var(--muted); line-heigh
 }
 
 /* before / after: the two figures one above the other, each with its legend beside it */
-.pair { display: flex; flex-direction: column; gap: 18px; }
-.pair .label { font-size: .85rem; color: var(--muted); margin-bottom: 6px; display: block; }
+.pair { display: flex; flex-direction: column; gap: 22px; }
+/* Which UI a half shows: a bold tag over it, a stripe down its side and an outline round the shot,
+   grey for the stock game, the accent blue for the mod (user, 2026-11-25: the plain labels were too
+   easy to miss); two views with the mod get neutral tags */
+.pair-half { border-left: 4px solid var(--base-very-light); padding-left: 14px; }
+.pair .label { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 12px; padding: 7px 18px 7px 14px; border-radius: 999px;
+  font-size: 1.08rem; font-weight: 700; line-height: 1.2; background: var(--base-light); color: var(--text); border: 1px solid var(--base-very-light); }
+.pair .label::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--muted); flex: none; }
+.pair-half.stock .label { background: var(--base-medium); color: var(--text); border-color: var(--muted); }
+.pair-half.stock .shot-frame { box-shadow: var(--shadow), 0 0 0 2px var(--base-very-light); }
+.pair-half.mod { border-left-color: var(--accent-light); }
+.pair-half.mod .label { background: var(--accent-dark); border-color: var(--accent-light); color: #fff; }
+.pair-half.mod .label::before { background: var(--accent-very-light); }
+.pair-half.mod .shot-frame { box-shadow: var(--shadow), 0 0 0 2px var(--accent-light); }
+.pair-half.view .label::before { display: none; }
+@media (max-width: 600px) { .pair-half { padding-left: 10px; border-left-width: 3px; } }
 .pending { border: 1px dashed var(--base-very-light); border-radius: var(--radius-card); background: var(--base-dark-medium); color: var(--muted); padding: 18px; font-size: .88rem; min-height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
 .pending b { color: var(--text); font-family: ui-monospace, Consolas, monospace; font-size: .85rem; font-weight: 400; }
 
