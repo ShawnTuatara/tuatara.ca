@@ -3,7 +3,7 @@ group = "enhancements"
 order = 2
 status = "soon"
 publish = true
-version = "0.28.4"
+version = "0.28.6"
 card = "Cargo flow filters for industries, towns and warehouses, and a supply chain planner."
 card_image = "site/card-cargo-enhancements.webp"
 lead = "The industry and town windows draw arrows to every industry and town that could supply or take their cargos, all at once. This mod filters them by cargo, distance and who actually produces, adds distances to the tables, gives warehouses the same view, and plans whole supply chains from the raw producers to the towns."
@@ -29,7 +29,7 @@ features = ["distanceSlider", "producingFilter", "distanceColumn", "tableSort"]
 
 [[section]]
 title = "Supply Chain Planner"
-features = ["supplyChainPlanner", "plannerButton"]
+features = ["supplyChainPlanner"]
 
 # ------------------------------------------------------------ industry window
 
@@ -184,16 +184,18 @@ caption = "Wellington's Supplies tab, Suppliers view, cans picked."
 before_label = "Producing off"
 after_label = "Producing on"
 [feature.producingFilter.figure.before]
-shot = "CE-04-cans-all"
-alt = "Wellington's town window listing four canning factories as suppliers of cans, three of them with 0."
+shot = "CE-04-cans-all-window"
+alt = "Wellington's town window, Suppliers of cans: four canning factories, three of them with 0, the Producing toggle off."
 pins = [
-  { n = 1, x = 93.8, y = 60.8, text = "Producing off: all four canning factories that could supply cans. Three made none last year." },
+  { n = 1, x = 52.6, y = 9.5, text = "Producing off: every canning factory that could supply cans is listed." },
+  { n = 2, x = 72, y = 56.5, text = "Three of them made no cans last year." },
 ]
 [feature.producingFilter.figure.after]
-shot = "CE-04-cans-producing"
+shot = "CE-04-cans-producing-window"
 alt = "The same table with the Producing toggle on: only Wellington Canning Factory is left."
 pins = [
-  { n = 1, x = 93.8, y = 60.8, text = "Producing on: only Wellington Canning Factory is left, 1.4 km away." },
+  { n = 1, x = 52.6, y = 9.5, text = "Producing on: only suppliers that made cans last year." },
+  { n = 2, x = 73.3, y = 42.5, text = "Wellington Canning Factory is left, 1.4 km away." },
 ]
 
 [feature.distanceColumn]
@@ -221,7 +223,7 @@ good = [
 # ------------------------------------------------------------ planner
 
 [feature.supplyChainPlanner]
-where = ["industry-window", "town-window"]
+where = ["industry-window", "town-window", "mod-buttons"]
 why = "Building a supply chain means working backwards from a town or a factory: who makes each input, how far away, how much they can send, and what those suppliers need in turn. The game answers that one window at a time."
 what = """
 A Supply Chains card in the town and industry windows. Its Plan button opens a large planning window that, like the statistics window, shrinks to a strip above the game bar.
@@ -240,6 +242,7 @@ good = [
   "Pick several suppliers for one input and its need is shared over them, nearest first. Each card's bar shows where the need is met.",
   "Raw producers show their plots and their chance to grow. A chain stops one step past a booster.",
   "The ? button explains the colours. Plans are kept for the session.",
+  "A button beside the Data Layers button at the top left opens and closes the planner, back on the town or industry you last planned for with its plan as you left it, so you can close it, build part of the chain and open it again. Before anything is planned it opens empty: pick a town or an industry in its toolbar.",
 ]
 
 [[feature.supplyChainPlanner.figure]]
@@ -260,12 +263,4 @@ pins = [
   { n = 3, x = 23.4, y = 36, text = "Raw producers show their plots: 8 of 20 built here, and 85 a year once all are built." },
   { n = 4, x = 83.2, y = 38.5, text = "Who takes the meat: the town of Frodsham, 2.1 km away, is picked and already served by your line." },
   { n = 5, x = 79.6, y = 73, text = "The planned legs with distance, lines and balance, and a summary of what holds the chain back." },
-]
-
-[feature.plannerButton]
-where = ["mod-buttons"]
-why = "The planner covers the map, so you close it to build. Opening it again from the town or industry window takes a few clicks."
-what = "A button beside the Data Layers button at the top left opens and closes the planner, back on the town or industry you last planned for, with its plan as you left it. Before anything is planned it opens empty: pick a town or an industry in its toolbar."
-good = [
-  "Needs the Supply Chain Planner setting on.",
 ]
