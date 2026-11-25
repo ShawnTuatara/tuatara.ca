@@ -16,6 +16,7 @@ Python standard library only; ffmpeg must be on PATH for new or changed screensh
 from __future__ import annotations
 
 import argparse
+import hashlib
 import datetime
 import html
 import json
@@ -74,10 +75,18 @@ def clean(s: str) -> str:
     return re.sub(r"\s*\n\s*", " ", s or "").strip()
 
 
+def asset_version(name: str) -> str:
+    """A short hash of an asset, added to its link so browsers fetch a changed file at once (GitHub
+    Pages lets them keep the old one 10 minutes: a new page with an old annotate.js broke its pair
+    switches)."""
+    return hashlib.sha256((HERE / "assets" / name).read_bytes()).hexdigest()[:10]
+
+
 class Ctx:
     """The page being written: its path back to the tf3 root, and which mod pages exist."""
     prefix = ""
     visible: set[str] = set()
+    pairs = 0  # before / after pairs written so far: their ids
 
 
 INLINE = re.compile(r"`([^`]+)`|\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)")
@@ -266,12 +275,29 @@ def figures(figs: list, folder: str, drafts: bool, where: str) -> str:
             # Without labels of its own a pair is the stock game against the mod: tagged and edged grey /
             # blue so the viewer always knows which UI they look at (user, 2026-11-25); labelled pairs
             # compare two views with the mod and get neutral tags.
+            #
+            # A switch above the pair shows one half at a time in the same place, so the two can be
+            # compared without scrolling (user, 2026-11-25): the mod's half first for a stock pair, the
+            # first view otherwise. Both halves share one grid cell, so the box keeps the taller one's
+            # height and nothing below moves. Without JavaScript the switch is hidden and the halves
+            # stack, each with its label (annotate.js sets html.js and runs the switch).
             cap = f'<p class="pair-caption">{md(fig["caption"])}</p>' if fig.get("caption") else ""
             stock = "before_label" not in fig and "after_label" not in fig
             kinds = ("stock", "mod") if stock else ("view", "view")
-            out.append(f'<div class="pair">{cap}'
-                       f'<div class="pair-half {kinds[0]}"><span class="label">{esc(fig.get("before_label", "Stock Game UI"))}</span>{a}</div>'
-                       f'<div class="pair-half {kinds[1]}"><span class="label">{esc(fig.get("after_label", "UI with Mod"))}</span>{b}</div></div>')
+            labels = (fig.get("before_label", "Stock Game UI"), fig.get("after_label", "UI with Mod"))
+            shown = 1 if stock else 0
+            Ctx.pairs += 1
+            pid = f"pair-{Ctx.pairs}"
+            tabs = "".join(
+                f'<button type="button" class="seg {kinds[i]}" role="tab" id="{pid}-tab{i}" aria-controls="{pid}-view{i}" '
+                f'aria-selected="{"true" if i == shown else "false"}" tabindex="{0 if i == shown else -1}">{esc(labels[i])}</button>'
+                for i in (0, 1))
+            halves = "".join(
+                f'<div class="pair-half {kinds[i]}{" active" if i == shown else ""}" role="tabpanel" id="{pid}-view{i}" '
+                f'aria-labelledby="{pid}-tab{i}"><span class="label">{esc(labels[i])}</span>{(a, b)[i]}</div>'
+                for i in (0, 1))
+            out.append(f'<div class="pair">{cap}<div class="pair-switch" role="tablist" aria-label="Compare">{tabs}</div>'
+                       f'<div class="pair-views">{halves}</div></div>')
         else:
             out.append(figure(fig, folder, drafts, w))
     return "".join(out)
@@ -373,7 +399,8 @@ def page(*, title: str, description: str, crumbs: list, body: str, canonical: st
 {chr(10).join(og)}
 <meta name="theme-color" content="#171b1f">
 <link rel="preload" href="{p}assets/fonts/lato-regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{p}assets/site.css">
+<link rel="stylesheet" href="{p}assets/site.css?v={asset_version("site.css")}">
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -391,7 +418,7 @@ def page(*, title: str, description: str, crumbs: list, body: str, canonical: st
 <footer class="site-foot">
   <div class="wrap"><div>Fan-made mods by tuatara. Not affiliated with or endorsed by Urban Games; Transport Fever is their trademark. Screenshots are from the author's own games. Text set in Lato (SIL Open Font License). No cookies, no tracking.{f" Updated {built}." if built else ""}</div></div>
 </footer>
-<script src="{p}assets/annotate.js" defer></script>
+<script src="{p}assets/annotate.js?v={asset_version("annotate.js")}" defer></script>
 </body>
 </html>
 """

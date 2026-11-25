@@ -259,9 +259,32 @@ figcaption { margin: 10px 0 0; font-size: .9rem; color: var(--muted); line-heigh
 .pair-half.mod .label::before { background: var(--accent-very-light); }
 .pair-half.mod .shot-frame { box-shadow: var(--shadow), 0 0 0 2px var(--accent-light); }
 .pair-half.view .label::before { display: none; }
+
+/* The switch over a pair (with JavaScript): a segmented control like the game's toggle buttons; one
+   half shows at a time, both in one grid cell so the box keeps the taller half's height */
+.pair-switch { display: none; }
+.js .pair-switch { display: inline-flex; align-self: flex-start; padding: 3px; gap: 3px; border-radius: 999px;
+  background: var(--base-dark-medium); border: 1px solid var(--base-very-light); }
+.seg { display: inline-flex; align-items: center; gap: 9px; padding: 7px 18px 7px 14px; border: 1px solid transparent; border-radius: 999px;
+  background: transparent; color: var(--muted); font-family: inherit; font-size: 1.05rem; font-weight: 700; line-height: 1.2; white-space: nowrap; cursor: pointer; transition: background-color .12s, color .12s; }
+.seg::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--base-very-light); flex: none; }
+.seg.stock::before { background: var(--muted); }
+.seg.mod::before { background: var(--accent-light); }
+.seg.view::before { display: none; }
+.seg:hover { color: var(--text); background: var(--base-light-medium); }
+.seg:focus-visible { outline: 2px solid var(--accent-very-light); outline-offset: 2px; }
+.seg[aria-selected="true"] { color: #fff; cursor: default; }
+.seg.stock[aria-selected="true"], .seg.view[aria-selected="true"] { background: var(--base-very-light); border-color: var(--muted); }
+.seg.mod[aria-selected="true"] { background: var(--accent-dark); border-color: var(--accent-light); }
+.seg.mod[aria-selected="true"]::before { background: var(--accent-very-light); }
+.js .pair-views { display: grid; }
+.js .pair-views > .pair-half { grid-area: 1 / 1; transition: opacity .15s; }
+.js .pair-views > .pair-half:not(.active) { visibility: hidden; opacity: 0; }
+.js .pair-half > .label { display: none; }
+.js .pair { gap: 14px; }
 /* the stock game's pins and legend numbers muted grey ("basic"); the mod's keep the Highlight yellow */
 .pair-half.stock .pin, .pair-half.stock .legend .n { background: var(--muted); }
-@media (max-width: 600px) { .pair-half { padding-left: 10px; border-left-width: 3px; } }
+@media (max-width: 600px) { .pair-half { padding-left: 10px; border-left-width: 3px; } .seg { font-size: .92rem; padding: 6px 12px 6px 10px; gap: 7px; } }
 .pending { border: 1px dashed var(--base-very-light); border-radius: var(--radius-card); background: var(--base-dark-medium); color: var(--muted); padding: 18px; font-size: .88rem; min-height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
 .pending b { color: var(--text); font-family: ui-monospace, Consolas, monospace; font-size: .85rem; font-weight: 400; }
 

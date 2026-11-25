@@ -3,7 +3,8 @@
 // ?edit (shows the cursor's x / y in % over a figure and copies a pin line on click).
 (function () {
   "use strict";
-  var edit = /[?&]edit\b/.test(location.search);
+  document.documentElement.classList.add("js");
+  var edit =/[?&]edit\b/.test(location.search);
   var readout = null;
   if (edit) {
     readout = document.createElement("div");
@@ -69,6 +70,28 @@
 
   document.querySelectorAll("img.zoom").forEach(function (img) {
     img.addEventListener("click", function () { lightbox(img); });
+  });
+
+  // Before / after pairs: the switch shows one half at a time (arrow keys move between the two).
+  document.querySelectorAll(".pair").forEach(function (pair) {
+    var tabs = Array.prototype.slice.call(pair.querySelectorAll(".pair-switch [role=tab]"));
+    if (tabs.length < 2) return;
+    function show(i, focus) {
+      tabs.forEach(function (t, k) {
+        var on = k === i;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+        var view = document.getElementById(t.getAttribute("aria-controls"));
+        if (view) view.classList.toggle("active", on);
+      });
+      if (focus) tabs[i].focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { show(i, false); });
+      t.addEventListener("keydown", function (ev) {
+        if (ev.key === "ArrowLeft" || ev.key === "ArrowRight") { ev.preventDefault(); show(1 - i, true); }
+      });
+    });
   });
 
   // "Find it in the game": one window's features at a time.
