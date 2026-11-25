@@ -40,14 +40,14 @@ caption = "Abenberg: the same crossing before and after a nudge, with the lane o
 shot = "BF-CQ-01a"
 alt = "A crowd waits at the kerb of a crossing with traffic lights while the car lanes are green."
 pins = [
-  { n = 1, x = 12, y = 62, text = "The crowd at the kerb. Some have waited here for months." },
+  { n = 1, x = 6, y = 62, text = "The crowd at the kerb. Some have waited here for months." },
   { n = 2, x = 59, y = 31, text = "The crosswalk stays red: the light serves only its car lanes." },
 ]
 [feature.crosswalkFix.figure.after]
 shot = "BF-CQ-01b"
 alt = "After the nudge, the crowd walks over the crosswalk."
 pins = [
-  { n = 1, x = 27, y = 13, text = "After the nudge, the crowd crosses." },
+  { n = 1, x = 9.5, y = 13, text = "After the nudge, the crowd crosses." },
 ]
 
 [[change]]

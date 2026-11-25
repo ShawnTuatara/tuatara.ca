@@ -86,7 +86,7 @@ pins = [
   { n = 1, x = 40, y = 13.6, mod = "industry-enhancements", anchor = "recipe-figures", text = "Production: each recipe its own figures; plots and the next growth try." },
   { n = 2, x = 40, y = 28.1, mod = "todo-list", text = "To-Do card: open tasks about this industry, + for a new one." },
   { n = 3, x = 29.5, y = 41.9, mod = "industry-enhancements", anchor = "inactive-workers", text = "Boosters: every worker counted, not only those who came by line." },
-  { n = 4, x = 66.4, y = 53.6, mod = "industry-enhancements", anchor = "worker-status", text = "Worker list: what each worker is doing now." },
+  { n = 4, x = 44.3, y = 53.6, mod = "industry-enhancements", anchor = "worker-status", text = "Worker list: what each worker is doing now." },
   { n = 5, x = 40, y = 69, mod = "cargo-enhancements", text = "Input / Output Stocks, expanded: cargo filter, distance column and slider." },
   { n = 6, x = 40, y = 89.8, mod = "cargo-enhancements", text = "Supply Chains: opens the supply chain planner." },
 ]
@@ -124,8 +124,8 @@ shot = "GEN-03b"
 alt = "The game bar's counters with the population counter's tooltip: Reach a Population of 26,763, 24% of progress towards Director, Population now 22,580 (-3)"
 caption = "The bottom of the game bar, hovering the population counter."
 pins = [
-  { n = 1, x = 64, y = 85, mod = "company-enhancements", text = "Population Counter: the population your company has reached against the next rank's; the tooltip adds the progress and today's population." },
-  { n = 2, x = 80.0, y = 95.5, mod = "company-enhancements", text = "Population Change: how much the world's population grew over 30 days, updated weekly." },
+  { n = 1, x = 40.5, y = 90.7, mod = "company-enhancements", text = "Population Counter: the population your company has reached against the next rank's; the tooltip adds the progress and today's population." },
+  { n = 2, x = 84.5, y = 90.7, mod = "company-enhancements", text = "Population Change: how much the world's population grew over 30 days, updated weekly." },
 ]
 
 [[window]]
@@ -137,10 +137,10 @@ shot = "GEN-02"
 alt = "The buttons at the top left of the screen: the game's Data Layers, then To-Do List, Mod Performance, Supply Chain Planner and Stuck Passengers"
 caption = "The game's Data Layers button (left) and the buttons the mods add beside it."
 pins = [
-  { n = 1, x = 34.5, y = 20, mod = "todo-list", text = "To-Do List: your notes for this save." },
-  { n = 2, x = 50.5, y = 20, mod = "mod-performance-monitor", text = "Mod Performance: what each mod costs per frame." },
-  { n = 3, x = 66.5, y = 20, mod = "cargo-enhancements", text = "Supply Chain Planner, on the town or industry it last showed." },
-  { n = 4, x = 82.5, y = 20, mod = "bug-watch-stuck-passengers", text = "Stuck Passengers: turns red when passengers are left behind at a stop." },
+  { n = 1, x = 23.3, y = 50, mod = "todo-list", text = "To-Do List: your notes for this save." },
+  { n = 2, x = 51, y = 18.5, mod = "mod-performance-monitor", text = "Mod Performance: what each mod costs per frame." },
+  { n = 3, x = 67, y = 18.5, mod = "cargo-enhancements", text = "Supply Chain Planner, on the town or industry it last showed." },
+  { n = 4, x = 83, y = 18.5, mod = "bug-watch-stuck-passengers", text = "Stuck Passengers: turns red when passengers are left behind at a stop." },
 ]
 
 [[window]]
@@ -195,8 +195,8 @@ shot = "GEN-01"
 alt = "Line Enhancements' Settings: an Off / On switch for each of its features, Logging last and Off"
 caption = "Line Enhancements' Settings."
 pins = [
-  { n = 1, x = 44, y = 6.5, text = "One switch per feature, in the order the features show in the game." },
-  { n = 2, x = 35, y = 96, text = "Logging, last and off by default: turn it on only to report a problem." },
+  { n = 1, x = 55.5, y = 6.5, text = "One switch per feature, in the order the features show in the game." },
+  { n = 2, x = 46.5, y = 96, text = "Logging, last and off by default: turn it on only to report a problem." },
 ]
 
 [[install.section]]

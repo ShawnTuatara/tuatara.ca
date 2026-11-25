@@ -43,7 +43,7 @@ shot = "SG-01-full"
 alt = "A single-track line seen from above, with one-way signals at even gaps along a long straight and the signal tool's Settings panel at the right."
 caption = "A long straight on a single-track line, signalled from one placed signal, with the tool's panel still open."
 pins = [
-  { n = 1, x = 84, y = 64.5, text = "The tool's Settings panel, with One-Way Yes and a spacing picked." },
+  { n = 1, x = 82, y = 64.5, text = "The tool's Settings panel, with One-Way Yes and a spacing picked." },
   { n = 2, x = 48.5, y = 57, text = "One-way signals the mod placed along the straight, one every chosen distance." },
   { n = 3, x = 70.5, y = 12, text = "The run ends where the track reaches a switch." },
 ]
@@ -81,7 +81,7 @@ pins = [
 shot = "SG-03d"
 alt = "With Shift held, the whole straight up to the switch is yellow and the label reads 8 Signals Will Be Removed."
 pins = [
-  { n = 1, x = 44.4, y = 75, text = "With Shift held, the whole stretch out to the switch turns yellow." },
+  { n = 1, x = 47, y = 75, text = "With Shift held, the whole stretch out to the switch turns yellow." },
   { n = 2, x = 61.5, y = 54.3, text = "The label counts the signals that go: 8 here." },
-  { n = 3, x = 89.8, y = 89.8, text = "The game's Shift hint lights up while Shift is held." },
+  { n = 3, x = 87.3, y = 89.8, text = "The game's Shift hint lights up while Shift is held." },
 ]

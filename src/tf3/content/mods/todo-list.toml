@@ -35,11 +35,11 @@ shot = "TD-01"
 alt = "The To-Do List window: To Do (8) and Done (7) tabs, filter buttons, an eye and a plus, then eight tasks, most tagged with the stations, industries and towns they are about."
 caption = "Eight open tasks, the first long enough to wrap; most are linked to something on the map."
 pins = [
-  { n = 1, x = 70, y = 13.3, text = "Filter buttons, one per kind of element, and the eye: only the tasks about something on screen." },
-  { n = 2, x = 93.5, y = 13.3, text = "+ adds a task at the top." },
-  { n = 3, x = 6.1, y = 35.1, text = "Drag a task by its grip to reorder it; tick it when it's done." },
-  { n = 4, x = 86.4, y = 35.1, text = "Edit or delete a task." },
-  { n = 5, x = 42.6, y = 79.7, text = "A tag links the task to a town, here Haverhill: click it to go there and open its window." },
+  { n = 1, x = 50.5, y = 13.3, text = "Filter buttons, one per kind of element, and the eye: only the tasks about something on screen." },
+  { n = 2, x = 91.9, y = 13.3, text = "+ adds a task at the top." },
+  { n = 3, x = 2.6, y = 35.1, text = "Drag a task by its grip to reorder it; tick it when it's done." },
+  { n = 4, x = 90, y = 35.1, text = "Edit or delete a task." },
+  { n = 5, x = 55.7, y = 79.7, text = "A tag links the task to a town, here Haverhill: click it to go there and open its window." },
 ]
 
 [[feature.todoList.figure]]

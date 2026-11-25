@@ -88,9 +88,9 @@ shot = "SU-03d"
 alt = "Four subsidy tiles in the notification list: two with green rings, one with a yellow ring and one with a white ring."
 caption = "Four subsidies in the notification list."
 pins = [
-  { n = 1, x = 26.5, y = 8, text = "Green: two fulfilled subsidies whose rewards run." },
-  { n = 2, x = 59, y = 8, text = "Yellow: accepted and in progress." },
-  { n = 3, x = 81, y = 8, text = "White: an offer, as in the game." },
+  { n = 1, x = 27, y = 82, text = "Green: two fulfilled subsidies whose rewards run." },
+  { n = 2, x = 63.6, y = 82, text = "Yellow: accepted and in progress." },
+  { n = 3, x = 87, y = 82, text = "White: an offer, as in the game." },
 ]
 
 [[feature.greenRing.figure]]

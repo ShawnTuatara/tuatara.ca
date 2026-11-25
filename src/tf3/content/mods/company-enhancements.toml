@@ -40,9 +40,9 @@ shot = "CO-01b"
 alt = "The counter's tooltip: Reach a Population of 26,763. 24% of progress towards Director. Population now: 22,580 (-3)."
 caption = "Its tooltip, in the same world."
 pins = [
-  { n = 1, x = 60, y = 33, text = "The population the next rank needs, as on the rank's card in the company window." },
-  { n = 2, x = 68, y = 58, text = "How far you are towards the next rank, as the Company button shows it." },
-  { n = 3, x = 58, y = 82, text = "Today's population and how far it is below the highest reached; shown only while the red arrow is." },
+  { n = 1, x = 62.8, y = 33, text = "The population the next rank needs, as on the rank's card in the company window." },
+  { n = 2, x = 70.5, y = 60, text = "How far you are towards the next rank, as the Company button shows it." },
+  { n = 3, x = 62, y = 82, text = "Today's population and how far it is below the highest reached; shown only while the red arrow is." },
 ]
 
 [feature.populationTrend]
@@ -69,7 +69,7 @@ boxes = [ { x = 39, y = 66, w = 46, h = 34 } ]
 pins = [
   { n = 1, x = 46.6, y = 87.5, text = "+23: the population's change over 30 days, green as it grew." },
   { n = 2, x = 86, y = 71.5, text = "The 30 days end at the start of this week, a Monday." },
-  { n = 3, x = 70, y = 81, text = "The population on both dates." },
+  { n = 3, x = 72.2, y = 79, text = "The population on both dates." },
   { n = 4, x = 61, y = 89.3, text = "Last week's value, which the arrow compares with." },
   { n = 5, x = 72.5, y = 96.3, text = "When the figure changes next." },
 ]

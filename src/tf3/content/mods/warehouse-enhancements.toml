@@ -34,7 +34,7 @@ caption = "A save with 17 warehouses, the game's table sorted by name. Carlton C
 shot = "WE-01d-stock"
 alt = "The game's Warehouses tab: a row of cargo icons per warehouse, then Stored, Capacity, Utilization and Upkeep."
 pins = [
-  { n = 1, x = 43.6, y = 40.8, text = "Stocks lists every cargo the warehouse could take, stored or not." },
+  { n = 1, x = 47.4, y = 40.8, text = "Stocks lists every cargo the warehouse could take, stored or not." },
   { n = 2, x = 89.8, y = 40.8, text = "Stored, Capacity and Utilization add all slots together: Carlton Colville reads 82 %." },
 ]
 [feature.statisticsTab.figure.after]
@@ -88,7 +88,7 @@ alt = "The Stocks card with the mod: fertilizer and crude oil on green, each wit
 pins = [
   { n = 1, x = 30.5, y = 50, text = "Green: one of your lines unloads this cargo here now." },
   { n = 2, x = 70.5, y = 71.3, text = "Crude oil: 3,996 of 4,000 stored and no change over the last year, so a dash stands where the time until full would be." },
-  { n = 3, x = 37.5, y = 78, text = "Fertilizer falls by 32 a year, so it has no time until full either." },
+  { n = 3, x = 42.2, y = 79, text = "Fertilizer falls by 32 a year, so it has no time until full either." },
 ]
 
 [[feature.stocksCard.figure]]
@@ -97,6 +97,6 @@ alt = "The expanded Stocks card: a free Bulk slot, a fertilizer slot, eight crud
 caption = "The same warehouse with its Stocks card expanded: a free Bulk slot, the fertilizer slot, eight crude oil slots close to full, and the lines that serve it."
 pins = [
   { n = 1, x = 52, y = 25.7, text = "Each kind counts its free slots, and names the cargo a held slot waits for." },
-  { n = 2, x = 56, y = 50.6, text = "A slot's bar is green while a line unloads its cargo here, grey when none does, red once it is full." },
+  { n = 2, x = 4.4, y = 50.6, text = "A slot's bar is green while a line unloads its cargo here, grey when none does, red once it is full." },
   { n = 3, x = 88, y = 78.2, text = "The lines that unload here (arrow down) or load here (arrow up). Click one to open it." },
 ]

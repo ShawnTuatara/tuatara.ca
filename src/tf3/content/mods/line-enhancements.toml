@@ -77,9 +77,9 @@ shot = "LE-02b"
 alt = "The Assign Lines window in list view: each terminal as a card with its preferred line and greyed alternatives; one row is pointed at, showing its grip and alternative handle."
 caption = "Two grain lines share terminals 2 and 3: each prefers one and has the other as an alternative."
 pins = [
-  { n = 1, x = 87.0, y = 16, text = "Switches between the list and the grid." },
+  { n = 1, x = 79.7, y = 16, text = "Switches between the list and the grid." },
   { n = 2, x = 23.5, y = 44.5, text = "Each terminal is a card with its type and length, the lines that prefer it first." },
-  { n = 3, x = 85.0, y = 57.5, text = "An alternative, greyed under the separator; the ✕ removes it." },
+  { n = 3, x = 82.0, y = 57.5, text = "An alternative, greyed under the separator; the ✕ removes it." },
   { n = 4, x = 8.5, y = 72, text = "Drag a line by its grip to another terminal to make that its preferred one." },
   { n = 5, x = 92.2, y = 71, text = "Drag this handle to another terminal to add it as an alternative." },
 ]
@@ -142,8 +142,8 @@ shot = "LE-12b"
 alt = "The Line Manager's stop list as a table of figures for a three-stop passenger line, and a card beside it with the first stop's details."
 caption = "A stagecoach line with six seats per vehicle; the pointer is on Alexander Road."
 pins = [
-  { n = 1, x = 34.3, y = 8, text = "The Figures toggle switches between the stop list and this table." },
-  { n = 2, x = 36, y = 37, text = "Now: 14 passengers wait here for this line, yellow because that is over one vehicle load." },
+  { n = 1, x = 31.7, y = 14.5, text = "The Figures toggle switches between the stop list and this table." },
+  { n = 2, x = 33.3, y = 37, text = "Now: 14 passengers wait here for this line, yellow because that is over one vehicle load." },
   { n = 3, x = 47, y = 44, text = "Loads: 2.3 vehicle loads; the arrow and +3 are the change since the last vehicle left." },
   { n = 4, x = 58, y = 30, text = "Unhappy passengers (red figure) and arrivals a year (98)." },
   { n = 5, x = 75, y = 52, text = "The stop's card: waiting, unhappy, vehicles to clear, the station's total and where its passengers want to go." },
@@ -173,8 +173,8 @@ shot = "LE-LM-3"
 alt = "The Line Manager on a passenger line; in the action bar the passenger button is pressed and the cargo button is greyed."
 caption = "A passenger line: every stop loads passengers, none loads cargo."
 pins = [
-  { n = 1, x = 58.7, y = 68.6, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
-  { n = 2, x = 64.8, y = 68.6, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
+  { n = 1, x = 58.4, y = 65.4, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
+  { n = 2, x = 64.3, y = 65.4, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
 ]
 
 [feature.cargoRemoval]
@@ -213,8 +213,8 @@ shot = "LE-LM-1"
 alt = "The Line Manager with the mod: each vehicle row shows its load, fullest departure, average fill and status."
 pins = [
   { n = 1, x = 20.5, y = 40.5, text = "2/6: the load now." },
-  { n = 2, x = 37, y = 40.5, text = "100% (1): the fullest of its last 20 departures, from stop 1." },
-  { n = 3, x = 46, y = 40.5, text = "88%: its average fill when leaving a stop." },
+  { n = 2, x = 29.9, y = 46.0, text = "100% (1): the fullest of its last 20 departures, from stop 1." },
+  { n = 3, x = 41.8, y = 46.0, text = "88%: its average fill when leaving a stop." },
   { n = 4, x = 68, y = 40.5, text = "What it is doing: on its way to stop 1. Delays such as Traffic show in orange." },
 ]
 
@@ -223,7 +223,7 @@ shot = "LE-11b"
 alt = "The Line Manager's vehicle list with a tooltip over a stagecoach's picture listing its line, model, speed, power, weight, age, condition, costs and value."
 caption = "Pointing at a vehicle's picture."
 pins = [
-  { n = 1, x = 5.5, y = 14.5, text = "6: the vehicles selected (Selected Vehicle Count)." },
+  { n = 1, x = 5.5, y = 16.8, text = "6: the vehicles selected (Selected Vehicle Count)." },
   { n = 2, x = 97, y = 30, text = "The vehicle's details: line, model, top speed, power, weight, age, condition, running costs, value and last year." },
   { n = 3, x = 43.5, y = 91, text = "A status with how long: spacing out at stop 2 for 0:20." },
 ]
@@ -247,9 +247,9 @@ shot = "LE-LM-2"
 alt = "The Line Manager with the Vehicles Needed card open under the vehicle list: Enough vehicles, the queue at the busiest stop, and a what-if table for one more vehicle."
 caption = "A stagecoach line with six vehicles, the card opened and one vehicle added in the what-if."
 pins = [
-  { n = 1, x = 2.5, y = 55.7, text = "Enough vehicles: 125 seats a year cover the 97 passengers arriving at the busiest stop." },
+  { n = 1, x = 71.7, y = 55.7, text = "Enough vehicles: 125 seats a year cover the 97 passengers arriving at the busiest stop." },
   { n = 2, x = 58.5, y = 58.2, text = "The queue at Alexander Road, 11, would be gone in under half a year." },
-  { n = 3, x = 2.5, y = 60.5, text = "One vehicle fewer would still keep up and clear the queues within 3 years." },
+  { n = 3, x = 66.7, y = 60.5, text = "One vehicle fewer would still keep up and clear the queues within 3 years." },
   { n = 4, x = 35, y = 66.7, text = "What if: add or remove vehicles of the line's model." },
   { n = 5, x = 73, y = 69.3, text = "Now against one more: interval, seats, each stop's queue, use and running costs." },
 ]
@@ -269,7 +269,7 @@ what = "The Send to Line popover, from the vehicle window or the Line Manager, o
 shot = "LE-19"
 alt = "The Send to Line popover: an eye button, a First Stop drop-down and a list of lines."
 pins = [
-  { n = 1, x = 12, y = 3, text = "Show Only Visible Lines opens as you last left it." },
+  { n = 1, x = 12.8, y = 4, text = "Show Only Visible Lines opens as you last left it." },
 ]
 
 # ---------------------------------------------------------------- Line Manager: names and filters
@@ -330,7 +330,7 @@ shot = "LE-08"
 alt = "Adding a stop to a bus line: the pointer on a bus stop with the tooltip 'Add stop at Stop #89.' and the lots around it painted orange."
 pins = [
   { n = 1, x = 60.5, y = 48, text = "The pointer on Stop #89 while adding a stop." },
-  { n = 2, x = 43, y = 57, text = "The lots this stop reaches, orange over the district colours." },
+  { n = 2, x = 45.1, y = 67, text = "The lots this stop reaches, orange over the district colours." },
 ]
 
 [feature.cargoDemand]
@@ -367,7 +367,7 @@ caption = "The same line with the pointer off any station."
 pins = [
   { n = 1, x = 27.5, y = 8.5, text = "147/185 +2: the district's reached buildings store 147 meat of 185, and 2 more take meat but no stop reaches them." },
   { n = 2, x = 65, y = 13, text = "A yellow !: a building your stops reach that holds no meat." },
-  { n = 3, x = 90, y = 22, text = "A red ?: a building taking meat that no stop reaches." },
+  { n = 3, x = 90.2, y = 32.1, text = "A red ?: a building taking meat that no stop reaches." },
 ]
 
 [[feature.cargoDemand.figure]]
@@ -394,9 +394,9 @@ caption = "An air line with 14 planes, landing at the airport at the left."
 pins = [
   { n = 1, x = 10.5, y = 72, text = "The blue strip along the runway's approach line." },
   { n = 2, x = 23, y = 66.5, text = "A waypoint the planes skip, marked red." },
-  { n = 3, x = 40.6, y = 58.5, text = "The straight paths planes fly once they descend, for the earliest and the latest start." },
+  { n = 3, x = 40.6, y = 50.9, text = "The straight paths planes fly once they descend, for the earliest and the latest start." },
   { n = 4, x = 61.8, y = 66.5, text = "Where those paths start." },
-  { n = 5, x = 79, y = 68, text = "The edge of the descent circle: inside it, planes skip the waypoints left." },
+  { n = 5, x = 82.5, y = 68, text = "The edge of the descent circle: inside it, planes skip the waypoints left." },
 ]
 
 [[feature.descentZones.figure]]
@@ -405,7 +405,7 @@ alt = "Close-up of the airport: the runway, the orange paths meeting it, the fai
 caption = "The same airport up close."
 pins = [
   { n = 1, x = 3.5, y = 42, text = "The runway the planes land on." },
-  { n = 2, x = 35, y = 55.5, text = "The straight-in paths meeting the runway's end." },
+  { n = 2, x = 35, y = 49.1, text = "The straight-in paths meeting the runway's end." },
   { n = 3, x = 18.5, y = 72, text = "The approach strip: a last waypoint on this line is kept." },
   { n = 4, x = 49, y = 85, text = "The skipped waypoint." },
 ]
@@ -488,7 +488,7 @@ pins = [
   { n = 1, x = 24, y = 72.7, text = "Normal loop: 12:18 on the fastest trips." },
   { n = 2, x = 52, y = 72.7, text = "Loop now: 13:10, 7 % slower, so yellow." },
   { n = 3, x = 82, y = 72.7, text = "One every 6:35, against 6:09 normally." },
-  { n = 4, x = 3.5, y = 81, text = "What slows the line, worst first: spacing waits at the fishing grounds cost 0:16 a loop, 0.04 ships." },
+  { n = 4, x = 3.7, y = 81, text = "What slows the line, worst first: spacing waits at the fishing grounds cost 0:16 a loop, 0.04 ships." },
 ]
 
 [[feature.lineTiming.figure]]
@@ -497,9 +497,9 @@ alt = "The Timing card opened for a bus line: four findings, then one bar per le
 caption = "The Timing card opened, for a bus line a few game months after the mod started recording."
 pins = [
   { n = 1, x = 21, y = 13.5, text = "The normal loop is still being measured." },
-  { n = 2, x = 2.5, y = 26, text = "Traffic and spacing waits, each with where, the time a loop and that time in vehicles." },
+  { n = 2, x = 2.9, y = 26, text = "Traffic and spacing waits, each with where, the time a loop and that time in vehicles." },
   { n = 3, x = 72, y = 55, text = "Each leg to the next stop, split into moving, the stop and each delay." },
-  { n = 4, x = 62, y = 97.5, text = "The colours: moving, at the stop, circling or traffic, queue or signal, terminal full." },
+  { n = 4, x = 73.4, y = 97.5, text = "The colours: moving, at the stop, circling or traffic, queue or signal, terminal full." },
 ]
 
 [feature.vehicleManageLine]
@@ -535,17 +535,17 @@ caption = "The Lines tab of a save with trucks, trains, ships and planes, in the
 shot = "LE-17d-stock"
 alt = "The game's Lines tab: Name, Vehicles, Cargo, Load, Capacity, Utilization, Satisfaction, Frequency, Rate and Balance."
 pins = [
-  { n = 1, x = 64.5, y = 2.9, text = "Utilization: the load right now." },
-  { n = 2, x = 94.5, y = 2.9, text = "Balance: income less the vehicles' running costs, without upkeep." },
+  { n = 1, x = 64.5, y = 6.8, text = "Utilization: the load right now." },
+  { n = 2, x = 94.5, y = 6.8, text = "Balance: income less the vehicles' running costs, without upkeep." },
 ]
 [feature.costViews.figure.after]
 shot = "LE-17d"
 alt = "The Lines tab in the mod's Lines view: view buttons at the top, Utilization as the load now plus a coloured bar, a profit bar beside Balance, and a Net column."
 pins = [
-  { n = 1, x = 62.5, y = 3.5, text = "The three views: Lines, Costs and Track." },
+  { n = 1, x = 62.5, y = 6.8, text = "The three views: Lines, Costs and Track." },
   { n = 2, x = 51.5, y = 13.5, text = "The load now, then last year's use as a bar: green, yellow or red." },
   { n = 3, x = 78.6, y = 13.5, text = "The profit bar: income to the right, each cost to the left, the net as a line under it." },
-  { n = 4, x = 98.3, y = 8.5, text = "Net: the Balance less the line's share of upkeep." },
+  { n = 4, x = 94.1, y = 12.3, text = "Net: the Balance less the line's share of upkeep." },
 ]
 
 [[feature.costViews.figure]]

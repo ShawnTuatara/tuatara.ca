@@ -28,7 +28,7 @@ alt = "Buy Vehicles at a road depot in the table layout: buses and trucks, each 
 caption = "Buying buses and trucks at a road depot, in the store's table layout."
 pins = [
   { n = 1, x = 93, y = 31, text = "The new column's header, the game's running cost icon: click it to sort." },
-  { n = 2, x = 88.3, y = 36.5, text = "The AEC Routemaster costs $133,062 a year to run, beside its $798,372 price." },
+  { n = 2, x = 84.7, y = 36.5, text = "The AEC Routemaster costs $133,062 a year to run, beside its $798,372 price." },
 ]
 
 [feature.replaceComparison]
@@ -59,15 +59,15 @@ caption = "Two Replace stores in the table layout, from different saves. On the 
 shot = "VE-02-stock"
 alt = "The game's Replace store table: three trucks with plain blue bars and grey figures."
 pins = [
-  { n = 1, x = 41, y = 42, text = "Plain blue bars and grey figures: nothing shows whether a truck beats the vehicle being replaced." },
+  { n = 1, x = 80, y = 42, text = "Plain blue bars and grey figures: nothing shows whether a truck beats the vehicle being replaced." },
 ]
 [feature.replaceComparison.figure.after]
 shot = "VE-02"
 alt = "The Replace store with the mod: capacity, speed and power in green, noise and pollution in red, bars with a white line, and running costs in red with the difference below."
 pins = [
-  { n = 1, x = 28.8, y = 43, text = "Capacity 10, and under it +4: four more than the horse carriage, so green." },
-  { n = 2, x = 34.3, y = 43, text = "Each bar runs to the truck's value, green where better, with a white line at the horse carriage's." },
-  { n = 3, x = 53.5, y = 43, text = "Red where worse: the steam truck is noisier and dirtier than the horse carriage." },
+  { n = 1, x = 27.6, y = 43, text = "Capacity 10, and under it +4: four more than the horse carriage, so green." },
+  { n = 2, x = 38.5, y = 43, text = "Each bar runs to the truck's value, green where better, with a white line at the horse carriage's." },
+  { n = 3, x = 56.9, y = 43, text = "Red where worse: the steam truck is noisier and dirtier than the horse carriage." },
   { n = 4, x = 88.3, y = 51.5, text = "Running cost a year, and under it how much more than the horse carriage's: red, as a higher cost is worse." },
 ]
 
@@ -90,7 +90,7 @@ shot = "VE-03b"
 alt = "Buy Vehicles at a train depot, Wagon tab: Weight and Length columns after the capacity, and a tooltip reading Weight per passenger: 1,364 kg (30 t ÷ 22)."
 caption = "The Wagon tab at a train depot, with the pointer on the Streamlined Coach's weight."
 pins = [
-  { n = 1, x = 33.3, y = 27.5, text = "Weight: the wagon's empty weight, right after its capacity." },
-  { n = 2, x = 38, y = 27.5, text = "Length. The Power column, always empty for wagons, is gone." },
-  { n = 3, x = 61, y = 61.8, text = "Hover a weight or length for its figure per cargo item: 1,364 kg per passenger here. Both columns sort by it." },
+  { n = 1, x = 33.2, y = 23.1, text = "Weight: the wagon's empty weight, right after its capacity." },
+  { n = 2, x = 40.6, y = 27.5, text = "Length. The Power column, always empty for wagons, is gone." },
+  { n = 3, x = 62, y = 61.8, text = "Hover a weight or length for its figure per cargo item: 1,364 kg per passenger here. Both columns sort by it." },
 ]

@@ -98,7 +98,7 @@ alt = "A supply figure's tooltip: Fish, Commercial: 220 of 584 (38%)."
 caption = "Hover a supply figure: Whaley Bridge's commercial district gets 220 of the 584 fish it wants, so the figure is yellow."
 pins = [
   { n = 1, x = 88, y = 41, text = "The cargo, then each district that wants it: how much of its demand is met, and the share." },
-  { n = 2, x = 71, y = 57, text = "Red: less than a third met, here 50 of the 337 meat Cockermouth wants." },
+  { n = 2, x = 59, y = 58, text = "Red: less than a third met, here 50 of the 337 meat Cockermouth wants." },
 ]
 
 [feature.townCargoFilter]
@@ -190,7 +190,7 @@ alt = "The Vehicles tab with the mod: Line before Vehicle, Condition in red, yel
 pins = [
   { n = 1, x = 26.3, y = 9.1, text = "Line first, with the room the small vehicle picture doesn't need." },
   { n = 2, x = 69.8, y = 25.2, text = "Condition in the vehicle window's colours." },
-  { n = 3, x = 77.3, y = 9.1, text = "Income and Running Costs, then Balance, then the running cost a year." },
+  { n = 3, x = 77.9, y = 9.1, text = "Income and Running Costs, then Balance, then the running cost a year." },
 ]
 
 [[feature.vehicleColumns.figure]]
@@ -244,9 +244,9 @@ alt = "The Stations tab from Type to Upkeep: lines per terminal, Utilization, th
 caption = "The same table from Type to Upkeep, closer."
 pins = [
   { n = 1, x = 21, y = 12, text = "Lines per terminal: 2, 1, 1 and 1 of your lines at Petworth Station Annex's four terminals." },
-  { n = 2, x = 47.3, y = 12, text = "The waiting hall first: 43 waiting for its 45 places." },
-  { n = 3, x = 53.3, y = 74.8, text = "Then each terminal: Stop #77's first one has 93 waiting for 50 places, in yellow, the others are nearly empty." },
-  { n = 4, x = 79.2, y = 74.8, text = "Delay per terminal: 22 unhappy passengers at that first terminal." },
+  { n = 2, x = 45.8, y = 12, text = "The waiting hall first: 43 waiting for its 45 places." },
+  { n = 3, x = 51.2, y = 74.8, text = "Then each terminal: Stop #77's first one has 93 waiting for 50 places, in yellow, the others are nearly empty." },
+  { n = 4, x = 78.0, y = 74.8, text = "Delay per terminal: 22 unhappy passengers at that first terminal." },
 ]
 
 [[feature.stationColumns.figure]]
@@ -289,8 +289,8 @@ shot = "SE-08-towns"
 alt = "The game bar with the Vehicles, Stations, Warehouses and Towns statistics buttons in red, the Towns button's tooltip listing Colchester and Cullompton."
 caption = "Four red statistics buttons, the Towns button hovered."
 pins = [
-  { n = 1, x = 36.2, y = 60, text = "Red: this table has something to look at, here Vehicles, Stations, Warehouses and Towns." },
-  { n = 2, x = 84.5, y = 78, text = "Hover it: the towns with a problem notification, as the Towns tab's Problems column shows them." },
+  { n = 1, x = 36.2, y = 48, text = "Red: this table has something to look at, here Vehicles, Stations, Warehouses and Towns." },
+  { n = 2, x = 75, y = 42, text = "Hover it: the towns with a problem notification, as the Towns tab's Problems column shows them." },
 ]
 
 [[feature.problemButtons.figure]]
@@ -308,8 +308,8 @@ shot = "SE-08-warehouses"
 alt = "The Warehouses button's tooltip: Storage Full, Wellington Warehouse's sheet metal at 100 percent; Storage Nearly Full, three warehouses with a cargo at 99, 91 and 86 percent; and +5."
 caption = "The Warehouses button: cargos close to filling the room they have."
 pins = [
-  { n = 1, x = 95.5, y = 59.3, text = "Carlton Colville Warehouse's crude oil fills 99 % of the room it has." },
-  { n = 2, x = 42.3, y = 92.5, text = "Five more warehouses: the tooltip names three per kind." },
+  { n = 1, x = 97, y = 59.3, text = "Carlton Colville Warehouse's crude oil fills 99 % of the room it has." },
+  { n = 2, x = 43.5, y = 92.5, text = "Five more warehouses: the tooltip names three per kind." },
 ]
 
 [[feature.problemButtons.figure]]
@@ -317,5 +317,5 @@ shot = "SE-08-industries"
 alt = "The Industries button's tooltip: Industry is blocked from further expansion, Cheltenham Logging Camp."
 caption = "The Industries button: an industry blocked from further expansion."
 pins = [
-  { n = 1, x = 82.0, y = 92.5, text = "Without the mod, only Cheltenham Logging Camp's own window says it can't grow." },
+  { n = 1, x = 83, y = 92.5, text = "Without the mod, only Cheltenham Logging Camp's own window says it can't grow." },
 ]

@@ -64,7 +64,7 @@ shot = "PM-03"
 alt = "The Hitches list: four frames of 57 to 118 ms, each with the share of interface scripts and the mods that took the most of it."
 caption = "The last hitches, newest first."
 pins = [
-  { n = 1, x = 86, y = 27, text = "How long ago, the frame's length, how much of it interface scripts took, and the mods that took the most." },
+  { n = 1, x = 60.8, y = 17.5, text = "How long ago, the frame's length, how much of it interface scripts took, and the mods that took the most." },
   { n = 2, x = 3, y = 16, text = "A long frame with little script time is the game's own work, not a mod's." },
   { n = 3, x = 64, y = 89, text = "The monitor's own cost, and how much it times." },
 ]

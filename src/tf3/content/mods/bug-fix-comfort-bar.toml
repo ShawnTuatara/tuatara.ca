@@ -32,7 +32,7 @@ shot = "BF-CB-01-stock"
 alt = "A train's vehicle info in Very Good condition: the Comfort bar has a long red part and reads Mediocre."
 pins = [
   { n = 1, x = 70.5, y = 16, text = "The train is in Very Good condition." },
-  { n = 2, x = 58, y = 93, text = "Yet its Comfort bar shows a long red part, as if worn out." },
+  { n = 2, x = 58.5, y = 86, text = "Yet its Comfort bar shows a long red part, as if worn out." },
   { n = 3, x = 76.5, y = 93, text = "Rated Mediocre." },
 ]
 [feature.comfortBar.figure.after]

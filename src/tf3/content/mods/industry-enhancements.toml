@@ -91,7 +91,7 @@ boxes = [ { x = 3.9, y = 9.1, w = 86.3, h = 22 }, { x = 4.3, y = 36.5, w = 85.5,
 pins = [
   { n = 1, x = 29.5, y = 19.9, text = "0 (20)/10: none came by line (they count for the boost), 20 more work here, 10 are needed." },
   { n = 2, x = 54.3, y = 41.6, text = "Each row: how the worker gets to work (walking, car or lines) and a button to their home." },
-  { n = 3, x = 66.4, y = 56.4, text = "Workers who don't count for the boost are listed too, at 0 %." },
+  { n = 3, x = 77.2, y = 41.6, text = "Workers who don't count for the boost are listed too, at 0 %." },
 ]
 
 [feature.workerStatus]
@@ -173,17 +173,17 @@ caption = "The four canning factories of a 1998 save; only Wellington Canning Fa
 shot = "IE-05d-stock"
 alt = "The game's Industries tab: four canning factories, one row each; Wellington Canning Factory reads Input 705, Output 602 and Workload 68 %."
 pins = [
-  { n = 1, x = 51.5, y = 84, text = "Input 705 counts the first recipe's 202 fish and 151 sheet metal twice, once per recipe." },
-  { n = 2, x = 57.5, y = 84, text = "Output 602: the 301 cans, counted once per recipe." },
-  { n = 3, x = 68.5, y = 84, text = "Workload 68 %: that input against both recipes' maximum added together." },
+  { n = 1, x = 51.5, y = 77, text = "Input 705 counts the first recipe's 202 fish and 151 sheet metal twice, once per recipe." },
+  { n = 2, x = 57.5, y = 77, text = "Output 602: the 301 cans, counted once per recipe." },
+  { n = 3, x = 68.5, y = 77, text = "Workload 68 %: that input against both recipes' maximum added together." },
 ]
 [feature.statisticsTotals.figure.after]
 shot = "IE-05d"
 alt = "The Industries tab with the mod: each canning factory on two lines; Wellington Canning Factory takes 210 fish, 94 meat and 152 sheet metal and makes 304 cans, Workload 88 %."
 pins = [
-  { n = 1, x = 61.6, y = 89, text = "Input counts each cargo once: 210 fish, 94 meat and 152 sheet metal. Sheet metal, which both recipes use, shows its total on both lines." },
-  { n = 2, x = 67.0, y = 89, text = "Output: 304 cans, on both lines since both recipes make them." },
-  { n = 3, x = 49.1, y = 89, text = "Workload 88 %: the input against the largest recipe running all year with the boost on now, since the factory runs one recipe at a time." },
+  { n = 1, x = 62.6, y = 86, text = "Input counts each cargo once: 210 fish, 94 meat and 152 sheet metal. Sheet metal, which both recipes use, shows its total on both lines." },
+  { n = 2, x = 68.8, y = 86, text = "Output: 304 cans, on both lines since both recipes make them." },
+  { n = 3, x = 48.2, y = 86, text = "Workload 88 %: the input against the largest recipe running all year with the boost on now, since the factory runs one recipe at a time." },
 ]
 
 [feature.blockedExpansion]
@@ -208,9 +208,9 @@ shot = "IE-07g"
 alt = "The Industries tab with the pointer on the red problem mark of Cheltenham Logging Camp: a tooltip reads Industry is blocked from further expansion."
 caption = "Hover the mark for the game's own message."
 pins = [
-  { n = 1, x = 17.2, y = 36.5, text = "The mark: this logging camp is blocked from further expansion." },
+  { n = 1, x = 16.9, y = 36.5, text = "The mark: this logging camp is blocked from further expansion." },
   { n = 2, x = 39.5, y = 53.5, text = "Its tooltip, the same message the industry window shows." },
-  { n = 3, x = 27.5, y = 36.5, text = "The plots column's next try is grey: a blocked industry adds no plot." },
+  { n = 3, x = 28.9, y = 36.5, text = "The plots column's next try is grey: a blocked industry adds no plot." },
 ]
 
 [[feature.blockedExpansion.figure]]

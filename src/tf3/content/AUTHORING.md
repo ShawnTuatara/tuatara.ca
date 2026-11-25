@@ -62,8 +62,9 @@ alt = "…"
 pins = [ … ]
 ```
 
-- **Pins** sit on the thing they explain: `x` / `y` in % of the image (0–100, decimals fine), numbered from 1 in reading order, 1–5 per image. To read positions, write a gridded copy and look at it:
-  `python -I src/tf3/grid_preview.py <slug>/<ID> [<slug>/<ID> …] --out <scratch dir>` (labels every 10 %, faint lines every 5 %). Put a pin beside small text rather than on it when it would hide the figure the text explains.
+- **Pins** sit **beside** the thing they explain, never on it (user, 2026-11-25): just next to the button, icon, label, header or figure, in free space (empty background, padding, a blank part of the row), so the reader sees the whole target. `x` / `y` in % of the image (0–100, decimals fine), numbered from 1 in reading order, 1–5 per image. To read positions, write a gridded copy and look at it:
+  `python -I src/tf3/grid_preview.py <slug>/<ID> [<slug>/<ID> …] --out <scratch dir>` (labels every 10 %, faint lines every 5 %).
+  To check them, draw them as the site shows them: `python -I src/tf3/pin_preview.py <slug> [<slug> …] --out <scratch dir> [--grid]` (`site` for `site.toml`): each figure at its display size with 28 px pins, plus each figure's place in the TOML and its pins.
 - **Pin text**: one sentence, at most two; say what is there and what it tells the player ("Next Full: the cargo to act on first, here Grain in 41 days.").
 - **Layout is automatic, the same for every figure:** the caption and the legend sit beside the image, so a pin can be looked up without scrolling; an image 3× wider than tall or more (a table band, the game bar) keeps the full width with the legend straight under it in columns; where the box is narrow (phones, the landing page's panes) they stack. No image is shown taller than the browser window (minus the header), so a tall window shot shows whole beside its legend; a click opens it full size. Before / after shots go one above the other, each with its legend beside it, the shared caption first.
 - Use a before / after pair only where the game itself shows the figure differently; the `-stock` shots exist for that. Labels default to "Game" and "With the mod" (`before_label`, `after_label`).
