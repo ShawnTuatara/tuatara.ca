@@ -36,7 +36,6 @@ good = [
 shot = "BW-SP-01b"
 alt = "The buttons beside Data Layers, the last one a red people icon."
 caption = "The mod's button, last in the row beside Data Layers."
-boxes = [ { x = 52.5, y = 13, w = 8.8, h = 46 } ]
 pins = [
   { n = 1, x = 65, y = 37, text = "Red while any line stop has stuck passengers; grey otherwise." },
 ]

@@ -66,7 +66,7 @@ def render(folder: str, fig: dict, dst: pathlib.Path, grid: bool, pane: bool) ->
     w, h = shot_size(folder, fig["shot"])
     pins = fig.get("pins", [])
     aside = bool(pins or fig.get("caption"))
-    if aside and w >= WIDE_RATIO * h:
+    if aside and w >= WIDE_RATIO * h and w > ASIDE_MAX_W:
         k = min(1.0, WIDE_MAX_W / w)
     else:
         k = min(1.0, (PANE_MAX_W if pane else ASIDE_MAX_W if aside else WIDE_MAX_W) / w, MAX_H / h)

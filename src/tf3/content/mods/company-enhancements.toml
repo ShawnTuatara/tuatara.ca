@@ -64,8 +64,6 @@ good = [
 shot = "site/GEN-03c"
 alt = "The Population Change counter at +23 with its tooltip: Population change over the 30 days to Jul 8, 1996; Jun 8, 1996: 36,661; Jul 8, 1996: 36,684; Last week: +19; Next update: Jul 15, 1996."
 caption = "A growing world: its towns gained 23 people over the 30 days to Monday, Jul 8, a few more than in last week's value. The arrow beside the figure is under the tooltip here."
-dim = true
-boxes = [ { x = 39, y = 66, w = 46, h = 34 } ]
 pins = [
   { n = 1, x = 46.6, y = 87.5, text = "+23: the population's change over 30 days, green as it grew." },
   { n = 2, x = 86, y = 71.5, text = "The 30 days end at the start of this week, a Monday." },

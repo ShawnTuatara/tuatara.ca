@@ -114,8 +114,6 @@ pins = [
 shot = "IE-04b"
 alt = "The worker list with a tooltip on the first worker: Waiting at Windsor Road, Line: Frodsham - Passengers 1, Gets off at Park Avenue, Commutes here by your lines."
 caption = "Halesworth Livestock Farm, with the pointer on the first worker's Now."
-dim = true
-boxes = [ { x = 3.9, y = 0, w = 91.4, h = 67 } ]
 pins = [
   { n = 1, x = 22, y = 8.4, text = "16 (10)/10: 16 came by line and count for the boost, 10 more work here, 10 are needed." },
   { n = 2, x = 49.5, y = 29, text = "126 days waiting, in red: past 30 days the wait makes people unhappy." },

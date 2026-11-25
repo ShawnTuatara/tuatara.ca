@@ -75,8 +75,6 @@ good = [
 shot = "TD-03"
 alt = "Cheltenham's town window: under the Small Village card, a To-Do card with 1 open task, a checked-clipboard button, a plus and a chain, expanded to the task Add a bus line in Cheltenham."
 caption = "Cheltenham's town window, its To-Do card expanded."
-dim = true
-boxes = [ { x = 4.5, y = 49, w = 91.5, h = 27 } ]
 pins = [
   { n = 1, x = 21, y = 56, text = "Open tasks about this town; a click opens them in the list." },
   { n = 2, x = 69.2, y = 56, text = "Adds the tasks already done to the card." },

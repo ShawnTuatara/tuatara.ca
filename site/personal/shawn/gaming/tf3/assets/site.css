@@ -203,7 +203,9 @@ a.card:hover { border-color: var(--accent-light); background: var(--base-light-m
 
 /* Annotated figure */
 figure.shot { margin: 0; }
-.shot-frame { position: relative; display: inline-block; max-width: 100%; line-height: 0; border-radius: var(--radius-card); box-shadow: var(--shadow); }
+/* justify-self: a frame hugs its image, also in a stretching grid column (a wide strip narrower
+   than the page): the pins are placed in % of the frame */
+.shot-frame { position: relative; display: inline-block; justify-self: start; max-width: 100%; line-height: 0; border-radius: var(--radius-card); box-shadow: var(--shadow); }
 /* No taller than the window, so the whole shot (every pin) shows beside its legend (user, 2026-11-25);
    the lightbox shows it full size. width: auto, so the width follows a capped height. */
 .shot-frame img { width: auto; height: auto; max-width: 100%; max-height: calc(max(360px, 100vh - 140px) * var(--hk, 1)); border-radius: var(--radius-card); cursor: zoom-in; }

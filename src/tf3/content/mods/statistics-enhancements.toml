@@ -147,7 +147,6 @@ good = [
 shot = "SE-05"
 alt = "The Towns tab's Public Transport figures in green and yellow, one hovered with the tooltip: Public transport coverage is 60%, 1,142/1,904."
 caption = "Bromyard and Winslow's figure hovered: yellow for 60 % coverage."
-boxes = [ { x = 61.3, y = 16, w = 5.5, h = 84 } ]
 pins = [
   { n = 1, x = 53, y = 24.5, text = "Public Transport: the game's number, coloured by the town's public transport coverage." },
   { n = 2, x = 86.5, y = 60, text = "The tooltip: the coverage and the passengers served, as the town window gives them." },

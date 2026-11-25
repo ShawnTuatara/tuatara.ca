@@ -215,8 +215,10 @@ def pending(fig: dict) -> str:
             f'{md(fig.get("pending") or fig.get("caption") or "Screenshot to come.")}</div>')
 
 
-# images at least this many times wider than tall get their legend under them (figure())
+# images at least this many times wider than tall, and wider than the room beside a legend (1080
+# content - 280 legend - 24 gap), get their legend under them (figure()); a narrower strip fits beside
 WIDE_RATIO = 3
+ASIDE_MAX_W = 776
 
 
 def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float = 1.0) -> str:
@@ -260,7 +262,7 @@ def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float
         parts.append('<div class="shot-aside">' + "".join(aside) + "</div>")
     # a wide strip (a table row band, the game bar) keeps the full width, with the legend straight under
     # it in columns: beside it, the strip would shrink to a sliver
-    wide = img["w"] >= WIDE_RATIO * img["h"]
+    wide = img["w"] >= WIDE_RATIO * img["h"] and img["w"] > ASIDE_MAX_W
     cls = "shot" + (" has-aside" if aside else "") + (" wide" if aside and wide else "")
     return f'<div class="shot-box"><figure class="{cls}">' + "".join(parts) + "</figure></div>"
 
