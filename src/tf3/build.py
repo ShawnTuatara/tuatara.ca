@@ -219,7 +219,7 @@ def pending(fig: dict) -> str:
 WIDE_RATIO = 3
 
 
-def figure(fig: dict, folder: str, drafts: bool, where: str) -> str:
+def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float = 1.0) -> str:
     img = IMAGES.find(folder, fig["shot"])
     if not img:
         if drafts:
@@ -233,7 +233,8 @@ def figure(fig: dict, folder: str, drafts: bool, where: str) -> str:
     frame = ["shot-frame"] + (["dimmed"] if fig.get("dim") and boxes else [])
     parts = [f'<div class="{" ".join(frame)}">',
              f'<img src="{esc(Ctx.prefix + img["src"])}" width="{img["w"]}" height="{img["h"]}" '
-             f'alt="{esc(fig.get("alt", ""))}" loading="lazy" decoding="async">']
+             f'alt="{esc(fig.get("alt", ""))}" loading="lazy" decoding="async"'
+             + (f' style="--hk:{height_share:.4f}"' if height_share < 1 else "") + '>']
     for b in boxes:
         parts.append(f'<div class="ann-box" style="left:{b["x"]}%;top:{b["y"]}%;width:{b["w"]}%;height:{b["h"]}%"></div>')
     for p in pins:
@@ -269,8 +270,12 @@ def figures(figs: list, folder: str, drafts: bool, where: str) -> str:
     for i, fig in enumerate(figs):
         w = f"{where} figure {i + 1}"
         if "before" in fig:
-            a = figure(fig["before"], folder, drafts, w + " (before)")
-            b = figure(fig["after"], folder, drafts, w + " (after)")
+            # the shorter half's height cap shrinks with it (site.css --hk), so a capped pair keeps one
+            # scale and switching doesn't look like a zoom (user, 2026-11-25: LE-16-window)
+            ia, ib = IMAGES.find(folder, fig["before"]["shot"]), IMAGES.find(folder, fig["after"]["shot"])
+            tall = max(ia["h"] if ia else 1, ib["h"] if ib else 1)
+            a = figure(fig["before"], folder, drafts, w + " (before)", (ia["h"] / tall) if ia else 1.0)
+            b = figure(fig["after"], folder, drafts, w + " (after)", (ib["h"] / tall) if ib else 1.0)
             # the two shots one above the other, each with its legend beside it; the shared caption first.
             # Without labels of its own a pair is the stock game against the mod: tagged and edged grey /
             # blue so the viewer always knows which UI they look at (user, 2026-11-25); labelled pairs

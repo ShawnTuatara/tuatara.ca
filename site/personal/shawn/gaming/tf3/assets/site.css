@@ -206,7 +206,7 @@ figure.shot { margin: 0; }
 .shot-frame { position: relative; display: inline-block; max-width: 100%; line-height: 0; border-radius: var(--radius-card); box-shadow: var(--shadow); }
 /* No taller than the window, so the whole shot (every pin) shows beside its legend (user, 2026-11-25);
    the lightbox shows it full size. width: auto, so the width follows a capped height. */
-.shot-frame img { width: auto; height: auto; max-width: 100%; max-height: max(360px, calc(100vh - 140px)); border-radius: var(--radius-card); cursor: zoom-in; }
+.shot-frame img { width: auto; height: auto; max-width: 100%; max-height: calc(max(360px, 100vh - 140px) * var(--hk, 1)); border-radius: var(--radius-card); cursor: zoom-in; }
 .shot-frame .dim { position: absolute; inset: 0; pointer-events: none; border-radius: var(--radius-card); }
 /* Callouts use the game's Highlight yellow: it stands out against the blue-grey UI in every shot */
 .ann-box { position: absolute; border: 2px solid var(--highlight); border-radius: 6px; pointer-events: none; box-shadow: 0 0 0 9999px rgb(0 0 0 / 0); transition: box-shadow .15s; }

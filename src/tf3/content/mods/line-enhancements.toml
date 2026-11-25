@@ -89,7 +89,7 @@ shot = "LE-02c"
 alt = "A grain line being dragged: terminal 2's card has a green outline."
 caption = "Dragging Grain 1 from terminal 3. On the drop, both grain lines prefer terminal 2 and terminal 3 reads 'No line prefers this terminal'."
 pins = [
-  { n = 1, x = 75, y = 44.5, text = "The terminal under the pointer lights green while you drag." },
+  { n = 1, x = 75, y = 44.5, text = "While you drag, the terminal under the pointer lights green; yellow where the line would load and unload slowly (a terminal made for other cargo); red where it can't load or unload, as its vehicles can't reach it." },
 ]
 
 [[feature.assignLines.figure]]
@@ -496,10 +496,8 @@ shot = "LE-15"
 alt = "The Timing card opened for a bus line: four findings, then one bar per leg split into colours, with a legend."
 caption = "The Timing card opened, for a bus line a few game months after the mod started recording."
 pins = [
-  { n = 1, x = 21, y = 13.5, text = "The normal loop is still being measured." },
-  { n = 2, x = 2.9, y = 26, text = "Traffic and spacing waits, each with where, the time a loop and that time in vehicles." },
-  { n = 3, x = 72, y = 55, text = "Each leg to the next stop, split into moving, the stop and each delay." },
-  { n = 4, x = 73.4, y = 97.5, text = "The colours: moving, at the stop, circling or traffic, queue or signal, terminal full." },
+  { n = 1, x = 72, y = 55, text = "Each leg to the next stop, split into moving, the stop and each delay." },
+  { n = 2, x = 73.4, y = 97.5, text = "The colours: moving, at the stop, circling or traffic, queue or signal, terminal full." },
 ]
 
 [feature.vehicleManageLine]
@@ -553,10 +551,10 @@ shot = "LE-17b"
 alt = "The Costs view: Income, Running, Servicing, Track, Stations, Depots, Net and Own Upkeep per line."
 caption = "The Costs view of another save."
 pins = [
-  { n = 1, x = 33.5, y = 15.8, text = "Income and running costs a year." },
+  { n = 1, x = 30.6, y = 14.4, text = "Income and running costs a year." },
   { n = 2, x = 56.5, y = 15.8, text = "The line's share of servicing, track, station and depot upkeep." },
-  { n = 3, x = 86.5, y = 15.8, text = "Net: what is left after every cost." },
-  { n = 4, x = 95.5, y = 22.5, text = "Own Upkeep: upkeep only this line uses, saved if you remove it." },
+  { n = 3, x = 84.6, y = 13.9, text = "Net: what is left after every cost." },
+  { n = 4, x = 93.1, y = 29.7, text = "Own Upkeep: upkeep only this line uses, saved if you remove it." },
 ]
 
 [[feature.costViews.figure]]
