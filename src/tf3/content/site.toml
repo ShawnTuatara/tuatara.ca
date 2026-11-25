@@ -80,7 +80,6 @@ key = "industry-window"
 name = "Industry window"
 [window.figure]
 shot = "where-industry"
-layout = "side"
 alt = "Industry window of Abenberg Weaving Mill with the Production, To-Do, Boosters, Input Stocks, Output Stocks and Supply Chains cards"
 caption = "An industry window with Industry Enhancements, Cargo Enhancements and To-Do List on."
 pins = [
@@ -193,7 +192,6 @@ steps = [
 after = "Off turns a feature off completely: its buttons and columns are gone and it does no work in the background."
 [install.section.figure]
 shot = "GEN-01"
-layout = "side"
 alt = "Line Enhancements' Settings: an Off / On switch for each of its features, Logging last and Off"
 caption = "Line Enhancements' Settings."
 pins = [

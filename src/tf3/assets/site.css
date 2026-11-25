@@ -151,7 +151,7 @@ a.card:hover { border-color: var(--accent-light); background: var(--base-light-m
 .feature-list li:nth-child(even) { background: var(--base-dark-medium); }
 .feature-list a { text-decoration: none; }
 .feature-list a:hover b { text-decoration: underline; }
-[data-pane] figure.shot { margin-bottom: 16px; }
+[data-pane] .shot-box { margin-bottom: 16px; }
 
 /* Mod page */
 .mod-head { padding: 44px 0 28px; }
@@ -171,7 +171,7 @@ a.card:hover { border-color: var(--accent-light); background: var(--base-light-m
 .prose .window ol { padding-left: 1.3em; }
 .prose .window li { margin-bottom: .35em; }
 .link-list { margin: 0; padding-left: 1.2em; font-size: 1.1rem; }
-.pair-caption { margin-top: 10px; font-size: .9rem; color: var(--muted); }
+.pair-caption { margin: 0; font-size: .9rem; color: var(--muted); }
 .feature-figs { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
 /* Text under full-width figures (or with no figure) runs in two columns on wide screens */
 .feature-text.cols { columns: 2 320px; column-gap: 36px; }
@@ -216,22 +216,33 @@ figure.shot { margin: 0; }
   border: 2px solid var(--base-very-dark); box-shadow: 0 0 0 1.5px rgb(255 255 255 / .85), 0 2px 8px rgb(0 0 0 / .6); cursor: default; padding: 0; transition: transform .12s;
 }
 .pin:hover, .pin.on { transform: scale(1.18); }
-figcaption { margin-top: 10px; font-size: .9rem; color: var(--muted); line-height: 1.45; }
+figcaption { margin: 10px 0 0; font-size: .9rem; color: var(--muted); line-height: 1.45; }
 /* Legend rows like a game table: alternating rows, the active one in accent */
-.legend { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--base-very-light); }
+.legend { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--base-very-light); }
 .legend li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; padding: 8px 10px; font-size: .93rem; cursor: default; background: var(--base-medium); border-left: 3px solid transparent; }
 .legend li:nth-child(even) { background: var(--base-dark-medium); }
 .legend li.on { background: var(--accent-very-dark); border-left-color: var(--accent-light); }
 .legend .n { width: 22px; height: 22px; border-radius: 50%; background: var(--highlight); color: var(--base-very-dark); font: 700 12px/22px "Lato", system-ui, sans-serif; text-align: center; margin-top: 1px; }
 .legend .mod { color: var(--muted); font-size: .8rem; display: block; }
 
-/* Figure with the legend beside the image (tall window shots) */
-.shot.side { display: grid; grid-template-columns: minmax(0, max-content) minmax(220px, 1fr); column-gap: 24px; align-items: start; }
-.shot.side .shot-frame { grid-row: 1 / span 2; }
-.shot.side figcaption { margin-top: 0; }
-@media (max-width: 860px) { .shot.side { grid-template-columns: 1fr; } .shot.side .shot-frame { grid-row: auto; } .shot.side figcaption { margin-top: 10px; } }
+/* Every figure: the image, and beside it the caption and the legend (user, 2026-11-25: the numbers
+   beside the screenshot, so a pin can be looked up without scrolling). The image keeps its own width
+   up to what the legend's column leaves; the two stack where the figure's box is narrow. */
+.shot-box { container-type: inline-size; }
+.shot.has-aside { display: grid; grid-template-columns: minmax(0, max-content) minmax(280px, 1fr); column-gap: 24px; align-items: start; }
+.shot-aside { min-width: 0; }
+.shot-aside > :first-child { margin-top: 0; }
+/* A wide strip (3:1 or wider): the full width, the legend straight under it in columns */
+.shot.has-aside.wide { grid-template-columns: minmax(0, 1fr); }
+.shot.wide .shot-aside > :first-child { margin-top: 12px; }
+.shot.wide .legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); background: var(--base-medium); }
+@container (max-width: 720px) {
+  .shot.has-aside { grid-template-columns: minmax(0, 1fr); }
+  .shot-aside > :first-child { margin-top: 12px; }
+}
 
-.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+/* before / after: the two figures one above the other, each with its legend beside it */
+.pair { display: flex; flex-direction: column; gap: 18px; }
 .pair .label { font-size: .85rem; color: var(--muted); margin-bottom: 6px; display: block; }
 .pending { border: 1px dashed var(--base-very-light); border-radius: var(--radius-card); background: var(--base-dark-medium); color: var(--muted); padding: 18px; font-size: .88rem; min-height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
 .pending b { color: var(--text); font-family: ui-monospace, Consolas, monospace; font-size: .85rem; font-weight: 400; }
@@ -274,7 +285,6 @@ table.settings td:first-child { white-space: nowrap; }
 
 @media (max-width: 860px) {
   .hero-grid, .where, .mod-head .hero-grid { grid-template-columns: 1fr; }
-  .pair { grid-template-columns: 1fr; }
   .head-nav { margin-left: -12px; }
   .site-head { position: static; }
 }

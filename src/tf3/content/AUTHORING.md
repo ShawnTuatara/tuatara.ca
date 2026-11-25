@@ -48,7 +48,6 @@ pins = [
 ]
 boxes = [ { x = 4, y = 10, w = 90, h = 20 } ]   # optional frames, % of the image
 dim = true                                       # optional: darken outside the boxes
-layout = "side"                                  # optional: a narrow window beside its legend
 
 # before / after: two shots of one save, the game alone vs with the mod
 [[feature.recipeFigures.figure]]
@@ -66,7 +65,7 @@ pins = [ … ]
 - **Pins** sit on the thing they explain: `x` / `y` in % of the image (0–100, decimals fine), numbered from 1 in reading order, 1–5 per image. To read positions, write a gridded copy and look at it:
   `python -I src/tf3/grid_preview.py <slug>/<ID> [<slug>/<ID> …] --out <scratch dir>` (labels every 10 %, faint lines every 5 %). Put a pin beside small text rather than on it when it would hide the figure the text explains.
 - **Pin text**: one sentence, at most two; say what is there and what it tells the player ("Next Full: the cargo to act on first, here Grain in 41 days.").
-- A narrow window (portrait crop) reads best with `layout = "side"`.
+- **Layout is automatic, the same for every figure:** the caption and the legend sit beside the image, so a pin can be looked up without scrolling; an image 3× wider than tall or more (a table band, the game bar) keeps the full width with the legend straight under it in columns; where the box is narrow (phones, the landing page's panes) they stack. Before / after shots go one above the other, each with its legend beside it, the shared caption first.
 - Use a before / after pair only where the game itself shows the figure differently; the `-stock` shots exist for that. Labels default to "Game" and "With the mod" (`before_label`, `after_label`).
 - Every `shot` must exist (no `pending` on a published page). Not every shot has to be used: pick the ones that explain the feature best; a feature without a fitting shot keeps only its text.
 

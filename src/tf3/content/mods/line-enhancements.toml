@@ -68,7 +68,6 @@ also = "The statistics window's Stations tab gets an Assign Lines button at the 
 shot = "LE-01"
 alt = "Loughton Station's window: four terminals with their lines, and the Configure and Assign Lines buttons at the bottom."
 caption = "A station with a passenger terminal, two bulk terminals and a goods terminal."
-layout = "side"
 pins = [
   { n = 1, x = 55, y = 96.3, text = "Assign Lines, next to the game's Configure button." },
 ]
@@ -154,7 +153,6 @@ pins = [
 shot = "LE-LM-4"
 alt = "The Line Manager on a two-stop fish delivery line with the Figures view on: a pickup stop showing a stock of 11/500, and a delivery stop showing 38/128 and how many buildings are empty."
 caption = "A fish delivery line from a warehouse to a town's stops."
-layout = "side"
 pins = [
   { n = 1, x = 76.5, y = 77.9, text = "This stop loads from stocks: 16 of 500 in reach, 2.7 vehicle loads, 179 coming in a year." },
   { n = 2, x = 58, y = 83, text = "The delivery stop: the buildings in reach hold 37 fish of the 128 they can take." },
@@ -174,7 +172,6 @@ good = [
 shot = "LE-LM-3"
 alt = "The Line Manager on a passenger line; in the action bar the passenger button is pressed and the cargo button is greyed."
 caption = "A passenger line: every stop loads passengers, none loads cargo."
-layout = "side"
 pins = [
   { n = 1, x = 58.7, y = 68.6, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
   { n = 2, x = 64.8, y = 68.6, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
@@ -249,7 +246,6 @@ good = [
 shot = "LE-LM-2"
 alt = "The Line Manager with the Vehicles Needed card open under the vehicle list: Enough vehicles, the queue at the busiest stop, and a what-if table for one more vehicle."
 caption = "A stagecoach line with six vehicles, the card opened and one vehicle added in the what-if."
-layout = "side"
 pins = [
   { n = 1, x = 2.5, y = 55.7, text = "Enough vehicles: 125 seats a year cover the 97 passengers arriving at the busiest stop." },
   { n = 2, x = 58.5, y = 58.2, text = "The queue at Alexander Road, 11, would be gone in under half a year." },
@@ -468,7 +464,6 @@ pins = [
 shot = "LE-16b"
 alt = "The Costs & Value card opened: a waterfall from income through running, servicing, track, stations and depots to the net, an If removed table and a list of every cost."
 caption = "The Costs & Value card opened."
-layout = "side"
 pins = [
   { n = 1, x = 72, y = 8, text = "The waterfall: income, then each cost, down to the net." },
   { n = 2, x = 84, y = 34.5, text = "If removed: running costs saved, upkeep only this line uses, income lost and what its vehicles sell for." },
@@ -489,7 +484,6 @@ good = [
 shot = "LE-LW-1"
 alt = "A ship line's window: Basics, To-Do, Verdict, Transported, Vehicles and the Timing card with normal loop 12:18, loop now 13:10, one every 6:35, and four delay findings."
 caption = "A fish line with two ships."
-layout = "side"
 pins = [
   { n = 1, x = 24, y = 72.7, text = "Normal loop: 12:18 on the fastest trips." },
   { n = 2, x = 52, y = 72.7, text = "Loop now: 13:10, 7 % slower, so yellow." },

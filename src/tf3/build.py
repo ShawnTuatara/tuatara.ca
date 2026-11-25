@@ -206,6 +206,10 @@ def pending(fig: dict) -> str:
             f'{md(fig.get("pending") or fig.get("caption") or "Screenshot to come.")}</div>')
 
 
+# images at least this many times wider than tall get their legend under them (figure())
+WIDE_RATIO = 3
+
+
 def figure(fig: dict, folder: str, drafts: bool, where: str) -> str:
     img = IMAGES.find(folder, fig["shot"])
     if not img:
@@ -226,20 +230,29 @@ def figure(fig: dict, folder: str, drafts: bool, where: str) -> str:
     for p in pins:
         parts.append(f'<span class="pin" data-n="{p["n"]}" style="left:{p["x"]}%;top:{p["y"]}%" aria-hidden="true">{p["n"]}</span>')
     parts.append("</div>")
+    # Every figure the same way (user, 2026-11-25): the image, then beside it its caption and the
+    # numbered legend, so a pin can be looked up without scrolling; stacked where the figure's box is
+    # narrow (site.css, a container query on .shot-box).
+    aside = []
     if fig.get("caption"):
-        parts.append(f"<figcaption>{md(fig['caption'])}</figcaption>")
+        aside.append(f"<figcaption>{md(fig['caption'])}</figcaption>")
     if pins:
-        parts.append('<ol class="legend">')
+        aside.append('<ol class="legend">')
         for p in pins:
             mod = ""
             if p.get("mod"):
                 label = p.get("mod_name") or MODS[p["mod"]].name
                 href = mod_href(f"mod:{p['mod']}" + (f"#{p['anchor']}" if p.get("anchor") else ""))
                 mod = f'<span class="mod">{f"<a href={chr(34)}{esc(href)}{chr(34)}>{esc(label)}</a>" if href else esc(label)}</span>'
-            parts.append(f'<li data-n="{p["n"]}"><span class="n">{p["n"]}</span><span>{mod}{md(p["text"])}</span></li>')
-        parts.append("</ol>")
-    cls = "shot" + (" side" if fig.get("layout") == "side" else "")
-    return f'<figure class="{cls}">' + "".join(parts) + "</figure>"
+            aside.append(f'<li data-n="{p["n"]}"><span class="n">{p["n"]}</span><span>{mod}{md(p["text"])}</span></li>')
+        aside.append("</ol>")
+    if aside:
+        parts.append('<div class="shot-aside">' + "".join(aside) + "</div>")
+    # a wide strip (a table row band, the game bar) keeps the full width, with the legend straight under
+    # it in columns: beside it, the strip would shrink to a sliver
+    wide = img["w"] >= WIDE_RATIO * img["h"]
+    cls = "shot" + (" has-aside" if aside else "") + (" wide" if aside and wide else "")
+    return f'<div class="shot-box"><figure class="{cls}">' + "".join(parts) + "</figure></div>"
 
 
 def figures(figs: list, folder: str, drafts: bool, where: str) -> str:
@@ -249,9 +262,10 @@ def figures(figs: list, folder: str, drafts: bool, where: str) -> str:
         if "before" in fig:
             a = figure(fig["before"], folder, drafts, w + " (before)")
             b = figure(fig["after"], folder, drafts, w + " (after)")
+            # the two shots one above the other, each with its legend beside it; the shared caption first
             cap = f'<p class="pair-caption">{md(fig["caption"])}</p>' if fig.get("caption") else ""
-            out.append(f'<div class="pair"><div><span class="label">{esc(fig.get("before_label", "Game"))}</span>{a}</div>'
-                       f'<div><span class="label">{esc(fig.get("after_label", "With the mod"))}</span>{b}</div></div>{cap}')
+            out.append(f'<div class="pair">{cap}<div><span class="label">{esc(fig.get("before_label", "Game"))}</span>{a}</div>'
+                       f'<div><span class="label">{esc(fig.get("after_label", "With the mod"))}</span>{b}</div></div>')
         else:
             out.append(figure(fig, folder, drafts, w))
     return "".join(out)

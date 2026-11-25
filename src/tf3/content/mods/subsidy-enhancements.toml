@@ -37,7 +37,6 @@ pins = [
 shot = "SU-01b"
 alt = "The Connect Towns window of the same offer: Task with a calendar line of 9 Months 22 Days, rewards and penalties, Decline and Accept, and under them a bar reading 4 Months 24 Days."
 caption = "The same offer's window."
-layout = "side"
 pins = [
   { n = 1, x = 44, y = 36, text = "The game's calendar line: 9 months 22 days to fulfil the subsidy once accepted, not the time left to accept." },
   { n = 2, x = 86, y = 96.5, text = "The time left to accept, under Decline and Accept." },

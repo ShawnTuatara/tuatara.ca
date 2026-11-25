@@ -95,7 +95,6 @@ pins = [
 shot = "WE-03b"
 alt = "The expanded Stocks card: a free Bulk slot, a fertilizer slot, eight crude oil slots with green bars, and six lines with arrows."
 caption = "The same warehouse with its Stocks card expanded: a free Bulk slot, the fertilizer slot, eight crude oil slots close to full, and the lines that serve it."
-layout = "side"
 pins = [
   { n = 1, x = 52, y = 25.7, text = "Each kind counts its free slots, and names the cargo a held slot waits for." },
   { n = 2, x = 56, y = 50.6, text = "A slot's bar is green while a line unloads its cargo here, grey when none does, red once it is full." },
