@@ -512,7 +512,7 @@ good = ["Vehicles without a line don't get the button."]
 shot = "LE-18a"
 alt = "The bottom of a ship's window: Send to Line, then the Line Manager button with its tooltip Manage Line, then Reverse and the other vehicle buttons."
 pins = [
-  { n = 1, x = 52, y = 38, text = "The Line Manager button opens the Line Manager on this ship's line." },
+  { n = 1, x = 45.9, y = 64, text = "The Line Manager button opens the Line Manager on this ship's line." },
 ]
 
 # ---------------------------------------------------------------- statistics window
