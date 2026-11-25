@@ -1,0 +1,28 @@
+{
+  "modid": "tuatara_bugfix_crosswalk_queue",
+  "name": "Bug Fix - Crosswalk Queue",
+  "summary": "Bug Fix - Pedestrians stuck at traffic lights: nudges the light so they cross",
+  "description": "Bug Fix - Pedestrians stuck at traffic lights. At a crossing with traffic lights, pedestrians waiting at the kerb can stop counting as waiting for the walk phase. The light keeps serving its car phases and never shows the walk phase, so a crowd builds up and stands there for months; commuters among them never reach work, and nearby industries lose their worker boost. Turning the walk phase's Allow Skipping off doesn't help. Editing the phase in the crossing's window clears it for a while: the crossing is rebuilt, the waiting pedestrians queue again, and the walk phase comes on.\n\nThis mod spots such a crossing (a walker standing at the light for 30 days, far longer than a full light cycle, which a working light never lets happen, while its walk phase hasn't come on for a cycle) and sends the light's own settings to it again, unchanged, as the crossing's window does when you edit it. The crossing is rebuilt, the pedestrians queue again and cross, and the light's settings stay exactly as they were (the game only marks them as edited, as it does when you edit them yourself). A crossing is nudged at most every two weeks, and a crossing that jammed before is watched closely, so a new jam there clears soon after a walker has waited 30 days. Busy crossings where nobody is stuck are left alone (a walk phase skipped because nobody waits for it is normal). It also gets a light moving again that has frozen in one phase. The mod keeps nothing in your save that the game needs later, so it can be removed at any time, for example once the game itself is fixed.\n\nThe fix can be turned off in the mod's Settings (the gear next to the mod when choosing a game's mods). Settings also has a Logging switch, off by default, that writes the mod's messages to the game log (stdout.txt) for bug reports.",
+  "params": [
+    {
+      "key": "crosswalkFix",
+      "name": "Unstick Crosswalks",
+      "tooltip": "When pedestrians wait at a traffic light whose walk phase\nnever comes on, the light is nudged so they cross.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "logging",
+      "name": "Logging",
+      "tooltip": "Writes the mod's messages to the game log (stdout.txt), for bug reports.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "Off"
+    }
+  ]
+}

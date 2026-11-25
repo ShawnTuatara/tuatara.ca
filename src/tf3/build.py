@@ -1,0 +1,682 @@
+"""Build the Transport Fever 3 mods site (tuatara.ca/personal/shawn/gaming/tf3/).
+
+    python src/tf3/build.py            public pages only  -> site/          (committed, deployed)
+    python src/tf3/build.py --drafts   every mod, drafts marked -> build-preview/ (local preview)
+
+Inputs (all in src/tf3/):
+    content/site.toml          landing page, research cards, "find it" windows, install page
+    content/mods/<slug>.toml   one page per mod (texts, figures, pins)
+    mods/<slug>.json           each mod's settings, from sync_mods.py
+    shots/<folder>/<id>.png    screenshot masters (converted to WebP with ffmpeg)
+    assets/                    site.css, annotate.js, fonts
+src/root/ holds the domain's own pages (tuatara.ca/ and its 404), copied as they are.
+
+Python standard library only; ffmpeg must be on PATH for new or changed screenshots.
+"""
+from __future__ import annotations
+
+import argparse
+import datetime
+import html
+import json
+import pathlib
+import re
+import shutil
+import struct
+import subprocess
+import sys
+import tomllib
+
+HERE = pathlib.Path(__file__).resolve().parent
+REPO = HERE.parent.parent
+ROOT_SRC = REPO / "src" / "root"
+CACHE = HERE / ".cache"
+TF3_PATH = "personal/shawn/gaming/tf3"
+SITE_URL = "https://tuatara.ca/"
+TF3_URL = SITE_URL + TF3_PATH + "/"
+
+GROUPS = [
+    ("enhancements", "Enhancements", "One mod per game system, one switch per feature."),
+    ("tools", "Tools", "Windows of their own."),
+    ("bugfixes", "Bug fixes", "Work-arounds for game bugs, each removable once the game is fixed."),
+]
+STATUS = {
+    "live": ("live", "On mod.io"),
+    "soon": ("soon", "Coming soon"),
+    "test": ("test", "In testing"),
+}
+WEBP_QUALITY = "90"
+
+errors: list[str] = []
+warnings: list[str] = []
+
+
+def err(msg: str) -> None:
+    errors.append(msg)
+
+
+def warn(msg: str) -> None:
+    warnings.append(msg)
+
+
+# ---------------------------------------------------------------- text
+
+def esc(s) -> str:
+    return html.escape(str(s), quote=True)
+
+
+def slugify(s: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+
+
+def clean(s: str) -> str:
+    """A settings tooltip as one line (the game wraps them with \\n)."""
+    return re.sub(r"\s*\n\s*", " ", s or "").strip()
+
+
+class Ctx:
+    """The page being written: its path back to the tf3 root, and which mod pages exist."""
+    prefix = ""
+    visible: set[str] = set()
+
+
+INLINE = re.compile(r"`([^`]+)`|\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)")
+
+
+def mod_href(target: str) -> str | None:
+    """`mod:<slug>[#anchor]` -> a relative link, or None when that page isn't built."""
+    slug, _, anchor = target[4:].partition("#")
+    if slug not in Ctx.visible:
+        return None
+    return f"{Ctx.prefix}mods/{slug}/" + (f"#{anchor}" if anchor else "")
+
+
+def md(s: str) -> str:
+    """Inline markup: `code`, **bold**, [text](url); url may be mod:<slug>#anchor or page:<path>."""
+    out, pos = [], 0
+    for m in INLINE.finditer(s):
+        out.append(esc(s[pos:m.start()]))
+        if m.group(1) is not None:
+            out.append(f"<code>{esc(m.group(1))}</code>")
+        elif m.group(2) is not None:
+            out.append(f"<b>{md(m.group(2))}</b>")
+        else:
+            text, url = m.group(3), m.group(4)
+            if url.startswith("mod:"):
+                href = mod_href(url)
+                out.append(f'<a href="{esc(href)}">{md(text)}</a>' if href else md(text))
+            elif url.startswith("page:"):
+                out.append(f'<a href="{esc(Ctx.prefix + url[5:])}">{md(text)}</a>')
+            else:
+                out.append(f'<a href="{esc(url)}">{md(text)}</a>')
+        pos = m.end()
+    out.append(esc(s[pos:]))
+    return "".join(out)
+
+
+def paras(s: str, cls: str = "") -> str:
+    c = f' class="{cls}"' if cls else ""
+    return "".join(f"<p{c}>{md(p.strip())}</p>" for p in re.split(r"\n\s*\n", s or "") if p.strip())
+
+
+def items(lst, ordered=False) -> str:
+    tag = "ol" if ordered else "ul"
+    return f"<{tag}>" + "".join(f"<li>{md(x)}</li>" for x in lst) + f"</{tag}>"
+
+
+# ---------------------------------------------------------------- images
+
+def image_size(path: pathlib.Path) -> tuple[int, int]:
+    b = path.read_bytes()[:40]
+    if b[:8] == b"\x89PNG\r\n\x1a\n":
+        return struct.unpack(">II", b[16:24])
+    if b[:4] == b"RIFF" and b[8:12] == b"WEBP":
+        kind = b[12:16]
+        if kind == b"VP8X":
+            return 1 + int.from_bytes(b[24:27], "little"), 1 + int.from_bytes(b[27:30], "little")
+        if kind == b"VP8 ":
+            return struct.unpack("<H", b[26:28])[0] & 0x3FFF, struct.unpack("<H", b[28:30])[0] & 0x3FFF
+        if kind == b"VP8L":
+            bits = int.from_bytes(b[21:25], "little")
+            return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+    raise ValueError(f"{path}: not a PNG or WebP")
+
+
+class Images:
+    """Screenshot masters in shots/<folder>/; each one used is written once as img/<folder>/<id>.webp."""
+
+    def __init__(self):
+        self.used: dict[str, pathlib.Path] = {}
+
+    def find(self, folder: str, ref: str):
+        if "/" in ref:
+            folder, ref = ref.split("/", 1)
+        stem = ref.rsplit(".", 1)[0] if ref.endswith((".png", ".webp")) else ref
+        for ext in (".png", ".webp"):
+            p = HERE / "shots" / folder / (stem + ext)
+            if p.exists():
+                rel = f"img/{folder}/{stem}.webp"
+                self.used[rel] = p
+                w, h = image_size(p)
+                return {"src": rel, "w": w, "h": h}
+        return None
+
+    def write(self, out_tf3: pathlib.Path) -> None:
+        for rel, master in sorted(self.used.items()):
+            cached = CACHE / rel
+            if not cached.exists() or cached.stat().st_mtime < master.stat().st_mtime:
+                cached.parent.mkdir(parents=True, exist_ok=True)
+                if master.suffix == ".webp":
+                    shutil.copyfile(master, cached)
+                else:
+                    r = subprocess.run(
+                        ["ffmpeg", "-y", "-loglevel", "error", "-i", str(master), "-c:v", "libwebp",
+                         "-quality", WEBP_QUALITY, "-compression_level", "6", str(cached)],
+                        capture_output=True, text=True)
+                    if r.returncode:
+                        err(f"ffmpeg failed on {master}: {r.stderr.strip()}")
+                        continue
+            if cached.stat().st_size > 700_000:
+                warn(f"{rel} is {cached.stat().st_size // 1024} KB")
+            dest = out_tf3 / rel
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(cached, dest)
+
+
+IMAGES = Images()
+
+
+# ---------------------------------------------------------------- figures
+
+def check_ann(where: str, fig: dict) -> None:
+    seen = set()
+    for p in fig.get("pins", []):
+        if not (0 <= p["x"] <= 100 and 0 <= p["y"] <= 100):
+            err(f"{where}: pin {p.get('n')} at {p['x']}, {p['y']} is outside the image")
+        if p.get("n") in seen:
+            err(f"{where}: pin number {p.get('n')} used twice")
+        seen.add(p.get("n"))
+    for b in fig.get("boxes", []):
+        if b["x"] < 0 or b["y"] < 0 or b["x"] + b["w"] > 100.05 or b["y"] + b["h"] > 100.05:
+            err(f"{where}: box {b} is outside the image")
+
+
+def pending(fig: dict) -> str:
+    return (f'<div class="pending"><b>{esc(fig.get("shot", "?"))}</b>'
+            f'{md(fig.get("pending") or fig.get("caption") or "Screenshot to come.")}</div>')
+
+
+def figure(fig: dict, folder: str, drafts: bool, where: str) -> str:
+    img = IMAGES.find(folder, fig["shot"])
+    if not img:
+        if drafts:
+            return pending(fig)
+        err(f"{where}: screenshot {folder}/{fig['shot']} is missing")
+        return ""
+    pins = fig.get("pins", [])
+    pins = [p for p in pins if not p.get("mod") or p["mod"] in Ctx.visible]
+    check_ann(where, fig)
+    boxes = fig.get("boxes", [])
+    frame = ["shot-frame"] + (["dimmed"] if fig.get("dim") and boxes else [])
+    parts = [f'<div class="{" ".join(frame)}">',
+             f'<img src="{esc(Ctx.prefix + img["src"])}" width="{img["w"]}" height="{img["h"]}" '
+             f'alt="{esc(fig.get("alt", ""))}" loading="lazy" decoding="async">']
+    for b in boxes:
+        parts.append(f'<div class="ann-box" style="left:{b["x"]}%;top:{b["y"]}%;width:{b["w"]}%;height:{b["h"]}%"></div>')
+    for p in pins:
+        parts.append(f'<span class="pin" data-n="{p["n"]}" style="left:{p["x"]}%;top:{p["y"]}%" aria-hidden="true">{p["n"]}</span>')
+    parts.append("</div>")
+    if fig.get("caption"):
+        parts.append(f"<figcaption>{md(fig['caption'])}</figcaption>")
+    if pins:
+        parts.append('<ol class="legend">')
+        for p in pins:
+            mod = ""
+            if p.get("mod"):
+                label = p.get("mod_name") or MODS[p["mod"]].name
+                href = mod_href(f"mod:{p['mod']}" + (f"#{p['anchor']}" if p.get("anchor") else ""))
+                mod = f'<span class="mod">{f"<a href={chr(34)}{esc(href)}{chr(34)}>{esc(label)}</a>" if href else esc(label)}</span>'
+            parts.append(f'<li data-n="{p["n"]}"><span class="n">{p["n"]}</span><span>{mod}{md(p["text"])}</span></li>')
+        parts.append("</ol>")
+    cls = "shot" + (" side" if fig.get("layout") == "side" else "")
+    return f'<figure class="{cls}">' + "".join(parts) + "</figure>"
+
+
+def figures(figs: list, folder: str, drafts: bool, where: str) -> str:
+    out = []
+    for i, fig in enumerate(figs):
+        w = f"{where} figure {i + 1}"
+        if "before" in fig:
+            a = figure(fig["before"], folder, drafts, w + " (before)")
+            b = figure(fig["after"], folder, drafts, w + " (after)")
+            cap = f'<p class="pair-caption">{md(fig["caption"])}</p>' if fig.get("caption") else ""
+            out.append(f'<div class="pair"><div><span class="label">{esc(fig.get("before_label", "Game"))}</span>{a}</div>'
+                       f'<div><span class="label">{esc(fig.get("after_label", "With the mod"))}</span>{b}</div></div>{cap}')
+        else:
+            out.append(figure(fig, folder, drafts, w))
+    return "".join(out)
+
+
+# ---------------------------------------------------------------- content
+
+class Feature:
+    def __init__(self, key: str, data: dict, param: dict | None):
+        self.key = key
+        self.data = data
+        self.param = param
+        self.title = data.get("title") or (param or {}).get("name") or key
+        self.anchor = data.get("anchor") or slugify(self.title)
+        self.what = data.get("what") or clean((param or {}).get("tooltip", ""))
+        self.where = data.get("where", [])
+        self.short = data.get("short") or self.what.split(". ")[0].rstrip(".") + "."
+
+
+class Mod:
+    def __init__(self, path: pathlib.Path):
+        self.slug = path.stem
+        self.data = tomllib.loads(path.read_text(encoding="utf-8"))
+        snap_path = HERE / "mods" / f"{self.slug}.json"
+        if not snap_path.exists():
+            err(f"{self.slug}: no settings snapshot; run sync_mods.py")
+            self.snap = {"name": self.slug, "summary": "", "params": []}
+        else:
+            self.snap = json.loads(snap_path.read_text(encoding="utf-8"))
+        d = self.data
+        self.name = d.get("name") or self.snap.get("name") or self.slug
+        self.group = d.get("group", "enhancements")
+        self.order = d.get("order", 99)
+        self.status = d.get("status", "soon")
+        if self.status not in STATUS:
+            err(f"{self.slug}: unknown status {self.status!r}")
+            self.status = "soon"
+        self.publish = bool(d.get("publish"))
+        self.lead = d.get("lead") or self.snap.get("summary", "")
+        self.card = d.get("card") or self.lead
+        self.params = {p["key"]: p for p in self.snap.get("params", [])}
+        keys = d.get("features") or [k for k in self.params if k != "logging"]
+        fdata = d.get("feature", {})
+        for k in fdata:
+            if k not in keys:
+                err(f"{self.slug}: [feature.{k}] isn't in the features list")
+        self.features = []
+        for k in keys:
+            f = fdata.get(k, {})
+            setting = f.get("setting", k)
+            param = self.params.get(setting)
+            if param is None and not f.get("title"):
+                err(f"{self.slug}: feature {k} has no setting {setting!r} and no title")
+            self.features.append(Feature(k, f, param))
+        sections = d.get("section", [])
+        listed = [k for s in sections for k in s.get("features", [])]
+        if sections and sorted(listed) != sorted(keys):
+            err(f"{self.slug}: [[section]] lists {sorted(listed)}, features are {sorted(keys)}")
+        self.sections = sections
+
+    def feature(self, key: str) -> Feature:
+        return next(f for f in self.features if f.key == key)
+
+
+MODS: dict[str, Mod] = {}
+
+
+# ---------------------------------------------------------------- page shell
+
+def badge(status: str) -> str:
+    cls, label = STATUS[status]
+    return f'<span class="badge {cls}">{label}</span>'
+
+
+def page(*, title: str, description: str, crumbs: list, body: str, canonical: str,
+         og_image: str | None = None, current: str = "", draft: bool = False, built: str = "") -> str:
+    p = Ctx.prefix
+    crumb_html = " › ".join(f'<a href="{esc(h)}">{esc(t)}</a>' if h else f"<span>{esc(t)}</span>" for t, h in crumbs)
+    nav = [("Mods", f"{p}#mods", "mods"), ("Find it", f"{p}#where", "where"),
+           ("Research", f"{p}#research", "research"), ("Install", f"{p}install/", "install")]
+    nav_html = "".join(f'<a href="{esc(h)}"{" aria-current=" + chr(34) + "page" + chr(34) if k == current else ""}>{t}</a>'
+                       for t, h, k in nav)
+    og = [f'<meta property="og:title" content="{esc(title)}">',
+          f'<meta property="og:description" content="{esc(description)}">',
+          f'<meta property="og:url" content="{esc(canonical)}">',
+          '<meta property="og:type" content="website">']
+    if og_image:
+        og.append(f'<meta property="og:image" content="{esc(TF3_URL + og_image)}">')
+        og.append('<meta name="twitter:card" content="summary_large_image">')
+    note = '<div class="wrap"><div class="draft-note">Draft: this page is only in the local preview, not on the public site yet.</div></div>' if draft else ""
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(description)}">
+<link rel="canonical" href="{esc(canonical)}">
+{chr(10).join(og)}
+<meta name="theme-color" content="#171b1f">
+<link rel="preload" href="{p}assets/fonts/lato-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{p}assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="{p or './'}"><span class="brand-mark" aria-hidden="true">T</span>tuatara · TF3 mods</a>
+    <nav class="crumbs" aria-label="Breadcrumb">{crumb_html}</nav>
+    <nav class="head-nav" aria-label="Site">{nav_html}</nav>
+  </div>
+</header>
+{note}
+<main id="main">
+{body}
+</main>
+<footer class="site-foot">
+  <div class="wrap"><div>Fan-made mods by tuatara. Not affiliated with or endorsed by Urban Games; Transport Fever is their trademark. Screenshots are from the author's own games. Text set in Lato (SIL Open Font License). No cookies, no tracking.{f" Updated {built}." if built else ""}</div></div>
+</footer>
+<script src="{p}assets/annotate.js" defer></script>
+</body>
+</html>
+"""
+
+
+def write(path: pathlib.Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8", newline="\n")
+
+
+# ---------------------------------------------------------------- landing
+
+def mod_card(m: Mod, drafts: bool) -> str:
+    img = None
+    ref = m.data.get("card_image") or m.data.get("hero")
+    if ref:
+        img = IMAGES.find(m.slug, ref)
+        if not img:
+            (warn if drafts or not m.publish else err)(f"{m.slug}: card image {ref} is missing")
+    img_html = (f'<div class="card-img"><img src="{esc(Ctx.prefix + img["src"])}" alt="" loading="lazy" decoding="async"></div>'
+                if img else "")
+    n = len(m.features)
+    count = f"<span>{n} features</span>" if n > 1 else ""
+    body = (f'<div class="card-body"><h3>{esc(m.name)}</h3><p>{md(m.card)}</p>'
+            f'<div class="card-meta">{badge(m.status)}{count}</div></div>')
+    if m.slug in Ctx.visible:
+        return f'<a class="card" href="mods/{m.slug}/">{img_html}{body}</a>'
+    return f'<div class="card off">{img_html}{body}</div>'
+
+
+def landing(site: dict, mods: list[Mod], drafts: bool, built: str) -> str:
+    Ctx.prefix = ""
+    total_features = sum(len(m.features) for m in mods)
+    hero = site["hero"]
+    facts = (f'<span class="fact"><b>{len(mods)}</b> mods</span>'
+             f'<span class="fact"><b>{total_features}</b> features, each with its own switch</span>'
+             f'<span class="fact">Tested on game build <b>{esc(site["build"])}</b></span>')
+    hero_img = ""
+    if hero.get("shot"):
+        im = IMAGES.find("site", hero["shot"])
+        if im:
+            hero_img = f'<div><img class="hero-shot" src="{esc(im["src"])}" width="{im["w"]}" height="{im["h"]}" alt="{esc(hero.get("alt", ""))}"></div>'
+    body = [f'<section class="hero"><div class="wrap{" hero-grid" if hero_img else ""}"><div>'
+            f'<h1>{esc(hero["title"])}</h1><p class="lead">{md(hero["lead"])}</p><div class="facts">{facts}</div></div>{hero_img}</div></section>',
+            '<div class="wrap">']
+
+    steps = "".join(f'<div class="step"><b>{esc(s["title"])}</b><p>{md(s["text"])}</p></div>' for s in site.get("how", []))
+    body.append(f'<section class="window" id="how"><div class="window-title"><h2>How the mods work</h2>'
+                f'<p>Every mod follows the same rules.</p></div><div class="steps">{steps}</div></section>')
+
+    grid = ['<section class="window" id="mods"><div class="window-title"><h2>The mods</h2></div>']
+    for key, title, sub in GROUPS:
+        group = sorted((m for m in mods if m.group == key), key=lambda m: m.order)
+        if group:
+            grid.append(f'<h3 class="decor">{title}</h3><p class="muted group-sub">{sub}</p>'
+                        f'<div class="cards menu">{"".join(mod_card(m, drafts) for m in group)}</div>')
+    grid.append("</section>")
+    body.append("".join(grid))
+
+    body.append(find_it(site, mods, drafts))
+
+    cards = []
+    for r in site.get("research", []):
+        links = []
+        for l in r.get("links", []):
+            if "mod" in l:
+                href = mod_href(f"mod:{l['mod']}")
+                if href:
+                    links.append(f'<a href="{esc(href)}">{esc(l["label"])}</a>')
+                elif l.get("url"):
+                    links.append(f'<a href="{esc(l["url"])}">{esc(l["label"])}</a>')
+            else:
+                links.append(f'<a href="{esc(l["url"])}">{esc(l["label"])}</a>')
+        cards.append(f'<div class="card"><div class="card-body"><h3>{esc(r["title"])}</h3><p>{md(r["text"])}</p>'
+                     f'<div class="card-links">{" ".join(links)}</div></div></div>')
+    body.append(f'<section class="window" id="research"><div class="window-title"><h2>Research</h2>'
+                f'<p>{md(site.get("research_lead", ""))}</p></div><div class="cards">{"".join(cards)}</div></section>')
+    body.append("</div>")
+    return page(title=site["title"], description=site["description"],
+                crumbs=[("tuatara.ca", "../../../../"), ("personal", "../../../"), ("shawn", "../../"), ("gaming", "../"), ("TF3", None)],
+                body="".join(body), canonical=TF3_URL, og_image=site.get("og_image"), built=built)
+
+
+def find_it(site: dict, mods: list[Mod], drafts: bool) -> str:
+    windows = []
+    for w in site.get("window", []):
+        feats = [(m, f) for m in sorted(mods, key=lambda m: (GROUPS.index(next(g for g in GROUPS if g[0] == m.group)), m.order))
+                 for f in m.features if w["key"] in f.where and m.slug in Ctx.visible]
+        if feats:
+            windows.append((w, feats))
+    if not windows:
+        return ""
+    buttons, panes = [], []
+    for i, (w, feats) in enumerate(windows):
+        n_mods = len({m.slug for m, _ in feats})
+        buttons.append(f'<li><button type="button" data-show="{esc(w["key"])}" aria-pressed="{"true" if i == 0 else "false"}">'
+                       f'{esc(w["name"])} <span>{n_mods} mod{"s" if n_mods > 1 else ""}</span></button></li>')
+        fig = ""
+        if w.get("figure"):
+            f = w["figure"]
+            if any(not p.get("mod") or p["mod"] in Ctx.visible for p in f.get("pins", [])):
+                fig = figure(f, "site", drafts, f"window {w['key']}")
+        rows = "".join(f'<li><a href="mods/{m.slug}/#{f.anchor}"><b>{esc(f.title)}</b></a> '
+                       f'<span class="muted">· {esc(m.name)}</span><br><span class="small">{md(f.short)}</span></li>'
+                       for m, f in feats)
+        panes.append(f'<div data-pane="{esc(w["key"])}"{" hidden" if i else ""}>{fig}<ul class="feature-list">{rows}</ul></div>')
+    return (f'<section class="window" id="where"><div class="window-title"><h2>Find it in the game</h2>'
+            f'<p>Open a window, see what the mods add there.</p></div><div class="where">'
+            f'<ul class="where-list">{"".join(buttons)}</ul><div>{"".join(panes)}</div></div></section>')
+
+
+# ---------------------------------------------------------------- mod page
+
+def feature_section(m: Mod, f: Feature, drafts: bool) -> str:
+    d = f.data
+    figs = figures(d.get("figure", []), m.slug, drafts, f"{m.slug} {f.key}")
+    text = []
+    if d.get("why"):
+        text.append(f"<h3>Why</h3>{paras(d['why'])}")
+    if f.what:
+        text.append(f"<h3>What it does</h3>{paras(f.what)}")
+    if d.get("how"):
+        text.append(f"<h3>How to use</h3>{items(d['how'], ordered=True)}")
+    if d.get("good"):
+        text.append(f"<h3>Good to know</h3>{items(d['good'])}")
+    if d.get("also"):
+        text.append(f"<h3>Also in</h3>{paras(d['also'])}")
+    setting = ""
+    if f.param:
+        default = f.param["default"]
+        setting = f'<span class="setting">Setting: <b>{esc(f.param["name"])}</b> · {esc(default)} by default</span>'
+    wide = d.get("layout") == "wide" or any("before" in fig for fig in d.get("figure", []))
+    text_html = f'<div class="feature-text{" cols" if wide or not figs else ""}">{"".join(text)}</div>'
+    grid = "feature-grid stack" if wide else "feature-grid"
+    inner = f'<div class="{grid}"><div class="feature-figs">{figs}</div>{text_html}</div>' if figs else text_html
+    return (f'<section class="window feature" id="{esc(f.anchor)}"><div class="feature-head"><h2>{esc(f.title)}</h2>{setting}</div>'
+            f"{inner}</section>")
+
+
+def mod_page(m: Mod, drafts: bool, built: str) -> str:
+    Ctx.prefix = "../../"
+    d = m.data
+    hero_html, og = "", None
+    if d.get("hero"):
+        im = IMAGES.find(m.slug, d["hero"])
+        if im:
+            og = im["src"]
+            hero_html = (f'<div><img class="hero-shot zoom" src="{esc(Ctx.prefix + im["src"])}" width="{im["w"]}" height="{im["h"]}" '
+                         f'alt="{esc(d.get("hero_alt", ""))}"></div>')
+        else:
+            (warn if drafts else err)(f"{m.slug}: hero {d['hero']} is missing")
+    facts = [badge(m.status), f'<span class="fact">Version <b>{esc(d.get("version", "?"))}</b></span>',
+             f'<span class="fact">Game build <b>{esc(d.get("build", SITE["build"]))}</b></span>']
+    if len(m.features) > 1:
+        facts.append(f'<span class="fact"><b>{len(m.features)}</b> features</span>')
+    if m.status == "live" and d.get("modio"):
+        button = f'<a class="btn primary" href="{esc(d["modio"])}">Get it on mod.io</a>'
+    else:
+        button = '<span class="btn primary" aria-disabled="true">Coming soon to mod.io</span>'
+    chips = ""
+    if len(m.features) > 1:
+        chips = '<div class="chips">' + "".join(
+            f'<a class="chip" href="#{esc(f.anchor)}">{esc(f.title)}'
+            f'{" <small>" + esc(" · ".join(where_name(w) for w in f.where)) + "</small>" if f.where else ""}</a>'
+            for f in m.features) + "</div>"
+    head = (f'<section class="mod-head"><div class="{"hero-grid" if hero_html else ""}"><div>'
+            f'<div class="badges">{"".join(facts)}</div><h1>{esc(m.name)}</h1>{paras(m.lead, "lead")}'
+            f'<p class="buttons">{button} <a class="btn" href="#settings">Settings</a></p></div>{hero_html}</div>{chips}</section>')
+    if d.get("intro"):
+        head += f'<section class="window intro">{paras(d["intro"])}</section>'
+
+    body = [head]
+    if m.sections:
+        for s in m.sections:
+            body.append(f'<h2 class="section-title" id="{esc(slugify(s["title"]))}">{esc(s["title"])}</h2>')
+            body += [feature_section(m, m.feature(k), drafts) for k in s["features"]]
+    else:
+        body += [feature_section(m, f, drafts) for f in m.features]
+
+    rows = []
+    for p in m.params.values():
+        default = p["default"]
+        cls = "on-off" + (" off" if default == "Off" else "") if default in ("On", "Off") else "value"
+        choices = "" if sorted(p["values"]) == ["Off", "On"] else f' <span class="muted">Choices: {esc(", ".join(p["values"]))}.</span>'
+        rows.append(f'<tr><td>{esc(p["name"])}</td><td><span class="{cls}">{esc(default)}</span></td>'
+                    f'<td>{esc(clean(p["tooltip"]))}{choices}</td></tr>')
+    body.append(f'<section class="window" id="settings"><h2>Settings</h2>'
+                f'<p class="muted">Choosing a save\'s mods: the gear next to {esc(m.name)} → Settings. Each save keeps its own choice. '
+                f'Off turns a feature off completely.</p><div class="table-scroll"><table class="settings">'
+                f'<thead><tr><th>Setting</th><th>Default</th><th>What it does</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div></section>')
+
+    more = []
+    if d.get("compat"):
+        more.append(f'<h3 class="decor">Compatibility</h3>{paras(d["compat"], "muted")}')
+    if d.get("issues"):
+        more.append(f'<h3 class="decor">Known issues</h3><div class="muted">{items(d["issues"])}</div>')
+    changes = d.get("change", [])
+    if changes:
+        first, rest = changes[0], changes[1:]
+        lis = "".join(f"<li><b>{esc(c['version'])}</b>: {md(c['text'])}</li>" for c in rest)
+        more.append(f'<h3 class="decor">Changes</h3><p><b>{esc(first["version"])}</b>: {md(first["text"])}</p>'
+                    + (f'<details class="tf-card"><summary>Earlier versions</summary><div class="tf-card-body"><ul class="muted">{lis}</ul></div></details>' if rest else ""))
+    if more:
+        body.append(f'<section class="window" id="more"><h2>More</h2>{"".join(more)}</section>')
+
+    return page(title=f"{m.name} · Transport Fever 3 mod by tuatara", description=clean(d.get("description") or m.lead),
+                crumbs=[("TF3", "../../"), ("Mods", "../../#mods"), (m.name, None)],
+                body='<div class="wrap">' + "".join(body) + "</div>", canonical=f"{TF3_URL}mods/{m.slug}/",
+                og_image=og, current="mods", draft=drafts and not m.publish, built=built)
+
+
+def where_name(key: str) -> str:
+    for w in SITE.get("window", []):
+        if w["key"] == key:
+            return w.get("short", w["name"])
+    err(f"unknown where tag {key!r}")
+    return key
+
+
+# ---------------------------------------------------------------- other pages
+
+def install_page(site: dict, built: str) -> str:
+    Ctx.prefix = "../"
+    inst = site["install"]
+    secs = "".join(f'<section class="window"><h2>{esc(s["title"])}</h2>{paras(s.get("text", ""))}'
+                   f'{items(s["steps"], ordered=True) if s.get("steps") else ""}{paras(s.get("after", ""), "muted")}</section>'
+                   for s in inst["section"])
+    body = (f'<div class="wrap"><section class="mod-head"><h1>{esc(inst["title"])}</h1>{paras(inst["lead"], "lead")}</section>'
+            f'<div class="prose">{secs}</div></div>')
+    return page(title=f"{inst['title']} · TF3 mods by tuatara", description=inst["lead"],
+                crumbs=[("TF3", "../"), (inst["title"], None)], body=body,
+                canonical=f"{TF3_URL}install/", current="install", built=built)
+
+
+def crumb_page(depth_to_tf3: str, title: str, links: list, canonical: str) -> str:
+    Ctx.prefix = depth_to_tf3
+    lis = "".join(f'<li><a href="{esc(h)}">{esc(t)}</a></li>' for t, h in links)
+    body = f'<div class="wrap"><section class="mod-head"><h1>{esc(title)}</h1></section><section class="window"><ul class="link-list">{lis}</ul></section></div>'
+    return page(title=f"{title} · tuatara.ca", description=f"{title} on tuatara.ca", crumbs=[("tuatara.ca", "/"), (title, None)],
+                body=body, canonical=canonical)
+
+
+# ---------------------------------------------------------------- main
+
+SITE: dict = {}
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Build the TF3 mods site.")
+    ap.add_argument("--drafts", action="store_true", help="build every mod (drafts marked) into build-preview/")
+    ap.add_argument("--out", type=pathlib.Path, help="output folder (default site/, or build-preview/ with --drafts)")
+    args = ap.parse_args()
+    out = args.out or (REPO / ("build-preview" if args.drafts else "site"))
+    built = datetime.date.today().isoformat()
+
+    SITE.update(tomllib.loads((HERE / "content" / "site.toml").read_text(encoding="utf-8")))
+    for path in sorted((HERE / "content" / "mods").glob("*.toml")):
+        MODS[path.stem] = Mod(path)
+    mods = list(MODS.values())
+    Ctx.visible = {m.slug for m in mods if m.publish or args.drafts}
+    for m in mods:
+        if m.publish and m.status == "live" and not m.data.get("modio"):
+            err(f"{m.slug}: live but no modio link")
+        for f in m.features:
+            for w in f.where:
+                where_name(w)
+
+    pages: dict[str, str] = {}
+    IMAGES.find("site", "bg-world")
+    pages["index.html"] = landing(SITE, mods, args.drafts, built)
+    for m in mods:
+        if m.slug in Ctx.visible:
+            pages[f"mods/{m.slug}/index.html"] = mod_page(m, args.drafts, built)
+    pages["install/index.html"] = install_page(SITE, built)
+
+    for w in warnings:
+        print(f"warning: {w}")
+    if errors:
+        for e in errors:
+            print(f"error: {e}", file=sys.stderr)
+        print(f"{len(errors)} error(s); nothing written.", file=sys.stderr)
+        return 1
+
+    if out.exists():
+        shutil.rmtree(out)
+    out.mkdir(parents=True)
+    for f in ROOT_SRC.iterdir():
+        shutil.copyfile(f, out / f.name)
+    tf3 = out / TF3_PATH
+    for rel, text in pages.items():
+        write(tf3 / rel, text)
+    write(out / "personal/index.html", crumb_page("shawn/gaming/tf3/", "personal", [("shawn", "shawn/")], SITE_URL + "personal/"))
+    write(out / "personal/shawn/index.html", crumb_page("gaming/tf3/", "shawn", [("gaming", "gaming/")], SITE_URL + "personal/shawn/"))
+    write(out / "personal/shawn/gaming/index.html",
+          crumb_page("tf3/", "gaming", [("Transport Fever 3 mods", "tf3/")], SITE_URL + "personal/shawn/gaming/"))
+    shutil.copytree(HERE / "assets", tf3 / "assets")
+    IMAGES.write(tf3)
+    if errors:
+        for e in errors:
+            print(f"error: {e}", file=sys.stderr)
+        return 1
+    n_img = len(IMAGES.used)
+    print(f"{out.relative_to(REPO)}: {len(pages)} TF3 pages ({len(Ctx.visible)} mod pages), {n_img} images")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

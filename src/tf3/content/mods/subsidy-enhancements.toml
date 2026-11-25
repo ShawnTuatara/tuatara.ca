@@ -1,0 +1,7 @@
+modid = "tuatara_subsidy_enhancements"
+group = "enhancements"
+order = 8
+status = "soon"
+publish = false
+version = "0.2.3"
+card = "How long an offer stays open, how long a reward runs, rings coloured by phase."

@@ -1,0 +1,7 @@
+modid = "tuatara_statistics_enhancements"
+group = "enhancements"
+order = 4
+status = "soon"
+publish = false
+version = "0.7.10"
+card = "Rank, sort, town cargo, coverage, vehicle and station columns; red problem buttons."

@@ -1,0 +1,38 @@
+{
+  "modid": "tuatara_company_enhancements",
+  "name": "Company Enhancements",
+  "summary": "Population Counter (reached / needed for next rank) and Population Change (last 30 days)",
+  "description": "Population Counter: the bottom of the screen shows how many passengers and how much cargo your company has transported. This mod adds a third counter beside them: the population your company has reached and the population it needs for its next rank, e.g. 48,210 / 52,000. They are the figures the company window shows on a rank's card (\"Reach a Population of ...\"): the highest population of all towns together that your company has seen, which is what earns ranks. When towns have shrunk below that highest figure, a red down arrow shows beside it. The tooltip gives the progress towards the next rank and, with the arrow, today's population and the shortfall. At the highest rank the counter shows the population alone.\n\nPopulation Change: a counter beside it, with a house and arrow icon, shows how much the population of all towns changed over the 30 days before the start of the week, green when it grew (+1,234) and red when it shrank (-1,293). It is updated once a week, on Monday, and stays put in between. An arrow beside it compares it with last week's value: up when larger, down when smaller, = when the same. The tooltip gives the dates and populations, last week's value and the date of the next update. The game keeps no daily population record, so the mod notes the population once a day and keeps the last few weeks in your save; in a save new to the mod the first value comes on the next Monday, and the arrow once 30 days are recorded.\n\nEach counter can be turned off in the mod's Settings (the gear next to the mod when choosing a game's mods). Settings also has a Logging switch, off by default, that writes the mod's messages to the game log (stdout.txt) for bug reports. The mod only reads the game; besides its population record it keeps nothing in your save, and it can be removed at any time.",
+  "params": [
+    {
+      "key": "populationCounter",
+      "name": "Population Counter",
+      "tooltip": "A third counter beside Transported Passengers and Cargo\nat the bottom of the screen: the population the company\nhas reached / the population the next rank needs.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "populationTrend",
+      "name": "Population Change",
+      "tooltip": "A counter beside it: how much the population of all\ntowns changed over 30 days (green up, red down), updated\neach week, with an arrow against last week's value.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "logging",
+      "name": "Logging",
+      "tooltip": "Writes the mod's messages to the game log (stdout.txt), for bug reports.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "Off"
+    }
+  ]
+}

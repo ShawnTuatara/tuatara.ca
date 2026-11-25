@@ -1,0 +1,7 @@
+modid = "tuatara_vehicle_enhancements"
+group = "enhancements"
+order = 7
+status = "soon"
+publish = false
+version = "0.6.5"
+card = "The store's table: running cost, wagon weight and length, figures against the vehicle replaced."

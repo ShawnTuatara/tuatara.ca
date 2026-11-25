@@ -1,0 +1,7 @@
+modid = "tuatara_todo_list"
+group = "tools"
+order = 1
+status = "soon"
+publish = false
+version = "0.7.10"
+card = "A to-do list per save, with tasks linked to towns, industries, lines and more."

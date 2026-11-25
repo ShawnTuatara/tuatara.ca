@@ -1,0 +1,7 @@
+modid = "tuatara_mod_performance_monitor"
+group = "tools"
+order = 2
+status = "soon"
+publish = false
+version = "0.4.1"
+card = "What each mod's UI and game scripts cost, their peaks and the hitches they cause."

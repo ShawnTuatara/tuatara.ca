@@ -1,0 +1,7 @@
+modid = "tuatara_company_enhancements"
+group = "enhancements"
+order = 9
+status = "soon"
+publish = false
+version = "0.3.2"
+card = "Population reached and needed for the next rank, and its change over 30 days."

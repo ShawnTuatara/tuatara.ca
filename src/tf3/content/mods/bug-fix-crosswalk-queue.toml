@@ -1,0 +1,59 @@
+modid = "tuatara_bugfix_crosswalk_queue"
+group = "bugfixes"
+order = 1
+status = "live"
+publish = true
+modio = "https://mod.io/g/transportfever3/m/bug-fix-crosswalk-queue"
+version = "1.1"
+card = "Pedestrians stuck at traffic lights for months: nudges the light so they cross."
+lead = "Pedestrians stuck at traffic lights for months, while the light never shows its walk phase: this mod finds such crossings and nudges the light so they cross."
+description = "Bug Fix - Crosswalk Queue for Transport Fever 3: finds traffic lights whose walk phase never comes on while pedestrians wait, and nudges them so the crowd crosses."
+hero = "BF-CQ-00"
+hero_alt = "The same crossing before and after: a crowd waiting at the kerb, then the crowd crossing."
+compat = "Works with any map and any other mod. Tested on game build 40444, where the game bug is still there."
+
+[feature.crosswalkFix]
+where = ["background"]
+why = """
+At a crossing with traffic lights, pedestrians waiting at the kerb can stop counting as waiting for the walk phase. The light keeps serving its car lanes and never shows the walk phase, so a crowd builds up and stands there for months. Commuters among them never reach work, and nearby industries lose their worker boost.
+
+Turning the walk phase's Allow Skipping off doesn't help. Editing the phase in the crossing's window clears it for a while: the crossing is rebuilt, the pedestrians queue again, and the walk phase comes on.
+"""
+what = """
+The mod spots such a crossing: walkers standing at the light far longer than a full light cycle, which a working light never lets happen, while its walk phase hasn't come on. It then sends the light its own settings again, unchanged, as the crossing's window does when you edit it. The crossing is rebuilt, the pedestrians queue again and cross.
+"""
+how = [
+  "Subscribe and turn the mod on for your save.",
+  "That's all: it watches every crossing with traffic lights by itself.",
+]
+good = [
+  "The light's phases stay exactly as they were. The game only marks them as edited, as it does when you edit them yourself.",
+  "A crossing is nudged at most every two weeks of game time, and one that jammed before is watched closely.",
+  "Busy crossings where nobody is stuck are left alone: a walk phase skipped because nobody waits for it is normal.",
+  "It also gets a light moving again that has frozen in one phase.",
+  "It keeps nothing in your save, so it can be removed at any time, for example once the game itself is fixed.",
+]
+
+[[feature.crosswalkFix.figure]]
+caption = "Abenberg: the same crossing before and after a nudge, with the lane overlay of the game's Crossing window (green lanes may go)."
+[feature.crosswalkFix.figure.before]
+shot = "BF-CQ-01a"
+alt = "A crowd waits at the kerb of a crossing with traffic lights while the car lanes are green."
+pins = [
+  { n = 1, x = 12, y = 62, text = "The crowd at the kerb. Some have waited here for months." },
+  { n = 2, x = 59, y = 31, text = "The crosswalk stays red: the light serves only its car lanes." },
+]
+[feature.crosswalkFix.figure.after]
+shot = "BF-CQ-01b"
+alt = "After the nudge, the crowd walks over the crosswalk."
+pins = [
+  { n = 1, x = 27, y = 13, text = "After the nudge, the crowd crosses." },
+]
+
+[[change]]
+version = "1.1"
+text = "Nudges only crossings where a walker has waited longer than a full light cycle, so busy crossings with nobody stuck are left alone."
+
+[[change]]
+version = "1.0"
+text = "First release."

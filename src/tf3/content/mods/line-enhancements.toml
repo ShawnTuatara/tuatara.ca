@@ -1,0 +1,8 @@
+modid = "tuatara_line_enhancements"
+group = "enhancements"
+order = 1
+status = "soon"
+publish = false
+version = "1.15.7"
+card = "Terminals, deliveries, stop figures, fleet sizing, line timing and line costs."
+card_image = "site/card-line-enhancements.webp"

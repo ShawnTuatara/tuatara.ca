@@ -1,0 +1,33 @@
+modid = "tuatara_bugfix_comfort_bar"
+group = "bugfixes"
+order = 4
+status = "soon"
+publish = false
+version = "0.1"
+card = "A train's Comfort bar no longer counts the locomotive as zero comfort."
+lead = "The vehicle window shows false wear on a locomotive-hauled train's Comfort bar, even on a new train. This mod counts only the parts with seats."
+description = "Bug Fix - Comfort Bar for Transport Fever 3: the vehicle window's Comfort bar no longer counts a train's locomotive as zero comfort."
+
+[feature.comfortBar]
+where = ["vehicle-window"]
+why = """
+Open a passenger train's window and expand its vehicle info under Condition: the Comfort bar of a locomotive-hauled train shows a large red part and a poor rating, even when the train is brand new or in Very Good condition. Red on these bars is meant to show what a vehicle has lost to wear.
+
+The window takes the train's comfort as that of its least comfortable coach, but works out the comfort after wear as an average over every part of the train, the locomotive included, which has no seats and so counts as zero. A locomotive with one coach shows half the coach's comfort, often "Very Poor".
+"""
+what = """
+The mod works out the comfort after wear the same way as the comfort itself: from the least comfortable part that has seats, after its own wear. A train in good condition shows its full comfort with no red part; red appears only for comfort really lost to wear or to a comfort modifier.
+"""
+good = [
+  "Only the display changes: how comfortable passengers find the train is worked out by the game itself and stays as it is.",
+  "Speed, noise, pollution and every other figure stay as the game shows them.",
+  "It saves nothing with your game, so it can be removed at any time.",
+]
+
+[[feature.comfortBar.figure]]
+[feature.comfortBar.figure.before]
+shot = "BF-CB-01-stock"
+pending = "A Very Good locomotive-hauled train's Comfort bar: large red part, \"Very Poor\"."
+[feature.comfortBar.figure.after]
+shot = "BF-CB-01"
+pending = "The same train with the mod: full comfort, no red part."

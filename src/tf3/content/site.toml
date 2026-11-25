@@ -1,0 +1,181 @@
+# Landing page, "find it" windows, research cards and the install page.
+# Text fields take inline markup: `code`, **bold**, [text](url); url may be mod:<slug>#anchor or page:<path>.
+
+title = "Transport Fever 3 mods by tuatara"
+description = "Transport Fever 3 mods by tuatara: what each mod adds, feature by feature, with annotated in-game screenshots."
+build = "40444"
+
+[hero]
+title = "Transport Fever 3 mods"
+lead = "Small, focused additions to the game's own windows: clearer figures, the numbers the game keeps but never shows, and fixes for bugs found along the way."
+
+[[how]]
+title = "One mod per game system"
+text = "Lines, cargo, industries, statistics, warehouses and more. Pick the areas you want."
+
+[[how]]
+title = "One switch per feature"
+text = "Each feature has its own Off / On setting under the mod's gear when you choose a save's mods."
+
+[[how]]
+title = "Built into the game's windows"
+text = "Features show up where the game already shows that information, in its own style."
+
+[[how]]
+title = "Quiet by default"
+text = "A Logging switch, off by default, writes the mod's messages to the game log for bug reports."
+
+research_lead = "Game bugs found while building these mods, measured, reported to Urban Games, and worked around."
+
+[[research]]
+title = "Pedestrians who never cross"
+text = "At signalised crossings in every town of a test map, the walk phase stopped coming on while crowds waited, some for months. Reported with figures from a watch tool, and worked around."
+links = [
+  { label = "Forum report", url = "https://forum.urbangames.com/forum/index.php?thread/4697-bug-traffic-lights-skip-the-pedestrian-phase-while-pedestrians-wait-also-with-al/" },
+  { label = "Crosswalk Queue fix", mod = "bug-fix-crosswalk-queue", url = "https://mod.io/g/transportfever3/m/bug-fix-crosswalk-queue" },
+]
+
+[[research]]
+title = "Passengers who never board"
+text = "Passengers who queue at an overcrowded stop are never picked up afterwards: buses of their line leave with seats free while they keep waiting."
+links = [
+  { label = "Forum report", url = "https://forum.urbangames.com/forum/index.php?thread/4703-bug-passengers-who-queue-at-an-overcrowded-stop-never-board-afterwards-buses-lea/" },
+  { label = "Stuck Passengers watch", mod = "bug-watch-stuck-passengers", url = "https://mod.io/g/transportfever3/m/bug-watch-stuck-passengers" },
+]
+
+[[research]]
+title = "Helicopters frozen on the pad"
+text = "Traced landing by landing: a helicopter that hovers low while waiting for a one-pad helipad sinks onto the deck and never arrives, blocking the pad for every other helicopter."
+links = [
+  { label = "Helicopter Pad Freeze fix", mod = "bug-fix-helicopter-pad-freeze", url = "https://mod.io/g/transportfever3/m/bug-fix-helicopter-pad-freeze" },
+]
+
+[[research]]
+title = "Planes that skip waypoints"
+text = "Where a plane's descent replaces its planned route with a straight-in approach, dropping the waypoints still ahead, and where a last waypoint survives."
+links = [
+  { label = "Descent Zones", mod = "line-enhancements" },
+]
+
+# "Find it in the game": the windows, in the order shown. A feature lists the keys of the windows it shows in
+# (`where`); `short` is the label on a mod page's feature chips. An optional figure shows the window with pins
+# (pins with `mod` disappear while that mod's page isn't built).
+[[window]]
+key = "line-manager"
+name = "Line Manager"
+
+[[window]]
+key = "line-window"
+name = "Line window"
+
+[[window]]
+key = "station-window"
+name = "Station window"
+
+[[window]]
+key = "industry-window"
+name = "Industry window"
+[window.figure]
+shot = "where-industry"
+layout = "side"
+alt = "Industry window of Abenberg Weaving Mill with the Production, To-Do, Boosters, Input Stocks, Output Stocks and Supply Chains cards"
+caption = "An industry window with Industry Enhancements, Cargo Enhancements and To-Do List on."
+pins = [
+  { n = 1, x = 40, y = 13.6, mod = "industry-enhancements", anchor = "recipe-figures", text = "Production: each recipe its own figures; plots and the next growth try." },
+  { n = 2, x = 40, y = 28.1, mod = "todo-list", text = "To-Do card: open tasks about this industry, + for a new one." },
+  { n = 3, x = 29.5, y = 41.9, mod = "industry-enhancements", anchor = "inactive-workers", text = "Boosters: every worker counted, not only those who came by line." },
+  { n = 4, x = 66.4, y = 53.6, mod = "industry-enhancements", anchor = "worker-status", text = "Worker list: what each worker is doing now." },
+  { n = 5, x = 40, y = 69, mod = "cargo-enhancements", text = "Input / Output Stocks, expanded: cargo filter, distance column and slider." },
+  { n = 6, x = 40, y = 89.8, mod = "cargo-enhancements", text = "Supply Chains: opens the supply chain planner." },
+]
+
+[[window]]
+key = "town-window"
+name = "Town window"
+
+[[window]]
+key = "warehouse-window"
+name = "Warehouse window"
+
+[[window]]
+key = "vehicle-window"
+name = "Vehicle window"
+
+[[window]]
+key = "vehicle-store"
+name = "Vehicle store"
+
+[[window]]
+key = "statistics"
+name = "Statistics window"
+short = "statistics"
+
+[[window]]
+key = "subsidies"
+name = "Subsidies"
+
+[[window]]
+key = "game-bar"
+name = "Game bar"
+
+[[window]]
+key = "mod-buttons"
+name = "Buttons beside Data Layers"
+short = "top-left buttons"
+
+[[window]]
+key = "map"
+name = "On the map"
+short = "map"
+
+[[window]]
+key = "build-tools"
+name = "Track and bulldoze tools"
+short = "build tools"
+
+[[window]]
+key = "popups"
+name = "Pop-ups"
+short = "pop-up"
+
+[[window]]
+key = "background"
+name = "In the background"
+short = "background"
+
+[install]
+title = "Installing the mods"
+lead = "The mods come from mod.io through the game's own Mod Hub. Each save picks its own mods and settings."
+
+[[install.section]]
+title = "Get a mod"
+steps = [
+  "In the game's main menu, open the **Mod Hub**.",
+  "Search for the mod by name (or for tuatara) and subscribe. The game downloads it.",
+]
+after = "Mods marked Coming soon aren't on mod.io yet."
+
+[[install.section]]
+title = "Turn it on for a save"
+steps = [
+  "Start a new game, or in Load Game pick a save, and open its **Mods**.",
+  "Switch the mod on. Each save keeps its own list.",
+]
+
+[[install.section]]
+title = "Choose its features"
+text = "Every feature of a mod has its own switch, and most are on by default."
+steps = [
+  "In the same mod list, click the **gear** next to the mod.",
+  "Under **Settings**, set each feature Off or On.",
+]
+after = "Off turns a feature off completely: its buttons and columns are gone and it does no work in the background."
+
+[[install.section]]
+title = "Report a problem"
+steps = [
+  "Turn the mod's **Logging** setting on (it is off by default).",
+  "Play until the problem shows again, then quit the game.",
+  "Find the game log: `Steam\\userdata\\<your Steam id>\\3493540\\local\\crash_dump\\stdout.txt`.",
+  "Describe what happened in the comments on the mod's mod.io page, and mention the log.",
+]

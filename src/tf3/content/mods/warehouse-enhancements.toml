@@ -1,0 +1,8 @@
+modid = "tuatara_warehouse_enhancements"
+group = "enhancements"
+order = 5
+status = "soon"
+publish = false
+version = "0.1.12"
+card = "What each warehouse slot really holds, and which cargo fills up next."
+card_image = "site/card-warehouse-enhancements.webp"

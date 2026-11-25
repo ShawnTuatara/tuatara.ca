@@ -1,0 +1,28 @@
+{
+  "modid": "tuatara_bugfix_stuck_passengers",
+  "name": "Bug Watch - Stuck Passengers",
+  "summary": "Bug Watch - Passengers left behind at stops with free seats: a red icon lists the stops",
+  "description": "Bug Watch - Passengers left behind at overcrowded stops. Passengers who join the queue at a stop while it is over capacity can stop boarding altogether: buses and trains of their line arrive, open their doors and leave with free seats while the same passengers keep waiting, even after the stop is no longer full. They also keep the stop full, so more passengers get stuck. Commuters among them never reach work. Deleting and rebuilding the line frees them for a while, until the stop overflows again.\n\nThis mod watches every vehicle that stops at a terminal and notes who was already waiting there for its line. When a vehicle leaves three or more seats free while someone it could have taken stays behind for the second time, that line stop counts as stuck (a vehicle leaving with a seat or two free is just nearly full at a busy stop). A button beside the Data Layers button at the top left has a people icon that turns red while any line stop has stuck passengers. Its window lists each one: the line, the line's vehicles (a click opens the Line Manager on the line), the stop and the passengers waiting there. A pin beside the line and the stop moves the camera there; a click on the name opens its window. A stop drops off the list once its stuck passengers have boarded or left. It doesn't fix the bug: it shows where it happens, so you can act on it, for example by rebuilding the line or by adding vehicles so the stop doesn't overflow. The mod only reads the game, keeps nothing in your save and can be removed at any time, for example once the game itself is fixed.\n\nThe alert can be turned off in the mod's Settings (the gear next to the mod when choosing a game's mods). Settings also has a Logging switch, off by default, that writes the mod's messages to the game log (stdout.txt) for bug reports.",
+  "params": [
+    {
+      "key": "stuckPassengers",
+      "name": "Stuck Passenger Alert",
+      "tooltip": "A people icon beside Data Layers turns red when vehicles\nleave passengers behind at a stop with 3+ seats free; its\nwindow lists the line, its vehicles, the stop and who waits.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "logging",
+      "name": "Logging",
+      "tooltip": "Writes the mod's messages to the game log (stdout.txt), for bug reports.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "Off"
+    }
+  ]
+}

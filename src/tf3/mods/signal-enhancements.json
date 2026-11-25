@@ -1,0 +1,38 @@
+{
+  "modid": "tuatara_signal_enhancements",
+  "name": "Signal Enhancements",
+  "summary": "Repeat one-way signals at a set spacing; Shift + bulldoze removes a whole stretch of signals.",
+  "description": "Improvements to track signals. Each feature can be turned off in the mod's Settings (the gear next to the mod when choosing a game's mods). Settings also has a Logging switch, off by default, that writes the mod's messages to the game log (stdout.txt) for bug reports.\n\nSignal Spacing: adds a Spacing option to the path signal tool. It appears when One-Way is set to Yes. Pick a distance, place one one-way signal, and the mod adds more one-way signals ahead of it in the direction of travel, one every chosen distance, until the track reaches a switch or crossing, a dead end or a station. Before a switch or station the last signal goes as close in front of it as the game allows, so trains wait close to it. Existing signals on that stretch for the same direction, and two-way signals, are replaced by the new spacing up to the last new signal; signals for the other direction and waypoints stay. Useful for splitting passing loops and long single-direction stretches into blocks. Spacing 'Off' places a single signal, as in the base game.\n\nShift + Bulldoze Signal Stretch: bulldozing a signal with Shift held also removes every other path signal on its stretch of track (out to the next switch, crossing, dead end or station); the track stays. While hovering a signal with the bulldozer and holding Shift, the other signals that would go are highlighted.",
+  "params": [
+    {
+      "key": "spacing",
+      "name": "Signal Spacing",
+      "tooltip": "Spacing option on the path signal tool when One-Way is Yes: repeats the one-way signal ahead, up to the next switch, crossing, station or dead end, replacing same-direction and two-way signals in the way.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "shiftBulldoze",
+      "name": "Shift + Bulldoze Signal Stretch",
+      "tooltip": "Bulldozing a signal with Shift held also removes the other path signals on its stretch of track, highlighted while hovering.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "logging",
+      "name": "Logging",
+      "tooltip": "Writes the mod's messages to the game log (stdout.txt), for bug reports.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "Off"
+    }
+  ]
+}

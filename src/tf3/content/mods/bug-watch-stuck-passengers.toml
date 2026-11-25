@@ -1,0 +1,58 @@
+modid = "tuatara_bugfix_stuck_passengers"
+group = "bugfixes"
+order = 3
+status = "live"
+publish = true
+modio = "https://mod.io/g/transportfever3/m/bug-watch-stuck-passengers"
+version = "1.0"
+card = "Passengers left behind with seats free: a red icon lists the stops."
+lead = "Passengers who queue at an overcrowded stop can stop boarding altogether. This mod watches every departure and lists the stops where it happens."
+description = "Bug Watch - Stuck Passengers for Transport Fever 3: finds stops where vehicles leave with free seats while the same passengers keep waiting, and lists them."
+hero = "BW-SP-00"
+hero_alt = "A crowd waiting at a bus stop, the mod's window listing the stop, and its red icon."
+compat = "Works with any map and any other mod. Tested on game build 40444, where the game bug is still there."
+
+[feature.stuckPassengers]
+where = ["mod-buttons"]
+why = """
+Passengers who join the queue at a stop while it is over capacity can stop boarding altogether: buses and trains of their line arrive, open their doors and leave with free seats while the same passengers keep waiting, even after the stop is no longer full. They also keep the stop full, so more passengers get stuck. Commuters among them never reach work. Deleting and rebuilding the line frees them for a while, until the stop overflows again.
+"""
+what = """
+The mod watches every vehicle that stops at a terminal and notes who was already waiting there for its line. When a vehicle leaves three or more seats free while someone it could have taken stays behind for the second time, that line stop counts as stuck. A vehicle leaving with a seat or two free is just nearly full at a busy stop.
+
+It doesn't fix the bug: it shows where it happens, so you can act on it, for example by rebuilding the line or by adding vehicles so the stop doesn't overflow.
+"""
+how = [
+  "Watch the people icon beside the Data Layers button at the top left: it turns red while any line stop has stuck passengers.",
+  "Click it for the list. A pin moves the camera to the line or stop; a click on a name opens its window.",
+  "Click a line's vehicles to open the Line Manager on that line.",
+]
+good = [
+  "A stop drops off the list once its stuck passengers have boarded or left.",
+  "It only reads the game, keeps nothing in your save and can be removed at any time, for example once the game itself is fixed.",
+]
+
+[[feature.stuckPassengers.figure]]
+shot = "BW-SP-01b"
+alt = "The buttons beside Data Layers, the last one a red people icon."
+caption = "The mod's button, last in the row beside Data Layers."
+boxes = [ { x = 52.5, y = 13, w = 8.8, h = 46 } ]
+pins = [
+  { n = 1, x = 65, y = 37, text = "Red while any line stop has stuck passengers; grey otherwise." },
+]
+
+[[feature.stuckPassengers.figure]]
+shot = "BW-SP-01a"
+alt = "The Stuck Passengers window: one row, line Altensteig Workers - Crop Farm, stop Heideweg, 7 waiting."
+caption = "Its window: one line stop with stuck passengers, found among 428 departures."
+pins = [
+  { n = 1, x = 49.5, y = 42, text = "How many line stops have stuck passengers, and how many departures were watched." },
+  { n = 2, x = 35.5, y = 77, text = "The line. The pin moves the camera; a click on the name opens the line." },
+  { n = 3, x = 47, y = 77, text = "The line's vehicles: a click opens the Line Manager on the line." },
+  { n = 4, x = 73, y = 77, text = "The stop where they are stuck." },
+  { n = 5, x = 92, y = 77, text = "Passengers waiting there." },
+]
+
+[[change]]
+version = "1.0"
+text = "First release."

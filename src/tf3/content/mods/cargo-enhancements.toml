@@ -1,0 +1,8 @@
+modid = "tuatara_cargo_enhancements"
+group = "enhancements"
+order = 2
+status = "soon"
+publish = false
+version = "0.28.3"
+card = "Cargo flow filters for industries, towns and warehouses, and a supply chain planner."
+card_image = "site/card-cargo-enhancements.webp"

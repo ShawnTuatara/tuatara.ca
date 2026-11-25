@@ -1,0 +1,7 @@
+modid = "tuatara_better_minimap_stutter_fix"
+group = "tools"
+order = 3
+status = "soon"
+publish = false
+version = "0.1.2"
+card = "Stops Better Minimap's 2-second stutter on large maps."

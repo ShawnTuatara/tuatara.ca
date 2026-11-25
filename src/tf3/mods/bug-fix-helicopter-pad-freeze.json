@@ -1,0 +1,38 @@
+{
+  "modid": "tuatara_bugfix_heli_pad_freeze",
+  "name": "Bug Fix - Helicopter Pad Freeze",
+  "summary": "Bug Fix - Helicopters freeze on oil platform helipad: frees stuck helicopters, with a pop-up",
+  "description": "Bug Fix - Helicopters freeze on oil platform helipad. A helicopter that has to wait for a busy one-pad helipad (an oil platform's, for example) hovers near it, and when it finally comes in from that hover it can settle on the pad without ever arriving. It stays en route, never unloads or boards, and blocks the pad, so every helicopter bound for that platform circles forever. It happens most on short hops between platforms, where helicopters fly low.\n\nThis mod spots a frozen helicopter within seconds and does what the Reverse ('previous station') button does by hand: it reverses the helicopter off the pad and, once it is clear, reverses it again until it heads back for the same stop, so it comes in again at speed and lands normally. If it freezes on the same pad again, it is sent on to the next stop instead. A small pop-up at the top of the screen tells you each time a helicopter was freed; click it to jump to the helicopter. The mod keeps nothing in your save that the game needs later, so it can be removed at any time, for example once the game itself is fixed.\n\nBoth can be turned off in the mod's Settings (the gear next to the mod when choosing a game's mods). Settings also has a Logging switch, off by default, that writes the mod's messages to the game log (stdout.txt) for bug reports.",
+  "params": [
+    {
+      "key": "goAround",
+      "name": "Free Frozen Helicopters",
+      "tooltip": "A helicopter frozen on a helipad is reversed off the pad and sent back to land again.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "notification",
+      "name": "Notification",
+      "tooltip": "A pop-up each time a frozen helicopter is freed.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "logging",
+      "name": "Logging",
+      "tooltip": "Writes the mod's messages to the game log (stdout.txt), for bug reports.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "Off"
+    }
+  ]
+}

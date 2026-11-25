@@ -1,0 +1,7 @@
+modid = "tuatara_signal_enhancements"
+group = "enhancements"
+order = 6
+status = "soon"
+publish = false
+version = "0.12.2"
+card = "Repeat one-way signals at a set spacing; Shift + bulldoze removes a whole stretch."

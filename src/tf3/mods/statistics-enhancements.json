@@ -1,0 +1,108 @@
+{
+  "modid": "tuatara_statistics_enhancements",
+  "name": "Statistics Enhancements",
+  "summary": "Statistics: rank, sort, town cargo, coverage, vehicle and station columns; red problem buttons",
+  "description": "Improvements to the statistics window's tables (Lines, Vehicles, Stations, Warehouses, Depots, Towns, Industries) and the buttons that open them. Each feature can be turned off in the mod's Settings (the gear next to the mod when choosing a game's mods). Settings also has a Logging switch, off by default, that writes the mod's messages to the game log (stdout.txt) for bug reports.\n\nRank Column: every table starts with a Rank column showing each row's place in the current order, so you can see where a town or line stands and count rows at a glance. Rows with equal values share a place (1, 2, 2, 4). Only the rows the filters and the search leave are counted. With no column sorted, the rows are numbered as listed.\n\nSort Largest First: the first click on a column header sorts largest first (most population, most cargo, highest balance), instead of smallest first. Names and other text columns still sort A to Z first, and the Towns tab's rating gauges (reputation, traffic, happiness, delivery, noise, pollution) sort worst first, so the towns with a problem come to the top. Click the header again for the other order.\n\nScroll to Top on Sort: whenever you sort a table, it jumps back to its first row.\n\nTown Cargo Columns: the Towns tab shows one figure each for Supply, Demand and Coverage, summed over all cargos, and the cargos as a row of icons, so you can't tell which cargo a town lacks. With this mod the four columns become two. Demand shows each cargo the town wants with its amount, largest first. Supply shows each cargo your lines supply with its amount, coloured by the share of its demand met as the town window rates supplies: green from 67%, yellow from 33%, red below. Hover a figure for the cargo's supply of its demand and the exact share in each district (residential, commercial, industrial), and for the whole town when more than one district wants it. Demand sorts by the town's total demand, Supply by the share of all demand met, as the game's Coverage column did. The Name, Population, Public Transport and Private Transport columns are narrower to make room.\n\nPublic Transport Coverage: the Towns tab's Public Transport figure keeps the game's number but is coloured by the town's public transport coverage, the passenger row of the town window's Supplies tab: green from 67%, yellow from 33%, red below, as the town window colours it. Hover the figure for the coverage as the town window gives it (\"Public transport coverage is 59%.\" and \"668/1,127\"). The number itself is a different figure, the game's public transport reachability of commercial and industrial places, so it doesn't match the town window's passenger supply.\n\nTown Cargo Filter: the Towns tab gets a cargo list next to the eye. Pick a cargo to see only the towns that demand it; All Cargo shows them all again. It works together with the eye and the search, and keeps your choice until you quit the game.\n\nVehicle Columns: the Vehicles tab shows Line before Vehicle, with the room the vehicle picture doesn't need, and narrower Cargo, Load, Capacity, Utilization and Satisfaction columns. Before Balance come Income and Running Costs from the vehicle window's Balance card, over the same last 12 months, so Income minus Running Costs is the Balance. The last column is the vehicle's running cost a year at today's rate, as shown at the foot of the vehicle window. Condition is coloured like the vehicle window's condition bar: green, yellow or red.\n\nStation Columns: the Stations tab shows each station terminal by terminal. A Terminals column with the terminal count comes first, then Type with the kinds of terminals and their count (a person icon for passenger terminals, a half-person, half-cargo icon for terminals taking both, a cargo icon for any cargo, and each cargo class as a pill in its own colour with the count inside, like the station window: Goods x2, Bulk x1), then Lines with how many of your lines stop at each terminal. After Utilization, a column shows the waiting hall and then each terminal's waiting passengers and capacity, so it adds up to Utilization, an overcrowded terminal in the station window's warning colour, and Delay shows each terminal's unhappy passengers. Every terminal's figure has a slot of the same width, packed to the right, so the figures keep one spacing and line up from station to station; as many terminals show as the column has room for, the rest are listed on hover. Both sort by the most at any one terminal, so a station with 60 waiting at one terminal comes before one with 30 at each of two. Name and Town are narrower, with the full name on hover when it is cut. With Line Enhancements, its Assign Lines button stays at the right of the Lines column.\n\nProblem Buttons: the statistics buttons in the game bar turn red while their table has something to look at, so you see at a glance where to check. Every table with a Problems column counts the elements with a problem notification, as that column shows them. The Vehicles button also counts vehicles in very bad condition, the Depots button depots and maintenance buildings whose maintenance pool is full while vehicles in their maintenance area are maintained nowhere and wear down (the tooltip says how many, and how many vehicles the pool served in the last 30 days), the Stations button stations where passengers pile up: a terminal the station window marks as overcrowded, more passengers waiting for a line at a stop than all of that line's vehicles seat together, so the line needs more vehicles, or at least 10 unhappy passengers who make up 30% of those waiting (the Delay column), each once it has lasted while the game runs (the tooltip gives the figures and the worst line, with the button's hotkey kept beside its title), the Warehouses button warehouses where a cargo fills 85% of the room it has (its slots and the empty slots that take it), so there is time to act before it is full, and the Industries button industries blocked from further expansion (the industry window's \"Industry is blocked from further expansion.\"), which the game shows nowhere else. Hover a red button to see what it found and where, up to three names per kind. The checks run in small slices a few times a minute, so they cost next to nothing; a button follows a change within a few seconds, a blocked industry within about half a minute.",
+  "params": [
+    {
+      "key": "rankColumn",
+      "name": "Rank Column",
+      "tooltip": "A Rank column first in every statistics table: each row's place in the current order.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "largestFirst",
+      "name": "Sort Largest First",
+      "tooltip": "The first click on a statistics column header sorts largest first; names still sort A to Z first, the Towns tab's rating gauges worst first.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "scrollToTop",
+      "name": "Scroll to Top on Sort",
+      "tooltip": "Sorting a statistics table shows it from its first row.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "townCargoColumns",
+      "name": "Town Cargo Columns",
+      "tooltip": "The statistics Towns tab shows Demand and Supply per cargo: each cargo's demand, and each supplied cargo's amount, coloured by the share of its demand met.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "townCargoFilter",
+      "name": "Town Cargo Filter",
+      "tooltip": "The statistics Towns tab gets a cargo list next to the eye: it shows only the towns that demand the chosen cargo.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "publicTransportCoverage",
+      "name": "Public Transport Coverage",
+      "tooltip": "The statistics Towns tab colours each town's Public Transport figure by its public transport coverage (the town window's passenger supply): green from 67%, yellow from 33%, red below.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "vehicleColumns",
+      "name": "Vehicle Columns",
+      "tooltip": "The statistics Vehicles tab shows Line before Vehicle, narrower cargo columns, Income and Running Costs before Balance, each vehicle's running cost a year last, and Condition in its condition colour.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "stationColumns",
+      "name": "Station Columns",
+      "tooltip": "The statistics Stations tab shows each station terminal by terminal: the terminal count, Type as kinds with counts (icons for passenger, mixed and any-cargo terminals), lines per terminal, waiting / capacity per terminal after Utilization, unhappy per terminal in Delay, and narrower names with the full name on hover.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "problemButtons",
+      "name": "Problem Buttons",
+      "tooltip": "The game bar's statistics buttons turn red while their table has a problem: a problem notification, a vehicle in very bad condition, a full maintenance pool while vehicles in its maintenance area go unmaintained and wear down, an overcrowded station, more passengers waiting for a line than all its vehicles seat, or many unhappy passengers at a station, a warehouse cargo at 85% of the room it has, or an industry blocked from expanding. The button's tooltip names them.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "On"
+    },
+    {
+      "key": "logging",
+      "name": "Logging",
+      "tooltip": "Writes the mod's messages to the game log (stdout.txt), for bug reports.",
+      "values": [
+        "Off",
+        "On"
+      ],
+      "default": "Off"
+    }
+  ]
+}

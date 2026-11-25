@@ -1,0 +1,90 @@
+modid = "tuatara_industry_enhancements"
+group = "enhancements"
+order = 3
+status = "soon"
+publish = false
+version = "0.7.11"
+card = "Correct recipe figures, the workers the boost ignores, worker status, plot growth, comparison columns."
+card_image = "site/card-industry-enhancements"
+lead = "Corrects the figures of industries with more than one recipe, shows which workers don't count for the worker boost and what each one is doing, when raw producers next try to grow, and gives the statistics Industries tab columns for comparing industries."
+compat = "Works alongside Cargo Enhancements and To-Do List, whose cards share the industry window."
+
+[[section]]
+title = "Industry window"
+features = ["recipeFigures", "plotGrowth", "inactiveWorkers", "workerStatus"]
+
+[[section]]
+title = "Statistics window"
+features = ["industryColumns", "statisticsTotals", "blockedExpansion", "cargoFilter"]
+
+[feature.recipeFigures]
+where = ["industry-window"]
+why = "An industry with more than one recipe, such as the canning factory (fish or meat), shows the first recipe's figures again on later rows."
+[[feature.recipeFigures.figure]]
+[feature.recipeFigures.figure.before]
+shot = "IE-01-stock"
+pending = "Canning factory Production card: the meat row repeats the fish row's figures."
+[feature.recipeFigures.figure.after]
+shot = "IE-01"
+pending = "Same card: each recipe row shows its own cargos' figures."
+
+[feature.plotGrowth]
+where = ["industry-window"]
+why = "A mine, farm or forest grows one plot at a time. The game tries every half year, with a chance from how well it produces and how much your lines ship, and shows none of it."
+good = ["No chance at 25 % shipped or less, sure from 75 %.", "Hover the line for the chance and what it is made of."]
+[[feature.plotGrowth.figure]]
+shot = "IE-02"
+pending = "Raw producer's Production card: plots built of the most it may have (15/20) and the next try (43 days), green / yellow / grey."
+
+[feature.inactiveWorkers]
+where = ["industry-window", "statistics"]
+why = "The worker boost counts only workers who arrived by your lines in the last 2 years. Those who walk, drive or stopped coming by line appear nowhere."
+how = ["Open an industry with workplaces.", "Read the Boosters card's count; expand it for the list."]
+also = "The statistics Industries tab's Workplaces column shows the same count."
+[[feature.inactiveWorkers.figure]]
+shot = "IE-03"
+alt = "Abenberg Weaving Mill's Boosters card: worker count 0 (20)/10 and a list of workers at 0 percent"
+caption = "Abenberg Weaving Mill: twenty people work here, but none came by line, so the boost is off. The game alone shows 0/10 and an empty list. (Earlier build; with Worker Status on, the list shows its columns.)"
+dim = true
+boxes = [ { x = 3.9, y = 9.1, w = 86.3, h = 22 }, { x = 4.3, y = 36.5, w = 85.5, h = 60.8 } ]
+pins = [
+  { n = 1, x = 29.5, y = 19.9, text = "0 (20)/10: none came by line (they count for the boost), 20 more work here, 10 are needed." },
+  { n = 2, x = 54.3, y = 41.6, text = "Each row: how the worker gets to work (walking, car or lines) and a button to their home." },
+  { n = 3, x = 66.4, y = 56.4, text = "Workers who don't count for the boost are listed too, at 0 %." },
+]
+
+[feature.workerStatus]
+where = ["industry-window"]
+why = "The list says who works here, not what they are doing: stuck at a stop for months, walking, or already at work."
+[[feature.workerStatus.figure]]
+shot = "IE-04a"
+pending = "Worker list with Now, To, For, Home, Left columns; tooltip on Now with the line, the stop and where they get off."
+
+[feature.industryColumns]
+where = ["statistics"]
+why = "Comparing industries means opening them one by one."
+good = ["Input is about Recipe In × Workload × (1 + boost). Boosts on now show in green."]
+[[feature.industryColumns.figure]]
+[feature.industryColumns.figure.before]
+shot = "IE-05-stock"
+pending = "Statistics Industries tab."
+[feature.industryColumns.figure.after]
+shot = "IE-05"
+pending = "Plots, Recipe In / Out, Workload with boosts, per-cargo chips, Boosters, Workplaces."
+
+[feature.statisticsTotals]
+where = ["statistics"]
+why = "The game counts a cargo once per recipe that uses it and takes later recipes' figures from the first."
+
+[feature.blockedExpansion]
+where = ["statistics"]
+why = "Only the industry's own window says it can't grow. The mark makes blocked industries easy to find and sort together."
+[[feature.blockedExpansion.figure]]
+shot = "IE-07"
+pending = "Problems column mark on a blocked industry, and its window's \"Industry is blocked from further expansion.\""
+
+[feature.cargoFilter]
+where = ["statistics"]
+[[feature.cargoFilter.figure]]
+shot = "IE-08"
+pending = "The cargo list beside the eye, open, and the rows it leaves."
