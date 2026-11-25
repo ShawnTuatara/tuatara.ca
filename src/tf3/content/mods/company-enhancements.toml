@@ -2,6 +2,74 @@ modid = "tuatara_company_enhancements"
 group = "enhancements"
 order = 9
 status = "soon"
-publish = false
+publish = true
 version = "0.3.2"
 card = "Population reached and needed for the next rank, and its change over 30 days."
+lead = "Your company's ranks are earned by population, but the game bar never shows how close you are to the next one, or whether your towns are growing. This mod adds two counters beside Transported Passengers and Cargo: the population reached against the next rank's, and how much it changed over the last 30 days."
+description = "Company Enhancements for Transport Fever 3: counters at the bottom of the screen for the population your company has reached, the population its next rank needs, and the population's change over 30 days."
+compat = "Works with any map and any other mod. Both counters only read the game; the change counter keeps a short population record in your save."
+
+[feature.populationCounter]
+where = ["game-bar"]
+why = """
+Ranks are earned by population: the highest population all your towns together have reached. The company window shows it on each rank's card and the Company button gives a share of progress, but nothing on screen shows the figures while you play, or that your towns have started to shrink.
+"""
+what = """
+A third counter beside Transported Passengers and Cargo at the bottom of the screen: the population your company has reached and the population its next rank needs, for example 48,210 / 52,000. They are the figures of the company window's rank card. When your towns have shrunk below the highest population reached, a red down arrow shows beside it.
+"""
+good = [
+  "The reached figure never drops: it is the highest population seen, which is what the game counts for ranks. Today's population is in the tooltip while the red arrow shows.",
+  "The tooltip gives the progress towards the next rank, as the Company button does.",
+  "At the highest rank the counter shows the population alone.",
+  "Hidden in the map editor and wherever the company has no ranks to earn, as the game's own Company button is.",
+]
+
+[[feature.populationCounter.figure]]
+shot = "CO-01a"
+alt = "The Population Counter: a population icon, 22,579, a small red down arrow, then / 26,763; at the right the Population Change icon alone."
+caption = "A world whose towns have shrunk a little since their highest population."
+pins = [
+  { n = 1, x = 22.5, y = 14, text = "22,579: the highest population all your towns together have reached. This is what earns ranks." },
+  { n = 2, x = 35.3, y = 14, text = "The red arrow: your towns have shrunk below that figure since." },
+  { n = 3, x = 64, y = 62, text = "26,763: the population your next rank needs." },
+  { n = 4, x = 92.5, y = 62, text = "Population Change shows its icon alone until its first weekly value." },
+]
+
+[[feature.populationCounter.figure]]
+shot = "CO-01b"
+alt = "The counter's tooltip: Reach a Population of 26,763. 24% of progress towards Director. Population now: 22,570 (-9)."
+caption = "Its tooltip, in the same world."
+pins = [
+  { n = 1, x = 60, y = 33, text = "The population the next rank needs, as on the rank's card in the company window." },
+  { n = 2, x = 68, y = 58, text = "How far you are towards the next rank, as the Company button shows it." },
+  { n = 3, x = 58, y = 82, text = "Today's population and how far it is below the highest reached; shown only while the red arrow is." },
+]
+
+[feature.populationTrend]
+where = ["game-bar"]
+why = """
+The game keeps no daily record of its population, so there is no way to tell whether your towns are growing faster or slower than a few weeks ago, or have started to shrink.
+"""
+what = """
+A counter beside the Population Counter, with a house and arrow icon: how much the population of all towns changed over the 30 days before the start of the week, green when it grew (+1,234) and red when it shrank (-1,293). An arrow beside it compares it with last week's value: up when larger, down when smaller, = when the same.
+"""
+good = [
+  "It is updated once a week, on Monday, and stays put in between.",
+  "The tooltip gives the dates and populations, last week's value and the date of the next update.",
+  "The mod notes the population once a day and keeps the last few weeks in your save. In a save new to the mod the first value comes on the next Monday, over the days recorded so far, and the arrow once 30 days are recorded.",
+  "That record is all the mod keeps in your save, and the mod can be removed at any time.",
+]
+
+[[feature.populationTrend.figure]]
+shot = "site/GEN-03c"
+alt = "The Population Change counter at +23 with its tooltip: Population change over the 30 days to Jul 8, 1996; Jun 8, 1996: 36,661; Jul 8, 1996: 36,684; Last week: +19; Next update: Jul 15, 1996."
+caption = "A growing world: its towns gained 23 people over the 30 days to Monday, Jul 8, a few more than in last week's value. The arrow beside the figure is under the tooltip here."
+dim = true
+boxes = [ { x = 39, y = 66, w = 46, h = 34 } ]
+pins = [
+  { n = 1, x = 46.6, y = 87.5, text = "+23: the population's change over 30 days, green as it grew." },
+  { n = 2, x = 86, y = 71.5, text = "The 30 days end at the start of this week, a Monday." },
+  { n = 3, x = 70, y = 81, text = "The population on both dates." },
+  { n = 4, x = 61, y = 89.3, text = "Last week's value, which the arrow compares with." },
+  { n = 5, x = 72.5, y = 96.3, text = "When the figure changes next." },
+]

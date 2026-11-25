@@ -597,7 +597,8 @@ def install_page(site: dict, built: str) -> str:
     Ctx.prefix = "../"
     inst = site["install"]
     secs = "".join(f'<section class="window"><h2>{esc(s["title"])}</h2>{paras(s.get("text", ""))}'
-                   f'{items(s["steps"], ordered=True) if s.get("steps") else ""}{paras(s.get("after", ""), "muted")}</section>'
+                   f'{items(s["steps"], ordered=True) if s.get("steps") else ""}{paras(s.get("after", ""), "muted")}'
+                   f'{figure(s["figure"], "site", False, "install " + s["title"]) if s.get("figure") else ""}</section>'
                    for s in inst["section"])
     body = (f'<div class="wrap"><section class="mod-head"><h1>{esc(inst["title"])}</h1>{paras(inst["lead"], "lead")}</section>'
             f'<div class="prose">{secs}</div></div>')
@@ -674,7 +675,7 @@ def main() -> int:
             print(f"error: {e}", file=sys.stderr)
         return 1
     n_img = len(IMAGES.used)
-    print(f"{out.relative_to(REPO)}: {len(pages)} TF3 pages ({len(Ctx.visible)} mod pages), {n_img} images")
+    print(f"{out.relative_to(REPO) if out.is_relative_to(REPO) else out}: {len(pages)} TF3 pages ({len(Ctx.visible)} mod pages), {n_img} images")
     return 0
 
 

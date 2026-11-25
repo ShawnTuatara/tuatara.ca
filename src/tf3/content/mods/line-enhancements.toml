@@ -2,7 +2,576 @@ modid = "tuatara_line_enhancements"
 group = "enhancements"
 order = 1
 status = "soon"
-publish = false
+publish = true
 version = "1.15.7"
 card = "Terminals, deliveries, stop figures, fleet sizing, line timing and line costs."
 card_image = "site/card-line-enhancements.webp"
+lead = "The game tells you little about how a line is doing: who waits at which stop, whether it has enough vehicles, what slows it down, and what it costs once upkeep is counted. Line Enhancements puts those figures in the Line Manager, the line window and the statistics window, and adds tools to set terminals, spread deliveries and see where cargo is wanted."
+description = "Line Enhancements for Transport Fever 3: assign lines to terminals, spread deliveries over stops, see who waits for each line, vehicle loads, how many vehicles a line needs, what slows it, what it costs with all upkeep, where its cargo is wanted and where planes skip waypoints."
+hero = "site/hero-cargo-demand"
+hero_alt = "The Line Manager beside a town with a meat delivery line selected: blue pins on the buildings one stop reaches, red question marks on buildings no stop reaches, and a stored / capacity chip over a district."
+intro = """
+Every feature has its own Off / On switch in the mod's Settings (the gear next to the mod when you choose a game's mods), all On to start with.
+
+The game keeps no history per vehicle or stop, so the mod records departures, loads, arrivals and delays while the game runs and keeps them in your save. Figures appear after the vehicles' next departures and grow more reliable over a game year. Removing the mod leaves an unused table in the save.
+"""
+compat = "Works alongside [Statistics Enhancements](mod:statistics-enhancements), whose Rank and Station columns share the statistics window, and [To-Do List](mod:todo-list), whose card shares the line window. It also runs beside square's Line Manager Plus, whose vehicle details gave the idea for the details on a vehicle's picture."
+
+[[section]]
+title = "Station window"
+features = ["assignLines"]
+
+[[section]]
+title = "Line Manager: stops and loading"
+features = ["distributeDelivery", "stopWaiting", "passengerToggle", "cargoRemoval"]
+
+[[section]]
+title = "Line Manager: vehicles"
+features = ["vehicleStatus", "vehiclesNeeded", "selectedCount", "sendToLineFilter"]
+
+[[section]]
+title = "Line Manager: names and filters"
+features = ["destinationNames", "lineTypeFilter"]
+
+[[section]]
+title = "Line Manager: on the map"
+features = ["districtColors", "lineCatchment", "cargoDemand", "descentZones"]
+
+[[section]]
+title = "Line window and vehicle window"
+features = ["costCards", "lineTiming", "vehicleManageLine"]
+
+[[section]]
+title = "Statistics window"
+features = ["costViews"]
+
+# ---------------------------------------------------------------- station window
+
+[feature.assignLines]
+where = ["station-window", "statistics"]
+why = "The game sets terminals one line and one stop at a time, in the Line Manager's stop popover. To see which lines use which terminal of a busy station, you open each line in turn."
+what = "An Assign Lines button next to Configure in the station window opens a window with the station's terminals and the lines that stop there. Drag a line to another terminal to make it the preferred one, or add terminals as alternatives. A grid view shows every line against every terminal."
+how = [
+  "Open a station's window and click **Assign Lines** at the bottom.",
+  "List view: drag a line by its grip onto another terminal to make it preferred, or drag the handle at the right of its row to add that terminal as an alternative.",
+  "Grid view (the button at the top right): left-click a cell to make that terminal preferred, right-click to add or remove it as an alternative.",
+]
+good = [
+  "Alternatives are listed greyed under a separator; the ✕ stops the line using that terminal.",
+  "Colours show how a terminal suits a line: green made for its cargo, yellow made for other cargo (usable, unloads slower), red the line's trains can't reach it over the track.",
+  "Passenger lines can't use cargo-only terminals, and the other way round.",
+  "A change is the same as setting it in the Line Manager's stop popover. Click a line's name to open its line window.",
+]
+also = "The statistics window's Stations tab gets an Assign Lines button at the right of each Lines cell."
+
+[[feature.assignLines.figure]]
+shot = "LE-01"
+alt = "Loughton Station's window: four terminals with their lines, and the Configure and Assign Lines buttons at the bottom."
+caption = "A station with a passenger terminal, two bulk terminals and a goods terminal."
+layout = "side"
+pins = [
+  { n = 1, x = 55, y = 96.3, text = "Assign Lines, next to the game's Configure button." },
+]
+
+[[feature.assignLines.figure]]
+shot = "LE-02b"
+alt = "The Assign Lines window in list view: each terminal as a card with its preferred line and greyed alternatives; one row is pointed at, showing its grip and alternative handle."
+caption = "Two grain lines share terminals 2 and 3: each prefers one and has the other as an alternative."
+pins = [
+  { n = 1, x = 85, y = 16, text = "Switches between the list and the grid." },
+  { n = 2, x = 24, y = 44.5, text = "Each terminal is a card with its type and length, the lines that prefer it first." },
+  { n = 3, x = 85, y = 57.5, text = "An alternative, greyed under the separator; the ✕ removes it." },
+  { n = 4, x = 4.5, y = 72, text = "Drag a line by its grip to another terminal to make that its preferred one." },
+  { n = 5, x = 97, y = 71, text = "Drag this handle to another terminal to add it as an alternative." },
+]
+
+[[feature.assignLines.figure]]
+shot = "LE-02c"
+alt = "A grain line being dragged: terminal 2's card has a green outline."
+caption = "Dragging Grain 1 from terminal 3. On the drop, both grain lines prefer terminal 2 and terminal 3 reads 'No line prefers this terminal'."
+pins = [
+  { n = 1, x = 75, y = 44.5, text = "The terminal under the pointer lights green while you drag." },
+]
+
+[[feature.assignLines.figure]]
+shot = "LE-03"
+alt = "The Assign Lines window in grid view: lines as rows, terminals 1 to 4 as columns, coloured dots, grey dots and crosses, with small corner flags and a legend."
+caption = "The same station in the grid view."
+pins = [
+  { n = 1, x = 96.5, y = 47.5, text = "Corner flags: green made for the line's cargo, yellow other cargo (slower), red unreachable." },
+  { n = 2, x = 57.5, y = 52.5, text = "Grain 1 prefers terminal 3 (its colour), has terminal 2 as an alternative (grey) and doesn't use terminal 4 (✕)." },
+  { n = 3, x = 88, y = 91.5, text = "Left-click a cell to make it preferred, right-click to add or remove an alternative." },
+]
+
+# ---------------------------------------------------------------- Line Manager: stops
+
+[feature.distributeDelivery]
+where = ["line-manager"]
+why = "A delivery line that drops cargo at several stops unloads everything at the first stop that takes it. To share the cargo out down the line, you set a fill level at each stop by hand."
+what = "A Distribute Delivery button in the Load card of a stop's window. For each cargo the stop loads, it gives the following stops that accept that cargo decreasing fill levels, up to the next stop that loads it again, and the last of them none, so the rest is delivered there."
+how = [
+  "In the Line Manager, open the window of the stop where the cargo is loaded.",
+  "Point at **Distribute Delivery** in its Load card to see the plan, then click it.",
+]
+good = [
+  "After a full pickup and three stops that take the cargo, they get 67 %, 33 % and none.",
+  "It only sets fill levels; you can change any of them afterwards in each stop's Load card.",
+]
+
+[[feature.distributeDelivery.figure]]
+shot = "LE-04a"
+alt = "A stop's window with the Load card: Fish at 75 %, the message that cargo can only be unloaded here, and the Distribute Delivery button."
+caption = "Stop 2 of a fish delivery line after Distribute Delivery. Stops 3 and 4 got 50 % and 25 %, each keeping less aboard than the stop before."
+pins = [
+  { n = 1, x = 4, y = 24, text = "Fish 75 %: vehicles leave this stop with up to three quarters of a load, so a quarter is delivered here." },
+  { n = 2, x = 42, y = 40, text = "Distribute Delivery: point at it for the plan, click to apply it." },
+]
+
+[feature.stopWaiting]
+where = ["line-manager"]
+why = "The game shows who waits for a line only in the station window's terminal cards. The waiting figures elsewhere add up every line at the station, and the Line Manager's stop list shows only each stop's cargo settings."
+what = "A toggle at the end of the Line Manager's action bar (cargo and clock icon) turns the selected line's stop list into a Figures view: one row per stop and cargo with what waits there for this line, the vehicle loads that makes, the change since the last vehicle left, the unhappy passengers and the arrivals a year. Point at a stop's rows for a card with everything about it."
+good = [
+  "The waiting figure is yellow over one vehicle load and red over three.",
+  "A stop that loads from industries' or warehouses' stocks shows their stock and what comes in a year. A delivery stop shows what the buildings and industries in reach hold of the cargo and can take, red when empty.",
+  "The stop card lists where the passengers want to go and the station's total for all lines.",
+  "The view stays on for every line until you switch it off. While you add or move stops, the normal stop list shows.",
+]
+
+[[feature.stopWaiting.figure]]
+shot = "LE-12b"
+alt = "The Line Manager's stop list as a table of figures for a three-stop passenger line, and a card beside it with the first stop's details."
+caption = "A stagecoach line with six seats per vehicle; the pointer is on Alexander Road."
+pins = [
+  { n = 1, x = 34.3, y = 8, text = "The Figures toggle switches between the stop list and this table." },
+  { n = 2, x = 36, y = 37, text = "Now: 14 passengers wait here for this line, yellow because that is over one vehicle load." },
+  { n = 3, x = 47, y = 44, text = "Loads: 2.3 vehicle loads; the arrow and +3 are the change since the last vehicle left." },
+  { n = 4, x = 58, y = 30, text = "Unhappy passengers (red figure) and arrivals a year (98)." },
+  { n = 5, x = 75, y = 52, text = "The stop's card: waiting, unhappy, vehicles to clear, the station's total and where its passengers want to go." },
+]
+
+[[feature.stopWaiting.figure]]
+shot = "LE-LM-4"
+alt = "The Line Manager on a two-stop fish delivery line with the Figures view on: a pickup stop showing a stock of 11/500, and a delivery stop showing 38/128 and how many buildings are empty."
+caption = "A fish delivery line from a warehouse to a town's stops."
+layout = "side"
+pins = [
+  { n = 1, x = 76.5, y = 77.9, text = "This stop loads from stocks: 11 of 500 in reach, 1.8 vehicle loads, 179 coming in a year." },
+  { n = 2, x = 58, y = 83, text = "The delivery stop: the buildings in reach hold 38 fish of the 128 they can take." },
+  { n = 3, x = 77, y = 83, text = "37 of the 60 buildings in reach that take fish are empty." },
+]
+
+[feature.passengerToggle]
+where = ["line-manager"]
+why = "Adding passengers to a line, or taking them off, means changing every stop."
+what = "A button next to Set Line Color in the Line Manager. It is pressed while any stop of the selected lines loads passengers: click it to take them off every stop. Click it again to add them at every stop that allows passengers."
+good = [
+  "With several lines selected it asks first.",
+  "It sets the same thing as the game's own passenger button on each stop row.",
+]
+
+[[feature.passengerToggle.figure]]
+shot = "LE-LM-3"
+alt = "The Line Manager on a passenger line; in the action bar the passenger button is pressed and the cargo button is greyed."
+caption = "A passenger line: every stop loads passengers, none loads cargo."
+layout = "side"
+pins = [
+  { n = 1, x = 58.7, y = 65, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
+  { n = 2, x = 64.8, y = 65, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
+]
+
+[feature.cargoRemoval]
+where = ["line-manager"]
+why = "Turning a line into a passenger-only line means removing each cargo from each stop by hand."
+what = "A cargo button after the passenger button in the Line Manager. It is pressed while any stop of the selected lines loads cargo; click it to take every cargo but passengers off every stop."
+good = [
+  "Fill levels are kept.",
+  "It only removes cargo; to add some, use a stop's Load card.",
+  "With several lines selected it asks first.",
+]
+
+# ---------------------------------------------------------------- Line Manager: vehicles
+
+[feature.vehicleStatus]
+where = ["line-manager", "line-window"]
+why = "The Line Manager lists each vehicle by name. Whether it runs full or empty, where it is and why it is late takes its own window."
+what = "Each vehicle in the Line Manager's list shows its load now, its fullest departure of the last 20 with the stop's number, its average fill when leaving a stop, and what it is doing and where, with how long: 'Loading (4)', 'En route → 4', circling an airport, waiting to take off, at a signal or for a full terminal, in traffic, spacing out."
+good = [
+  "Average fill is green from 67 %, yellow from 33 %, red below.",
+  "A low average can hide one stop that needs the whole vehicle; the fullest departure shows it.",
+  "The line colour and name columns make room; the name is in the tooltip. Point at a vehicle's picture for its details.",
+]
+also = "The line window's Vehicles card shows the same as columns you can sort, largest first, with a locate pin and the vehicle's picture, which opens its window."
+
+[[feature.vehicleStatus.figure]]
+caption = "Two bus lines with six vehicles each, in two saves; the game's list shows names, the mod's what each vehicle is doing."
+[feature.vehicleStatus.figure.before]
+shot = "LE-LM-1-stock"
+alt = "The game's Line Manager: the vehicle list shows a line colour, a name and a picture per vehicle."
+pins = [
+  { n = 1, x = 36, y = 40.1, text = "The game lists each vehicle by name." },
+]
+[feature.vehicleStatus.figure.after]
+shot = "LE-LM-1"
+alt = "The Line Manager with the mod: each vehicle row shows its load, fullest departure, average fill and status."
+pins = [
+  { n = 1, x = 20.5, y = 40.5, text = "2/6: the load now." },
+  { n = 2, x = 37, y = 40.5, text = "100% (1): the fullest of its last 20 departures, from stop 1." },
+  { n = 3, x = 46, y = 40.5, text = "88%: its average fill when leaving a stop." },
+  { n = 4, x = 68, y = 40.5, text = "What it is doing: on its way to stop 1. Delays such as Traffic show in orange." },
+]
+
+[[feature.vehicleStatus.figure]]
+shot = "LE-11b"
+alt = "The Line Manager's vehicle list with a tooltip over a stagecoach's picture listing its line, model, speed, power, weight, age, condition, costs and value."
+caption = "Pointing at a vehicle's picture."
+pins = [
+  { n = 1, x = 5.5, y = 14.5, text = "6: the vehicles selected (Selected Vehicle Count)." },
+  { n = 2, x = 97, y = 30, text = "The vehicle's details: line, model, top speed, power, weight, age, condition, running costs, value and last year." },
+  { n = 3, x = 43.5, y = 91, text = "A status with how long: spacing out at stop 2 for 0:20." },
+]
+
+[feature.vehiclesNeeded]
+where = ["line-manager"]
+why = "The game gives a line's Rate, the seats it offers a year, but not how many passengers or how much cargo arrive. So you guess how many vehicles a line needs."
+what = "A card under the Line Manager's vehicle list measures how much arrives at each stop a year and compares it with the seats the line offers: '+3 to keep up', '+5 to clear the queues' (empty today's queues within 3 years), 'Enough vehicles', or how many fewer would still keep up."
+how = [
+  "Select one line in the Line Manager and read the card under its vehicle list.",
+  "Open it with the arrow at its bottom right, then add or remove vehicles in the what-if.",
+]
+good = [
+  "The what-if uses the line's own vehicle model and shows the interval, seats, each stop's queue (growing or shrinking, empty when), use and running costs before and after.",
+  "Arrivals need a quarter of a game year of play before the card answers.",
+  "Buying stays the Buy Vehicles button.",
+]
+
+[[feature.vehiclesNeeded.figure]]
+shot = "LE-LM-2"
+alt = "The Line Manager with the Vehicles Needed card open under the vehicle list: Enough vehicles, the queue at the busiest stop, and a what-if table for one more vehicle."
+caption = "A stagecoach line with six vehicles, the card opened and one vehicle added in the what-if."
+layout = "side"
+pins = [
+  { n = 1, x = 2.5, y = 55.7, text = "Enough vehicles: 125 seats a year cover the 98 passengers arriving at the busiest stop." },
+  { n = 2, x = 58.5, y = 58.2, text = "The queue at Alexander Road, 14, would be gone in about half a year." },
+  { n = 3, x = 2.5, y = 60.5, text = "One vehicle fewer would still keep up and clear the queues within 3 years." },
+  { n = 4, x = 35, y = 66.7, text = "What if: add or remove vehicles of the line's model." },
+  { n = 5, x = 73, y = 69.3, text = "Now against one more: interval, seats, each stop's queue, use and running costs." },
+]
+
+[feature.selectedCount]
+where = ["line-manager"]
+why = "With a long vehicle list, the select-all box doesn't say how many vehicles you are about to send to a depot, sell or replace."
+what = "The Line Manager's vehicle list shows how many of its vehicles are selected, as a number between the select-all box and the Reverse button; the tooltip adds how many are listed."
+good = ["Reverse, Start / Stop and Set Color sit a little further right to make room."]
+
+[feature.sendToLineFilter]
+where = ["line-manager", "vehicle-window"]
+why = "The Send to Line popover doesn't remember Show Only Visible Lines between openings, so moving several vehicles means setting it each time."
+what = "The Send to Line popover, from the vehicle window or the Line Manager, opens with Show Only Visible Lines the way you last left it, for the rest of the session."
+
+[[feature.sendToLineFilter.figure]]
+shot = "LE-19"
+alt = "The Send to Line popover: an eye button, a First Stop drop-down and a list of lines."
+pins = [
+  { n = 1, x = 12, y = 3, text = "Show Only Visible Lines opens as you last left it." },
+]
+
+# ---------------------------------------------------------------- Line Manager: names and filters
+
+[feature.destinationNames]
+where = ["line-manager"]
+why = "The game's Auto-Rename names a cargo line after a town and its cargo, such as 'Bromyard and Winslow - Fish', which doesn't say where the cargo goes or who it is for."
+what = "Auto-Rename in the Line Manager gets a 'Destination - Cargo' suggestion, first in the list: a cargo line is named after the place it delivers to and the cargo it brings there, such as 'Colchester Steel Mill - Iron Ore' or 'Colchester Warehouse - Coal'."
+good = [
+  "A line taking cargo from warehouses out to a town's stops, the last leg of its delivery, becomes for example 'Culver City - Delivery Food'.",
+  "A passenger line to an industry with workplaces becomes for example 'Colchester Workers - Steel Mill'.",
+  "Other lines get the game's 'Town - Cargo' name.",
+]
+
+[[feature.destinationNames.figure]]
+shot = "LE-06"
+alt = "The Auto-Rename list for one line: Bromyard and Winslow - Delivery Fish first, then the game's suggestions."
+caption = "Auto-Rename on a line taking fish from a warehouse to a town's stops."
+pins = [
+  { n = 1, x = 74, y = 35, text = "The mod's suggestion, first: the town it delivers to and the cargo." },
+  { n = 2, x = 60.5, y = 68, text = "The game's own suggestions follow, among them 'Town - Cargo'." },
+]
+
+[feature.lineTypeFilter]
+where = ["line-manager"]
+why = "Older game builds list passenger and cargo lines together in the Line Manager, with no way to show only one kind."
+what = "A passenger and a cargo button after the eye in the Line Manager's list. Both start pressed and every line is listed; let one up to hide those lines. The select-all box then selects only the listed lines, and the map shows only them and their vehicles."
+good = [
+  "A line carrying both is listed while either button is pressed; with both up, no line is listed.",
+  "Game build 40444 and later have their own cargo and passenger buttons in the Line Manager, so on those builds this filter turns itself off.",
+]
+
+# ---------------------------------------------------------------- Line Manager: on the map
+
+[feature.districtColors]
+where = ["line-manager", "map"]
+why = "The game colours town buildings by district only while you add or move a line's stops. In the Line Manager's other views you can't see where homes, shops and workplaces are."
+what = "Town buildings keep their district colours (residential, commercial, industrial) in every view of the Line Manager, so you can see where people live, shop and work while you plan where a line should stop."
+
+[[feature.districtColors.figure]]
+shot = "LE-07"
+alt = "A town seen from above with a bus line in green; buildings are coloured green, blue and yellow by district."
+caption = "A town while a stop is added to a bus line, the one view where the game shows these colours too. With the mod they stay in every Line Manager view."
+pins = [
+  { n = 1, x = 38, y = 10, text = "Industrial: yellow." },
+  { n = 2, x = 60, y = 22, text = "Commercial: blue." },
+  { n = 3, x = 18, y = 48, text = "Residential: green." },
+]
+
+[feature.lineCatchment]
+where = ["line-manager", "map"]
+why = "Planning a stop means guessing which homes, shops and workplaces it would reach."
+what = "Select one line in the Line Manager, or edit its stops, and point at one of its stops or at any station on the map, also while adding a stop: the town lots that station reaches turn orange."
+good = ["With several lines selected, or in Send to Line, the map is as usual."]
+
+[[feature.lineCatchment.figure]]
+shot = "LE-08"
+alt = "Adding a stop to a bus line: the pointer on a bus stop with the tooltip 'Add stop at Stop #89.' and the lots around it painted orange."
+pins = [
+  { n = 1, x = 60.5, y = 48, text = "The pointer on Stop #89 while adding a stop." },
+  { n = 2, x = 43, y = 57, text = "The lots this stop reaches, orange over the district colours." },
+]
+
+[feature.cargoDemand]
+where = ["line-manager", "line-window", "map"]
+why = "Town buildings take cargo such as food or goods only from stops that reach them. The game doesn't show which buildings want your line's cargo, which of them your stops reach and which run empty."
+what = "Select one or more cargo lines in the Line Manager (lines carrying the same cargo count together), or edit a line's stops. Over the buildings that take the cargo, a yellow ! marks those your stops reach that hold none of it, and a red ? those in the line's towns that no stop reaches. Each district gets a chip with what its reached buildings store against what they can take."
+how = [
+  "Select a cargo line in the Line Manager, or add a stop to one.",
+  "Point at a station to see what it alone serves: a blue pin on every building taking the cargo that it reaches, a red ? on every other one.",
+]
+good = [
+  "The district chip reads stored / capacity, red when empty, yellow part full, green full; +n counts buildings that take the cargo but no stop reaches.",
+  "The add stop, move stop and create line tooltips add what the station reaches, for example 'Vegetables: 7/24 in 9 buildings, 3 empty, 3 not yet on the line'.",
+  "The ! and ? also show while the line's own window is open.",
+  "The marks are small; zoom in to find them.",
+]
+
+[[feature.cargoDemand.figure]]
+shot = "LE-09a"
+alt = "A town with a meat delivery line selected while adding a stop: blue pins over buildings near one stop, red question marks over buildings elsewhere, a chip over the centre and a tooltip."
+caption = "Adding a stop to a meat delivery line, with the pointer on Grange Road."
+pins = [
+  { n = 1, x = 66, y = 12, text = "Blue pins: buildings taking meat that Grange Road reaches." },
+  { n = 2, x = 24, y = 24, text = "Red ?: buildings taking meat that no stop reaches." },
+  { n = 3, x = 57.5, y = 27, text = "The district's chip: stored / capacity of its reached buildings, and +2 not reached." },
+  { n = 4, x = 95, y = 33.8, text = "The add stop tooltip sums up what this station reaches." },
+  { n = 5, x = 90, y = 47.5, text = "Orange: the lots the station reaches (Selected Line's Catchment)." },
+]
+
+[[feature.cargoDemand.figure]]
+shot = "LE-09d"
+alt = "The same town with the line selected and the pointer off any station: a district chip, a small yellow exclamation mark and a red question mark."
+caption = "The same line with the pointer off any station."
+pins = [
+  { n = 1, x = 27.5, y = 8.5, text = "147/185 +2: the district's reached buildings store 147 meat of 185, and 2 more take meat but no stop reaches them." },
+  { n = 2, x = 65, y = 13, text = "A yellow !: a building your stops reach that holds no meat." },
+  { n = 3, x = 90, y = 22, text = "A red ?: a building taking meat that no stop reaches." },
+]
+
+[[feature.cargoDemand.figure]]
+shot = "LE-09c"
+alt = "Tooltip: Add stop at Grange Road. Meat: 106/144 in 54 buildings, 2 empty, 0 not yet on the line."
+pins = [
+  { n = 1, x = 95, y = 55, text = "What the station reaches: meat stored / capacity, buildings, empty ones and those no stop of the line reaches yet." },
+]
+
+[feature.descentZones]
+where = ["line-manager", "map"]
+why = "Planes skip waypoints close to the airport they fly to. Once the flight still to go is about ten times their height, they start descending and fly straight to the runway, dropping the waypoints left. The game shows none of this, so a waypoint placed there seems to be ignored."
+what = "Select one air line in the Line Manager and each airport it lands at shows a red circle where the descent starts (ten times its planes' cruise height), the straight paths planes then fly to the runway for the earliest and the latest start, and a blue strip along the runway's approach line. Waypoints all planes skip get a red mark, those only some planes skip an orange one."
+good = [
+  "While you add or move a waypoint, its tooltip says whether planes landing at that leg's airport will skip it and how far it is from the runway line.",
+  "Waypoints after takeoff are always flown.",
+  "The circle is large: at a normal zoom only part of its edge is in view, as a faint line.",
+]
+
+[[feature.descentZones.figure]]
+shot = "LE-10a"
+alt = "An air line's route over snowy land to an airport at the left: two orange paths run straight to the runway from two yellow rings, a faint pink line crosses the view at the right, and a small red ring sits below the route."
+caption = "An air line with 14 planes, landing at the airport at the left."
+pins = [
+  { n = 1, x = 10.5, y = 72, text = "The blue strip along the runway's approach line." },
+  { n = 2, x = 23, y = 66.5, text = "A waypoint the planes skip, marked red." },
+  { n = 3, x = 40.6, y = 58.5, text = "The straight paths planes fly once they descend, for the earliest and the latest start." },
+  { n = 4, x = 61.8, y = 66.5, text = "Where those paths start." },
+  { n = 5, x = 79, y = 68, text = "The edge of the descent circle: inside it, planes skip the waypoints left." },
+]
+
+[[feature.descentZones.figure]]
+shot = "LE-10c"
+alt = "Close-up of the airport: the runway, the orange paths meeting it, the faint blue approach strip running south, and a red ring on a skipped waypoint."
+caption = "The same airport up close."
+pins = [
+  { n = 1, x = 3.5, y = 42, text = "The runway the planes land on." },
+  { n = 2, x = 35, y = 55.5, text = "The straight-in paths meeting the runway's end." },
+  { n = 3, x = 18.5, y = 72, text = "The approach strip: a last waypoint on this line is kept." },
+  { n = 4, x = 49, y = 85, text = "The skipped waypoint." },
+]
+
+[[feature.descentZones.figure]]
+shot = "LE-10b"
+alt = "Tooltip: Add waypoint here. Skipped: descent 5.5 km-6.1 km out. 250 m off runway line."
+pins = [
+  { n = 1, x = 98, y = 50, text = "Adding a waypoint: planes would skip it, since they start descending 5.5 to 6.1 km out, and it lies 250 m off the runway line." },
+]
+
+# ---------------------------------------------------------------- line window and vehicle window
+
+[feature.costCards]
+where = ["line-window"]
+why = "The line window's Balance counts only income and the vehicles' running costs. Servicing and the upkeep of track, stations and depots are left out, so a line can look profitable while it loses money."
+what = "Two cards in the line window. Verdict: Profitable, Feeder or Unprofitable with the reason, and what the line earns, costs with all upkeep and enables; open it for usage and what would help. Costs & Value: a waterfall from income to the net; open it for what the line enables, what removing it would change, and every cost."
+good = [
+  "Enables: the lines carrying the output of an industry only this line supplies. A line that loses money but enables other lines' income is a Feeder.",
+  "A line's share of upkeep: each track or road piece on its route is split among the lines using it by vehicles passing, a station by stops, a depot by the vehicles it services.",
+  "Figures are worked out a few lines at a time, so they appear shortly after the window opens.",
+]
+
+[[feature.costCards.figure]]
+caption = "The same bus line's window in two saves of one world, so the figures differ."
+[feature.costCards.figure.before]
+shot = "LE-16-window-stock"
+alt = "The game's line window: Basics, Transported, Vehicles by name and age, and Balance."
+pins = [
+  { n = 1, x = 60, y = 45.7, text = "Vehicles by name and age." },
+  { n = 2, x = 22, y = 63, text = "Balance: income and the vehicles' running costs only." },
+  { n = 3, x = 33, y = 97.2, text = "Manage Line with the crossed arrows." },
+]
+[feature.costCards.figure.after]
+shot = "LE-16-window"
+alt = "The line window with the mod: a Verdict card after Basics, the Vehicles card with Load, Fullest, Avg and Status columns, a Timing card, and Manage Line with the Line Manager icon."
+pins = [
+  { n = 1, x = 22, y = 23, text = "Verdict: Unprofitable, losing $314,570 a year once all upkeep is counted." },
+  { n = 2, x = 72, y = 71, text = "Vehicles: load, fullest departure, average and status (Vehicle Load and Status)." },
+  { n = 3, x = 22, y = 83.5, text = "Timing (Line Timing), still measuring here." },
+  { n = 4, x = 35, y = 97, text = "Manage Line with the Line Manager icon (Manage Line Buttons)." },
+]
+
+[[feature.costCards.figure]]
+shot = "LE-16a"
+alt = "The Verdict card opened: Unprofitable, loses $314,570 a year; Earns, Costs and Enables; usage now and last year; three suggestions under What would help."
+caption = "The Verdict card opened, for the same bus line."
+pins = [
+  { n = 1, x = 62, y = 12.5, text = "The verdict and what the line loses a year with all its costs." },
+  { n = 2, x = 28, y = 24, text = "Earns, Costs (vehicles and upkeep) and Enables." },
+  { n = 3, x = 94, y = 50, text = "Use now (14 of 75 places) and last year (309 carried of 1,910 it could carry)." },
+  { n = 4, x = 33, y = 59, text = "What would help, with what each change is worth." },
+]
+
+[[feature.costCards.figure]]
+shot = "LE-16b"
+alt = "The Costs & Value card opened: a waterfall from income through running, servicing, track, stations and depots to the net, an If removed table and a list of every cost."
+caption = "The Costs & Value card opened."
+layout = "side"
+pins = [
+  { n = 1, x = 72, y = 8, text = "The waterfall: income, then each cost, down to the net." },
+  { n = 2, x = 84, y = 34.5, text = "If removed: running costs saved, upkeep only this line uses, income lost and what its vehicles sell for." },
+  { n = 3, x = 84, y = 59, text = "Every cost, largest first, with the line's share: 2 of 11 vehicles serviced, a station used by 4 lines." },
+]
+
+[feature.lineTiming]
+where = ["line-window", "line-manager"]
+why = "The Frequency alone can't say whether a line is slow, or why."
+what = "A Timing card in the line window, after Vehicles: the normal loop (one vehicle round all stops on its best trips), the loop now (green, yellow or red against normal) and the frequency with its normal, then what slows the line, worst first, with what it costs in vehicles, such as 'Circling on the way to Hartha Airport: 1:31 a loop = 0.33 aircraft'."
+good = [
+  "Open the card for each leg's normal time against now, split into moving, the stop and each delay.",
+  "The Line Manager's Frequency gets 'avg m:ss', the average time between departures from the first stop.",
+  "The normal loop shows once each vehicle has gone round a few times.",
+]
+
+[[feature.lineTiming.figure]]
+shot = "LE-LW-1"
+alt = "A ship line's window: Basics, To-Do, Verdict, Transported, Vehicles and the Timing card with normal loop 12:18, loop now 13:10, one every 6:35, and four delay findings."
+caption = "A fish line with two ships."
+layout = "side"
+pins = [
+  { n = 1, x = 24, y = 72.7, text = "Normal loop: 12:18 on the fastest trips." },
+  { n = 2, x = 52, y = 72.7, text = "Loop now: 13:10, 7 % slower, so yellow." },
+  { n = 3, x = 82, y = 72.7, text = "One every 6:35, against 6:09 normally." },
+  { n = 4, x = 3.5, y = 81, text = "What slows the line, worst first: spacing waits at the fishing grounds cost 0:16 a loop, 0.04 ships." },
+]
+
+[[feature.lineTiming.figure]]
+shot = "LE-15"
+alt = "The Timing card opened for a bus line: four findings, then one bar per leg split into colours, with a legend."
+caption = "The Timing card opened, for a bus line a few game months after the mod started recording."
+pins = [
+  { n = 1, x = 21, y = 13.5, text = "The normal loop is still being measured." },
+  { n = 2, x = 2.5, y = 26, text = "Traffic and spacing waits, each with where, the time a loop and that time in vehicles." },
+  { n = 3, x = 72, y = 55, text = "Each leg to the next stop, split into moving, the stop and each delay." },
+  { n = 4, x = 62, y = 97.5, text = "The colours: moving, at the stop, circling or traffic, queue or signal, terminal full." },
+]
+
+[feature.vehicleManageLine]
+where = ["vehicle-window", "line-window"]
+why = "To change a vehicle's line in the Line Manager, you first open the line's window, then Manage Line."
+what = "A vehicle's window gets the Line Manager button at the bottom, set apart to the left of Reverse. It opens the Line Manager on the vehicle's line. The line window's Manage Line button shows the same Line Manager icon instead of the crossed arrows."
+good = ["Vehicles without a line don't get the button."]
+
+[[feature.vehicleManageLine.figure]]
+shot = "LE-18a"
+alt = "The bottom of a ship's window: Send to Line, then the Line Manager button with its tooltip Manage Line, then Reverse and the other vehicle buttons."
+pins = [
+  { n = 1, x = 52, y = 38, text = "The Line Manager button opens the Line Manager on this ship's line." },
+]
+
+# ---------------------------------------------------------------- statistics window
+
+[feature.costViews]
+where = ["statistics"]
+why = "The statistics window's Lines tab shows Utilization as the load right now and Balance without any upkeep. It can't tell you which lines pay their way, which barely use their vehicles, or where track is over- or under-built."
+what = "Three view buttons in the Lines tab, before the vehicle-type buttons. Lines: last year's use of the Rate as a bar beside the load now, Balance as a profit bar on one scale for all lines, and a Net column with the line's share of upkeep. Costs: every cost in its own column, plus the upkeep only this line uses. Track: the fastest vehicle's top speed, the route by track or road type, and the length held back by curves, over-built, under-built and shared."
+good = [
+  "Use is green from 70 %, yellow from 40 %, red below.",
+  "Profit bar: income to the right, costs to the left (running, servicing, track and signals, stations, depots), faded where shared with other lines.",
+  "Over-built: a cheaper track would do, with the upkeep it would save. Under-built: with the time lost per round trip.",
+  "Income is the Balance plus the vehicles' running costs a year, so a line whose vehicles were bought during the year reads high. A line that lost vehicles during the year can read '100%+' use.",
+  "A line's share of upkeep: each track or road piece is split among the lines using it by vehicles passing, a station by stops, a depot by the vehicles it services.",
+]
+
+[[feature.costViews.figure]]
+caption = "The Lines tab of a save with trucks, trains, ships and planes, in the game and in the mod's Lines view."
+[feature.costViews.figure.before]
+shot = "LE-17d-stock"
+alt = "The game's Lines tab: Name, Vehicles, Cargo, Load, Capacity, Utilization, Satisfaction, Frequency, Rate and Balance."
+pins = [
+  { n = 1, x = 64.5, y = 2.9, text = "Utilization: the load right now." },
+  { n = 2, x = 94.5, y = 2.9, text = "Balance: income less the vehicles' running costs, without upkeep." },
+]
+[feature.costViews.figure.after]
+shot = "LE-17d"
+alt = "The Lines tab in the mod's Lines view: view buttons at the top, Utilization as the load now plus a coloured bar, a profit bar beside Balance, and a Net column."
+pins = [
+  { n = 1, x = 62.5, y = 3.5, text = "The three views: Lines, Costs and Track." },
+  { n = 2, x = 51.5, y = 13.5, text = "The load now, then last year's use as a bar: green, yellow or red." },
+  { n = 3, x = 78.6, y = 13.5, text = "The profit bar: income to the right, each cost to the left, the net as a line under it." },
+  { n = 4, x = 98.3, y = 8.5, text = "Net: the Balance less the line's share of upkeep." },
+]
+
+[[feature.costViews.figure]]
+shot = "LE-17b"
+alt = "The Costs view: Income, Running, Servicing, Track, Stations, Depots, Net and Own Upkeep per line."
+caption = "The Costs view of another save."
+pins = [
+  { n = 1, x = 33.5, y = 15.8, text = "Income and running costs a year." },
+  { n = 2, x = 56.5, y = 15.8, text = "The line's share of servicing, track, station and depot upkeep." },
+  { n = 3, x = 86.5, y = 15.8, text = "Net: what is left after every cost." },
+  { n = 4, x = 95.5, y = 28.7, text = "Own Upkeep: upkeep only this line uses, saved if you remove it." },
+]
+
+[[feature.costViews.figure]]
+shot = "LE-17c"
+alt = "The Track view: Top Speed, a Route bar with its length, Curves, Over-built, Under-built and Shared per line."
+caption = "The Track view of the same save."
+pins = [
+  { n = 1, x = 24.5, y = 15.8, text = "The fastest vehicle's top speed." },
+  { n = 2, x = 32.5, y = 15.8, text = "The route by track or road type, and its length." },
+  { n = 3, x = 74.5, y = 86.6, text = "Under-built: 176.8 m of road slower than the line's vehicles, costing 9 s a round trip." },
+  { n = 4, x = 87.5, y = 15.8, text = "Shared: the length other lines use too, and how many lines (+2)." },
+]

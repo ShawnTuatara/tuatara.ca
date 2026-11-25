@@ -2,11 +2,12 @@ modid = "tuatara_bugfix_comfort_bar"
 group = "bugfixes"
 order = 4
 status = "soon"
-publish = false
+publish = true
 version = "0.1"
 card = "A train's Comfort bar no longer counts the locomotive as zero comfort."
 lead = "The vehicle window shows false wear on a locomotive-hauled train's Comfort bar, even on a new train. This mod counts only the parts with seats."
 description = "Bug Fix - Comfort Bar for Transport Fever 3: the vehicle window's Comfort bar no longer counts a train's locomotive as zero comfort."
+compat = "Works with any map and any other mod. Seen on game build 40444, where the game bug is still there."
 
 [feature.comfortBar]
 where = ["vehicle-window"]
@@ -25,9 +26,19 @@ good = [
 ]
 
 [[feature.comfortBar.figure]]
+caption = "One train in Very Good condition, a German Class V 100 hauling two coaches. With two coaches the locomotive's zero pulls the comfort down to Mediocre; with one it would be worse."
 [feature.comfortBar.figure.before]
 shot = "BF-CB-01-stock"
-pending = "A Very Good locomotive-hauled train's Comfort bar: large red part, \"Very Poor\"."
+alt = "A train's vehicle info in Very Good condition: the Comfort bar has a long red part and reads Mediocre."
+pins = [
+  { n = 1, x = 70.5, y = 16, text = "The train is in Very Good condition." },
+  { n = 2, x = 58, y = 93, text = "Yet its Comfort bar shows a long red part, as if worn out." },
+  { n = 3, x = 76.5, y = 93, text = "Rated Mediocre." },
+]
 [feature.comfortBar.figure.after]
 shot = "BF-CB-01"
-pending = "The same train with the mod: full comfort, no red part."
+alt = "The same train with the mod: the Comfort bar is full and blue and reads Very Good."
+pins = [
+  { n = 1, x = 38.5, y = 71.5, text = "Noise and pollution keep their small red parts: that is real wear." },
+  { n = 2, x = 76.5, y = 93, text = "Comfort: full, no red part, rated Very Good." },
+]

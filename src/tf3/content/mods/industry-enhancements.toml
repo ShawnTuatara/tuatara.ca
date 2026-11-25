@@ -2,12 +2,13 @@ modid = "tuatara_industry_enhancements"
 group = "enhancements"
 order = 3
 status = "soon"
-publish = false
+publish = true
 version = "0.7.11"
-card = "Correct recipe figures, the workers the boost ignores, worker status, plot growth, comparison columns."
+card = "Correct figures for industries with two recipes, every worker and what they are doing, plot growth, and columns for comparing industries."
 card_image = "site/card-industry-enhancements"
-lead = "Corrects the figures of industries with more than one recipe, shows which workers don't count for the worker boost and what each one is doing, when raw producers next try to grow, and gives the statistics Industries tab columns for comparing industries."
-compat = "Works alongside Cargo Enhancements and To-Do List, whose cards share the industry window."
+lead = "The industry window and the statistics window's Industries tab leave out much of what decides an industry's output: the canning factory's second recipe shows the first one's figures, workers who don't count for the worker boost appear nowhere, and nothing says when a farm or mine will grow. This mod corrects the figures, lists every worker and what each one is doing, shows when raw producers next try to grow, and gives the Industries tab columns, a cargo filter and a mark for industries that can't expand."
+description = "Industry Enhancements for Transport Fever 3: corrects the figures of industries with more than one recipe, shows the workers the worker boost ignores and what each worker is doing, when raw producers next try to grow, and adds columns, a cargo filter and a blocked-expansion mark to the statistics Industries tab."
+compat = "Works alongside [Cargo Enhancements](mod:cargo-enhancements) and [To-Do List](mod:todo-list), whose cards share the industry window, and [Statistics Enhancements](mod:statistics-enhancements), whose Rank column and sorting work in the Industries tab too and whose [Problem Buttons](mod:statistics-enhancements#problem-buttons) turn the Industries button red while an industry is blocked from further expansion."
 
 [[section]]
 title = "Industry window"
@@ -19,32 +20,63 @@ features = ["industryColumns", "statisticsTotals", "blockedExpansion", "cargoFil
 
 [feature.recipeFigures]
 where = ["industry-window"]
-why = "An industry with more than one recipe, such as the canning factory (fish or meat), shows the first recipe's figures again on later rows."
+why = "An industry with more than one recipe, such as the canning factory (fish or meat, each with sheet metal), shows the first recipe's figures again on later rows. The meat row repeats the fish figures, so you can't tell how much meat the factory takes."
+what = "Every recipe row of the Production card shows its own cargos' figures. A cargo both recipes use, such as sheet metal, shows the industry's total on each row."
+
 [[feature.recipeFigures.figure]]
+caption = "Wellington Canning Factory runs both recipes, fish or meat, each with sheet metal, into cans."
 [feature.recipeFigures.figure.before]
 shot = "IE-01-stock"
-pending = "Canning factory Production card: the meat row repeats the fish row's figures."
+alt = "The game's Production card of a canning factory: the fish row and the meat row both read 202, 151 and 301."
+pins = [
+  { n = 1, x = 18, y = 81, text = "The meat row repeats the fish row's 202: the game shows the first recipe's figures on every row." },
+]
 [feature.recipeFigures.figure.after]
 shot = "IE-01"
-pending = "Same card: each recipe row shows its own cargos' figures."
+alt = "The same Production card with the mod: the fish row reads 202, the meat row 99, both with 151 sheet metal and 301 cans."
+pins = [
+  { n = 1, x = 19, y = 81, text = "The meat row's own figure: 99 meat a year." },
+  { n = 2, x = 47, y = 81, text = "Sheet metal and cans, which both recipes use, show the industry's total on both rows." },
+]
 
 [feature.plotGrowth]
 where = ["industry-window"]
-why = "A mine, farm or forest grows one plot at a time. The game tries every half year, with a chance from how well it produces and how much your lines ship, and shows none of it."
-good = ["No chance at 25 % shipped or less, sure from 75 %.", "Hover the line for the chance and what it is made of."]
+why = "A mine, farm or forest grows one plot at a time, which raises its output. The game tries every half year, with a chance from how well it produces and how much of its output your lines ship, and shows none of it."
+what = "Under a raw producer's plots, the Production card shows the plots built of the most it may have (15/20) and when the game next tries to add one (43 days): green when it will succeed, yellow when it may, grey when it can't."
+good = [
+  "The chance comes from production × the share your lines ship: none at 25 % or less, sure from 75 %.",
+  "Point at the next try for the chance and what it is made of.",
+  "Only raw producers grow; processing industries never do. Once every plot is built, the next try is left out.",
+  "An industry [blocked from further expansion](#blocked-expansion) still gets its tries, but a plot only comes when there is room for it.",
+]
+also = "The statistics Industries tab's Plots column ([Industry Columns](#industry-columns)) shows the same."
+
 [[feature.plotGrowth.figure]]
-shot = "IE-02"
-pending = "Raw producer's Production card: plots built of the most it may have (15/20) and the next try (43 days), green / yellow / grey."
+shot = "IE-02c"
+alt = "A crop farm's Production card: 18/19 and 3 months in yellow under the plots icon, and a tooltip with the chance of the next try."
+caption = "Burgkunstadt Crop Farm, with the pointer on the next try."
+pins = [
+  { n = 1, x = 9.5, y = 51, text = "Plots built of the most this farm may have: 18 of 19." },
+  { n = 2, x = 38.5, y = 51, text = "The next try to add a plot, in 3 months. Yellow: it may succeed." },
+  { n = 3, x = 92.5, y = 65, text = "The chance: 100 % production × 39 % shipped gives 28 %, on a scale from none at 25 % to sure at 75 %." },
+]
 
 [feature.inactiveWorkers]
 where = ["industry-window", "statistics"]
-why = "The worker boost counts only workers who arrived by your lines in the last 2 years. Those who walk, drive or stopped coming by line appear nowhere."
-how = ["Open an industry with workplaces.", "Read the Boosters card's count; expand it for the list."]
-also = "The statistics Industries tab's Workplaces column shows the same count."
+why = "The worker boost counts only workers who arrived by your lines in the last 2 years. The Boosters card shows only their count and lists only them, so workers who walk, drive or stopped coming by line appear nowhere."
+what = "The Boosters card's count adds the others in brackets: 11 (8)/10 means 11 came by line, 8 more work there, and 10 are needed for the boost. The expanded list shows the others below at 0 %, each with how they get to work (walking, car or lines), or a button to the new workplace of a worker who now works elsewhere, and a button to their home."
+how = ["Open an industry with workplaces.", "Read the Boosters card's count; expand the card for the list."]
+good = [
+  "The boost needs workers by line in half the workplaces: the last figure of the count.",
+  "Point at a home button for the town; sort by it to group workers by town.",
+  "With [Worker Status](#worker-status) on, the list shows Worker Status's columns instead.",
+]
+also = "The statistics Industries tab's Workplaces column shows the same count, with the filled workplaces in the tooltip."
+
 [[feature.inactiveWorkers.figure]]
 shot = "IE-03"
 alt = "Abenberg Weaving Mill's Boosters card: worker count 0 (20)/10 and a list of workers at 0 percent"
-caption = "Abenberg Weaving Mill: twenty people work here, but none came by line, so the boost is off. The game alone shows 0/10 and an empty list. (Earlier build; with Worker Status on, the list shows its columns.)"
+caption = "Abenberg Weaving Mill: twenty people work here, but none came by line, so the boost is off. The game alone shows 0/10 and an empty list. Shown without Worker Status, in an earlier version."
 dim = true
 boxes = [ { x = 3.9, y = 9.1, w = 86.3, h = 22 }, { x = 4.3, y = 36.5, w = 85.5, h = 60.8 } ]
 pins = [
@@ -55,36 +87,142 @@ pins = [
 
 [feature.workerStatus]
 where = ["industry-window"]
-why = "The list says who works here, not what they are doing: stuck at a stop for months, walking, or already at work."
+why = "The worker list says who works here, not what they are doing: stuck at a stop for months, walking, or already at work."
+what = "The Boosters card's worker list shows what each worker is doing now: at home, shopping or at work (green), walking, driving, waiting at a stop (a stopwatch and the vehicle they wait for), or riding, with a dot in the line's colour. Then where the trip goes, for how many days, the worker's happiness, how far their home town is, and Time Left as a % from red (0 %) to green (100 %)."
+good = [
+  "Point at Now for the line, the stop and where the worker gets off; click it to open the worker's window.",
+  "Click the trip's destination to open that building. A grey workplace marks a worker who now works elsewhere.",
+  "A wait over 30 days shows in red, since it makes people unhappy. \"12 d+\" means the list didn't see the state begin.",
+  "Point at the home distance for the town, click it to open the home, or sort by it to see who comes from the same town.",
+  "The name moves into the location button's tooltip. The list starts with the workers on their way here, the longest under way first, and every column sorts.",
+]
+
 [[feature.workerStatus.figure]]
+caption = "Wellington Canning Factory in a 1998 save. Left is the game's Time Left, coloured from red to green; the (16) in the count comes from [Inactive Workers](#inactive-workers)."
+[feature.workerStatus.figure.before]
+shot = "IE-04a-stock"
+alt = "The game's worker list: a location button, the worker's name and a Time Left bar per row."
+pins = [
+  { n = 1, x = 48, y = 42, text = "The game lists each worker's name and Time Left, nothing about where they are." },
+]
+[feature.workerStatus.figure.after]
 shot = "IE-04a"
-pending = "Worker list with Now, To, For, Home, Left columns; tooltip on Now with the line, the stop and where they get off."
+alt = "The worker list with the mod: columns Now, To, For, happiness, home distance and Left; four workers waiting 42 to 48 days in red."
+pins = [
+  { n = 1, x = 25.5, y = 44, text = "Now: a stopwatch and a bus or train means waiting at a stop for it; the dot is the line's colour." },
+  { n = 2, x = 37.5, y = 44, text = "To: where the trip goes, here this factory. Click it to open that building." },
+  { n = 3, x = 50.5, y = 44, text = "For: days in that state. These four have waited over 30 days, so it is red." },
+  { n = 4, x = 64, y = 44, text = "The worker's happiness, as the person window shows it." },
+  { n = 5, x = 79, y = 44, text = "The distance to the worker's home town. Click it to open the home." },
+]
+
+[[feature.workerStatus.figure]]
+shot = "IE-04b"
+alt = "The worker list with a tooltip on the first worker: Waiting at Windsor Road, Line: Frodsham - Passengers 1, Gets off at Park Avenue, Commutes here by your lines."
+caption = "Halesworth Livestock Farm, with the pointer on the first worker's Now."
+dim = true
+boxes = [ { x = 48.5, y = 0, w = 46.5, h = 67 } ]
+pins = [
+  { n = 1, x = 80.5, y = 47, text = "The line, the stop and where the worker gets off: waiting at Windsor Road for Frodsham - Passengers 1." },
+  { n = 2, x = 72.5, y = 30, text = "119 days waiting, in red: past 30 days the wait makes people unhappy." },
+]
 
 [feature.industryColumns]
 where = ["statistics"]
-why = "Comparing industries means opening them one by one."
-good = ["Input is about Recipe In × Workload × (1 + boost). Boosts on now show in green."]
+why = "The game's Industries tab gives Input, Output and Shipment as one number each and the boosters as icons. How much of each cargo an industry takes or makes, how much a booster adds and how large a raw producer may grow are only in each industry's window, so comparing industries means opening them one by one."
+what = "The Industries tab gets the columns Name, Problems, Plots, Recipe In, Recipe Out, Workload, Input, Output, Shipment, Boosters and Workplaces. Recipe In and Recipe Out give each recipe's cargos a year without boosts, a line per recipe. Input, Output and Shipment show an icon and amount per cargo. Boosters and Workplaces show how much each booster and the worker boost add to production, in green while on."
+good = [
+  "Plots shows a raw producer's plots built of the most it may have (5/8) and the next try to grow, as [Plot Growth](#plot-growth) does in the Production card. Sort by it to find the producers that can grow largest.",
+  "Input is about Recipe In × Workload × (1 + boost). The boosts on now show in green beside Workload.",
+  "Recipe In and Recipe Out sort by the largest cargo, Input, Output and Shipment by the sum. Boosters and Workplaces sort the boosts that are on first, then by how much they add.",
+  "Requirements is left out, since Input shows the same cargos.",
+]
+
 [[feature.industryColumns.figure]]
-[feature.industryColumns.figure.before]
-shot = "IE-05-stock"
-pending = "Statistics Industries tab."
-[feature.industryColumns.figure.after]
-shot = "IE-05"
-pending = "Plots, Recipe In / Out, Workload with boosts, per-cargo chips, Boosters, Workplaces."
+shot = "IE-05c"
+alt = "The statistics window's Industries tab with the mod's columns: Plots, Recipe In, Recipe Out, Workload, Input, Output, Shipment, Boosters and Workplaces, with cargo icons and amounts."
+caption = "The Industries tab of a 2010 save, sorted by Problems. The Rank column comes from [Statistics Enhancements](mod:statistics-enhancements#rank-column)."
+pins = [
+  { n = 1, x = 24.5, y = 7, text = "Plots: plots built of the most the producer may have, then the next try to grow, coloured as in the Production card." },
+  { n = 2, x = 46.5, y = 49.5, text = "Recipe In and Recipe Out: each cargo a year at the recipe's base rate, without boosts. This oil refinery makes three products from 231 crude oil." },
+  { n = 3, x = 48.5, y = 13, text = "Workload, then the boosts on now in green: this farm's +57 % is its worker boost." },
+  { n = 4, x = 70, y = 7, text = "Input, Output and Shipment: an icon and an amount per cargo." },
+  { n = 5, x = 84.3, y = 43.6, text = "Boosters: how much faster each cargo booster makes production, green while it is on. Workplaces adds the worker boost after the worker count." },
+]
 
 [feature.statisticsTotals]
 where = ["statistics"]
-why = "The game counts a cargo once per recipe that uses it and takes later recipes' figures from the first."
+why = "The game counts a cargo once per recipe that uses it and takes later recipes' figures from the first, so the canning factory's Input reads about twice what it takes. Its Workload compares that with both recipes at once, though an industry runs one recipe at a time."
+good = [
+  "Industries with one recipe and no booster show the same figures as before.",
+  "With [Industry Columns](#industry-columns) on, Input and Output show a line per recipe, and a cargo both recipes use shows the industry's total on each line.",
+]
+
+[[feature.statisticsTotals.figure]]
+caption = "The four canning factories of a 1998 save; only Wellington Canning Factory runs, on both recipes. With the mod, [Industry Columns](#industry-columns) is on too, so each recipe gets a line."
+[feature.statisticsTotals.figure.before]
+shot = "IE-05d-stock"
+alt = "The game's Industries tab: four canning factories, one row each; Wellington Canning Factory reads Input 705, Output 602 and Workload 68 %."
+pins = [
+  { n = 1, x = 51.5, y = 84, text = "Input 705 counts the first recipe's 202 fish and 151 sheet metal twice, once per recipe." },
+  { n = 2, x = 57.5, y = 84, text = "Output 602: the 301 cans, counted once per recipe." },
+  { n = 3, x = 68.5, y = 84, text = "Workload 68 %: that input against both recipes' maximum added together." },
+]
+[feature.statisticsTotals.figure.after]
+shot = "IE-05d"
+alt = "The Industries tab with the mod: each canning factory on two lines; Wellington Canning Factory takes 202 fish, 99 meat and 151 sheet metal and makes 301 cans, Workload 87 %."
+pins = [
+  { n = 1, x = 62, y = 64, text = "Input counts each cargo once: 202 fish, 99 meat and 151 sheet metal. Sheet metal, which both recipes use, shows its total on both lines." },
+  { n = 2, x = 68.5, y = 64, text = "Output: 301 cans, on both lines since both recipes make them." },
+  { n = 3, x = 50.7, y = 54, text = "Workload 87 %: the input against the largest recipe running all year with the boost on now, since the factory runs one recipe at a time." },
+]
 
 [feature.blockedExpansion]
 where = ["statistics"]
 why = "Only the industry's own window says it can't grow. The mark makes blocked industries easy to find and sort together."
+good = [
+  "Click the mark to open the industry; its window shows the blocked area on the map.",
+  "The mark goes away once the way is clear, as the industry window's message does.",
+]
+
 [[feature.blockedExpansion.figure]]
-shot = "IE-07"
-pending = "Problems column mark on a blocked industry, and its window's \"Industry is blocked from further expansion.\""
+shot = "IE-07a"
+alt = "The statistics window's Industries tab sorted by Problems: Burgkunstadt Crop Farm first, with a red problem mark."
+caption = "A 2010 save, sorted by the Problems column."
+pins = [
+  { n = 1, x = 53.5, y = 50, text = "The mark: Burgkunstadt Crop Farm is blocked from further expansion. Click it to open the farm." },
+  { n = 2, x = 45.5, y = 30, text = "Sort by the Problems column to bring blocked industries to the top." },
+]
+
+[[feature.blockedExpansion.figure]]
+shot = "IE-02"
+alt = "The crop farm's Production card, ending with the red line: Industry is blocked from further expansion."
+caption = "The same farm's Production card."
+pins = [
+  { n = 1, x = 59, y = 88, text = "The game's own message, which it shows only here, in the industry window." },
+]
 
 [feature.cargoFilter]
 where = ["statistics"]
+why = "The Industries tab lists every industry on the map. Finding the ones that take or make one cargo means reading the icons row by row."
+good = [
+  "All Cargo shows every industry again.",
+  "It works together with the eye and the search, and keeps your choice until you quit the game.",
+]
+
 [[feature.cargoFilter.figure]]
-shot = "IE-08"
-pending = "The cargo list beside the eye, open, and the rows it leaves."
+shot = "IE-08a"
+alt = "The Industries tab's filter bar with the cargo list open: All Cargo, then a column of cargo icons, beside the eye and the search field."
+caption = "The Industries tab's filter bar with the cargo list open."
+pins = [
+  { n = 1, x = 44, y = 8, text = "The cargo list, left of the eye. All Cargo shows every industry." },
+  { n = 2, x = 36, y = 45, text = "Each cargo as its icon. Pick one to keep only the industries that need it, boost with it or make it." },
+]
+
+[[feature.cargoFilter.figure]]
+shot = "IE-08b"
+alt = "The Industries tab after picking a cargo: four cement plants, each with stone in and cement out."
+caption = "The same tab after picking a cargo."
+pins = [
+  { n = 1, x = 67.5, y = 41, text = "Only the industries that use or make the picked cargo are left, here cement plants: stone in, cement out." },
+]

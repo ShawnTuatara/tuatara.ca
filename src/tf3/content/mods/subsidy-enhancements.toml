@@ -2,6 +2,103 @@ modid = "tuatara_subsidy_enhancements"
 group = "enhancements"
 order = 8
 status = "soon"
-publish = false
+publish = true
 version = "0.2.3"
 card = "How long an offer stays open, how long a reward runs, rings coloured by phase."
+lead = "A subsidy offer is withdrawn after about six months, and a fulfilled subsidy's reward runs for years, but the game shows neither time left, and every subsidy's ring in the notification list looks the same. This mod adds both countdowns and colours the rings by phase."
+description = "Subsidy Enhancements for Transport Fever 3: shows how long a subsidy offer stays open and how long a fulfilled subsidy's reward runs, and colours the notification rings by phase."
+intro = """
+A subsidy goes through three phases: an offer, which you accept or decline; in progress, once accepted, with the game's countdown to fulfil it; and, once fulfilled, a reward that runs for a set time. The game shows a countdown only while it is in progress.
+"""
+compat = "Works with any map and any other mod. Only the display changes: subsidies, their timing and their rewards stay as the game sets them. The mod saves nothing with your game, so it can be removed at any time."
+
+[feature.offerCountdown]
+where = ["popups", "subsidies"]
+why = """
+A subsidy offer stays open for about six months, then it is withdrawn with a Subsidy Missed notification. The game never shows how long you have left to accept it, and the calendar line on the offer is easily taken for that: it is the time you get to fulfil the subsidy once you accept.
+"""
+what = """
+An offer you haven't accepted shows its time left as a bar, drawn like the countdown the game shows once a subsidy is accepted: in the Subsidy Available notification and in the subsidy's window, under Decline and Accept. The bar empties as the offer runs out.
+"""
+good = [
+  "An offer lasts six months, give or take 30 days, so the time left differs from offer to offer.",
+  "The calendar line on an offer still shows the time you get to fulfil it once accepted.",
+]
+
+[[feature.offerCountdown.figure]]
+shot = "SU-01a"
+alt = "A Subsidy Available notification for a connection between Halesworth and Pontefract, with a bar reading 4 Months 24 Days."
+caption = "An offer to connect Halesworth and Pontefract, in the notification list."
+pins = [
+  { n = 1, x = 94, y = 85, text = "4 months 24 days left to accept; the bar empties as the offer runs out." },
+]
+
+[[feature.offerCountdown.figure]]
+shot = "SU-01b"
+alt = "The Connect Towns window of the same offer: Task with a calendar line of 9 Months 22 Days, rewards and penalties, Decline and Accept, and under them a bar reading 4 Months 24 Days."
+caption = "The same offer's window."
+layout = "side"
+pins = [
+  { n = 1, x = 44, y = 36, text = "The game's calendar line: 9 months 22 days to fulfil the subsidy once accepted, not the time left to accept." },
+  { n = 2, x = 86, y = 96.5, text = "The time left to accept, under Decline and Accept." },
+]
+
+[feature.rewardCountdown]
+where = ["popups", "subsidies"]
+why = """
+Once a subsidy is fulfilled, its reward runs for a set time: 2x income on the supplying lines, or on the connection, for five years. Its Subsidy Effect Active notification shows no time left, so you can't tell at a glance when the extra income ends.
+"""
+what = """
+A fulfilled subsidy shows a bar with its reward's time left, in its notification and in its window, under the game's completed mark. The bar empties as the reward runs out.
+"""
+good = [
+  "A subsidy for transporting workers has a shorter reward: 3 months.",
+]
+
+[[feature.rewardCountdown.figure]]
+shot = "SU-02b"
+alt = "A Subsidy Effect Active notification for supplying Macclesfield with cargo, with a bar reading 1 Year 10 Months 14 Days."
+caption = "A fulfilled subsidy for supplying Macclesfield, in the notification list."
+pins = [
+  { n = 1, x = 94, y = 69, text = "1 year 10 months 14 days of the reward left, out of five years." },
+]
+
+[[feature.rewardCountdown.figure]]
+shot = "SU-02"
+alt = "The Supply Town window of a fulfilled subsidy for Attleborough: Task, On Fulfillment with 2x Income for 1 Year 3 Months 15 Days on All Supplying Lines, the completed mark, and a bar reading 1 Year 3 Months 15 Days."
+caption = "A fulfilled subsidy's window: 2x income on the lines supplying Attleborough."
+pins = [
+  { n = 1, x = 25.5, y = 70, text = "The game names the time left in the reward's line." },
+  { n = 2, x = 85, y = 93.5, text = "The bar shows how much of the reward is left, under the completed mark." },
+]
+
+[feature.greenRing]
+where = ["popups"]
+why = """
+In the notification list, a subsidy's icon has a ring that fills with its time left. The ring is white whether the subsidy is an offer, in progress or paying its reward, and the icon is the same in every phase, so you hover each one to tell them apart.
+"""
+what = """
+The ring around an accepted subsidy's icon is yellow while the subsidy is in progress and green while its reward runs. Offers keep the white ring.
+"""
+good = [
+  "Only the colour changes: the ring fills as in the game, and hovering a tile shows the game's card.",
+]
+
+[[feature.greenRing.figure]]
+shot = "SU-03d"
+alt = "Four subsidy tiles in the notification list: two with green rings, one with a yellow ring and one with a white ring."
+caption = "Four subsidies in the notification list."
+pins = [
+  { n = 1, x = 26.5, y = 8, text = "Green: two fulfilled subsidies whose rewards run." },
+  { n = 2, x = 59, y = 8, text = "Yellow: accepted and in progress." },
+  { n = 3, x = 81, y = 8, text = "White: an offer, as in the game." },
+]
+
+[[feature.greenRing.figure]]
+shot = "SU-03c"
+alt = "A subsidy tile with a yellow ring, and below it the game's card: Subsidy in Progress, transporting workers to Cheltenham Logging Camp, 8 Months."
+caption = "Hovering an in-progress subsidy's tile."
+pins = [
+  { n = 1, x = 40, y = 8, text = "The yellow ring: this subsidy is in progress." },
+  { n = 2, x = 63, y = 55, text = "The game's card: Subsidy in Progress, 8 months left to fulfil it." },
+]

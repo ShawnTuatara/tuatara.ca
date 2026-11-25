@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Better Minimap Stutter Fix · Transport Fever 3 mod by tuatara</title>
+<meta name="description" content="Better Minimap Stutter Fix for Transport Fever 3: stops Better Minimap&#x27;s hitch every 2 seconds on large maps by checking the map every 30 seconds and after you build.">
+<link rel="canonical" href="https://tuatara.ca/personal/shawn/gaming/tf3/mods/better-minimap-stutter-fix/">
+<meta property="og:title" content="Better Minimap Stutter Fix · Transport Fever 3 mod by tuatara">
+<meta property="og:description" content="Better Minimap Stutter Fix for Transport Fever 3: stops Better Minimap&#x27;s hitch every 2 seconds on large maps by checking the map every 30 seconds and after you build.">
+<meta property="og:url" content="https://tuatara.ca/personal/shawn/gaming/tf3/mods/better-minimap-stutter-fix/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#171b1f">
+<link rel="preload" href="../../assets/fonts/lato-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../../"><span class="brand-mark" aria-hidden="true">T</span>tuatara · TF3 mods</a>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../../">TF3</a> › <a href="../../#mods">Mods</a> › <span>Better Minimap Stutter Fix</span></nav>
+    <nav class="head-nav" aria-label="Site"><a href="../../#mods" aria-current="page">Mods</a><a href="../../#where">Find it</a><a href="../../#research">Research</a><a href="../../install/">Install</a></nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap"><section class="mod-head"><div class=""><div><div class="badges"><span class="badge soon">Coming soon</span><span class="fact">Version <b>0.1.2</b></span><span class="fact">Game build <b>40444</b></span><span class="fact"><b>2</b> features</span></div><h1>Better Minimap Stutter Fix</h1><p class="lead">Better Minimap, another author&#x27;s minimap mod, checks every 2 seconds whether the map has changed, all in one frame. On a large map that is a visible hitch every 2 seconds, also while the game is paused. This companion makes the check run every 30 seconds and once you stop building, without changing Better Minimap.</p><p class="buttons"><span class="btn primary" aria-disabled="true">Coming soon to mod.io</span> <a class="btn" href="#settings">Settings</a></p></div></div><div class="chips"><a class="chip" href="#map-check-interval">Map check interval <small>background</small></a><a class="chip" href="#refresh-after-building">Refresh after building <small>build tools</small></a></div></section><section class="window intro"><p>Measured in a 195-minute session on a large map with the minimap open: Better Minimap alone checks the map 30 times a minute, about 5,850 times in that session. With the fix it checked twice a minute while nothing was built and three to eight times in minutes with building: about 490 checks in all.</p></section><section class="window feature" id="map-check-interval"><div class="feature-head"><h2>Map check interval</h2><span class="setting">Setting: <b>Map check interval</b> · 30 s by default</span></div><div class="feature-text cols"><h3>Why</h3><p>While its window is open, Better Minimap checks every 2 seconds whether the map has changed: it reads every piece of terrain, every town and industry, and compares all of it with the last check, in a single frame. On a large map that takes 40 to 60 milliseconds, a visible hitch every 2 seconds.</p><h3>What it does</h3><p>Makes that check run every 30 seconds instead: 10, 30 or 60 seconds, or Better Minimap&#x27;s own 2 seconds, in the mod&#x27;s Settings. Towns growing and new industries appear at the next check, and the town markers&#x27; colours follow the same interval.</p><h3>Good to know</h3><ul><li>Each check takes as long as before; it just comes far less often. Making the check itself cheaper is up to Better Minimap&#x27;s author.</li><li>Better Minimap&#x27;s longer pauses when it redraws the map after terrain changes stay as they are; the fix adds none.</li><li>Nothing of the mod is saved with your game that the game can&#x27;t drop when the mod is removed.</li></ul></div></section><section class="window feature" id="refresh-after-building"><div class="feature-head"><h2>Refresh after building</h2><span class="setting">Setting: <b>Refresh after building</b> · On by default</span></div><div class="feature-text cols"><h3>Why</h3><p>With a check only every 30 seconds, a road or station you have just built could take half a minute to show on the minimap.</p><h3>What it does</h3><p>Better Minimap checks the map once you stop building or bulldozing for a moment, so it shows your own changes. A burst of clicks with the track tool or the bulldozer is a single check, and while you keep building the map is checked at most every 10 seconds.</p><h3>Good to know</h3><ul><li>Turned off, your building shows at the next timed check.</li></ul></div></section><section class="window" id="settings"><h2>Settings</h2><p class="muted">Choosing a save's mods: the gear next to Better Minimap Stutter Fix → Settings. Each save keeps its own choice. Off turns a feature off completely.</p><div class="table-scroll"><table class="settings"><thead><tr><th>Setting</th><th>Default</th><th>What it does</th></tr></thead><tbody><tr><td>Map check interval</td><td><span class="value">30 s</span></td><td>How often Better Minimap checks whether the map changed. It does so in one frame, which stutters on large maps; Better Minimap alone checks every 2 s. <span class="muted">Choices: 2 s, 10 s, 30 s, 60 s.</span></td></tr><tr><td>Refresh after building</td><td><span class="on-off">On</span></td><td>Better Minimap checks the map once you stop building or bulldozing for a moment (a burst of clicks is one check), so it shows your own changes.</td></tr><tr><td>Logging</td><td><span class="on-off off">Off</span></td><td>Writes the mod&#x27;s messages to the game log (stdout.txt), for bug reports.</td></tr></tbody></table></div></section><section class="window" id="more"><h2>More</h2><h3 class="decor">Compatibility</h3><p class="muted">Needs Better Minimap. Without it, or with a version of it that checks differently, the fix does nothing. Better Minimap itself is not changed: the fix only stretches the timer that starts its check.</p></section></div>
+</main>
+<footer class="site-foot">
+  <div class="wrap"><div>Fan-made mods by tuatara. Not affiliated with or endorsed by Urban Games; Transport Fever is their trademark. Screenshots are from the author's own games. Text set in Lato (SIL Open Font License). No cookies, no tracking. Updated 2026-11-24.</div></div>
+</footer>
+<script src="../../assets/annotate.js" defer></script>
+</body>
+</html>

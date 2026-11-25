@@ -2,6 +2,95 @@ modid = "tuatara_vehicle_enhancements"
 group = "enhancements"
 order = 7
 status = "soon"
-publish = false
+publish = true
 version = "0.6.5"
 card = "The store's table: running cost, wagon weight and length, figures against the vehicle replaced."
+lead = "The vehicle store's table layout lines up many vehicles' figures at once, but leaves out what each costs to run, a wagon's weight and length, and any comparison with the vehicle you are replacing. This mod adds them to the table."
+description = "Vehicle Enhancements for Transport Fever 3: the vehicle store's table layout shows each vehicle's running cost and each wagon's weight and length, and colours every figure against the vehicle you are replacing."
+intro = """
+The vehicle store, opened from a depot or the Line Manager, has two layouts: a list, one vehicle at a time with all its figures, and a table that lines up many vehicles in columns. All three features work in the table.
+"""
+compat = "Works with any map and any other mod. It changes only what the vehicle store shows: prices, vehicles and what you buy stay as the game sets them."
+features = ["runningCostColumn", "replaceComparison", "wagonColumns"]
+
+[feature.runningCostColumn]
+where = ["vehicle-store"]
+why = """
+The table layout shows each vehicle's price on its buy button but not what it costs to run each year. To compare running costs you switch to the list layout and look at one vehicle at a time.
+"""
+what = """
+A column right after the buy button shows each vehicle's running cost a year, the same figure the list layout shows under the price. Click its header to sort by it.
+"""
+
+[[feature.runningCostColumn.figure]]
+shot = "VE-01"
+alt = "Buy Vehicles at a road depot in the table layout: buses and trucks, each row ending with its buy button and a running cost such as $133,062/year."
+caption = "Buying buses and trucks at a road depot, in the store's table layout."
+pins = [
+  { n = 1, x = 93, y = 31, text = "The new column's header, the game's running cost icon: click it to sort." },
+  { n = 2, x = 96, y = 37.5, text = "The AEC Routemaster costs $133,062 a year to run, beside its $798,372 price." },
+]
+
+[feature.replaceComparison]
+where = ["vehicle-store"]
+why = """
+When you replace a vehicle, the store's list layout can compare each vehicle with the one being replaced, but the table layout, where you see many at once, compares nothing. You have to remember the old vehicle's figures and check each column against them.
+"""
+what = """
+In a Replace store's table, each figure (capacity, speed, loading speed, power, noise, pollution, comfort and the running cost) is green where the vehicle is better than the one replaced and red where it is worse. Each bar is drawn in the same green or red, up to the vehicle's value, with a white line where the replaced vehicle's value sits. Capacity and running cost also show the difference under the figure.
+"""
+how = [
+  "Open Replace for a vehicle, from its window or the Line Manager's vehicle list.",
+  "Switch the store to its table layout.",
+]
+good = [
+  "Better means more capacity, speed, power and comfort, and less noise, pollution and running cost.",
+  "A rating can read Very Good in red: it is still worse than the replaced vehicle's.",
+  "Hover a figure to see both values and the difference.",
+  "As in the game's own comparison, it shows when every vehicle being replaced is the same model.",
+  "Trains and trams: each locomotive row is compared with the locomotive of the train being replaced, each wagon row with its wagons, and railcars and multiple units likewise, whenever all of that kind in the trains being replaced are the same model.",
+  "When modifying a train, for example to swap its locomotive or wagons, the table compares against the train as it is now.",
+  "The list layout's own Compare bars are drawn the same way.",
+]
+
+[[feature.replaceComparison.figure]]
+caption = "Two Replace stores in the table layout, from different saves. On the right, horse carriages are being replaced with goods trucks."
+[feature.replaceComparison.figure.before]
+shot = "VE-02-stock"
+alt = "The game's Replace store table: three trucks with plain blue bars and grey figures."
+pins = [
+  { n = 1, x = 41, y = 42, text = "Plain blue bars and grey figures: nothing shows whether a truck beats the vehicle being replaced." },
+]
+[feature.replaceComparison.figure.after]
+shot = "VE-02"
+alt = "The Replace store with the mod: capacity, speed and power in green, noise and pollution in red, bars with a white line, and running costs in red with the difference below."
+pins = [
+  { n = 1, x = 28.8, y = 43, text = "Capacity 10, and under it +4: four more than the horse carriage, so green." },
+  { n = 2, x = 34.3, y = 43, text = "Each bar runs to the truck's value, green where better, with a white line at the horse carriage's." },
+  { n = 3, x = 53.5, y = 43, text = "Red where worse: the steam truck is noisier and dirtier than the horse carriage." },
+  { n = 4, x = 88.3, y = 51.5, text = "Running cost a year, and under it how much more than the horse carriage's: red, as a higher cost is worse." },
+]
+
+[feature.wagonColumns]
+where = ["vehicle-store"]
+why = """
+The table layout shows no weight or length, so choosing wagons for a heavy train or a short platform means going back to the list layout. And on the Wagon tab its Power column is always empty.
+"""
+what = """
+On the Wagon tab (trains and trams), each wagon's weight and length come right after its capacity, and the empty Power column goes. Both sort by the figure per cargo item, per passenger for a passenger wagon: the wagon's empty weight or length divided by its capacity, so small and big wagons compare fairly.
+"""
+good = [
+  "Hover a weight or length for its figure per cargo item.",
+  "When replacing or modifying trains whose wagons are all the same model, the tooltip also gives the current wagon's figure and whether the new one is more or less. The weight or length turns green where the wagon is lighter or shorter per cargo item, red where it is heavier or longer. This needs Replace Comparison on.",
+  "The Locomotive and Multiple Unit tabs keep their Power column.",
+]
+
+[[feature.wagonColumns.figure]]
+shot = "VE-03b"
+alt = "Buy Vehicles at a train depot, Wagon tab: Weight and Length columns after the capacity, and a tooltip reading Weight per passenger: 1,364 kg (30 t ÷ 22)."
+caption = "The Wagon tab at a train depot, with the pointer on the Streamlined Coach's weight."
+pins = [
+  { n = 1, x = 33.3, y = 27.5, text = "Weight: the wagon's empty weight, right after its capacity." },
+  { n = 2, x = 38, y = 27.5, text = "Length. The Power column, always empty for wagons, is gone." },
+  { n = 3, x = 61, y = 61.8, text = "Hover a weight or length for its figure per cargo item: 1,364 kg per passenger here. Both columns sort by it." },
+]

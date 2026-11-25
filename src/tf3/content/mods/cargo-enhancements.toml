@@ -2,7 +2,270 @@ modid = "tuatara_cargo_enhancements"
 group = "enhancements"
 order = 2
 status = "soon"
-publish = false
+publish = true
 version = "0.28.3"
 card = "Cargo flow filters for industries, towns and warehouses, and a supply chain planner."
 card_image = "site/card-cargo-enhancements.webp"
+lead = "The industry and town windows draw arrows to every industry and town that could supply or take their cargos, all at once. This mod filters them by cargo, distance and who actually produces, adds distances to the tables, gives warehouses the same view, and plans whole supply chains from the raw producers to the towns."
+description = "Cargo Enhancements for Transport Fever 3: filters the cargo flow arrows and supplier and consumer tables of the industry, town and warehouse windows by cargo, distance and production, and adds a Supply Chain Planner."
+hero = "CE-06d-all"
+hero_alt = "Carlton Colville Warehouse on the map: white arrows fan out to every crop farm, cotton farm and oil refinery that could take its fertilizer or crude oil."
+intro = """
+In the game, expanding an industry's Input Stocks or Output Stocks card, or opening a town's Supplies tab, draws cargo flow arrows on the map to every possible supplier or consumer and lists them in a table below. The filters here work on both at once: pick a cargo or set a distance, and the arrows and the rows follow.
+"""
+compat = "Works alongside [Industry Enhancements](mod:industry-enhancements), whose worker count and list share the Boosters card, [Warehouse Enhancements](mod:warehouse-enhancements), whose Stocks card sits above Consumers and Suppliers in the warehouse window, and [To-Do List](mod:todo-list), whose cards share the industry, town and warehouse windows."
+
+[[section]]
+title = "Industry window"
+features = ["cargoFilter", "boosterSources"]
+
+[[section]]
+title = "Town and warehouse windows"
+features = ["townSupplies", "warehouseFlows"]
+
+[[section]]
+title = "Filters and tables in all three windows"
+features = ["distanceSlider", "producingFilter", "distanceColumn", "tableSort"]
+
+[[section]]
+title = "Supply Chain Planner"
+features = ["supplyChainPlanner", "plannerButton"]
+
+# ------------------------------------------------------------ industry window
+
+[feature.cargoFilter]
+where = ["industry-window"]
+why = "Expanding an industry's Input Stocks or Output Stocks card draws arrows to every industry and town that could supply or take any of its cargos, and lists them all in one table. For a canning factory that is every fishing ground, livestock farm and steel mill around."
+what = "Cargo buttons above the table of an expanded Input Stocks or Output Stocks card: All, as in the game, and one button per cargo. Pick a cargo to keep only its arrows and table rows: the industries and towns that can supply it to this industry, or take it from it."
+good = [
+  "The choice is kept per industry for the session.",
+  "A card with a single cargo has no buttons, since there is nothing to pick; the other filters still show.",
+]
+
+[[feature.cargoFilter.figure]]
+caption = "Wellington Canning Factory takes fish or meat, and steel. Its Input Stocks card is expanded."
+before_label = "All cargos"
+after_label = "Meat"
+[feature.cargoFilter.figure.before]
+shot = "CE-01b-all"
+alt = "The map around Wellington Canning Factory with a dense fan of arrows in every direction, and its industry window at the right with All picked in the Input Stocks card."
+pins = [
+  { n = 1, x = 38.5, y = 34, text = "Arrows to every fishing ground, livestock farm and steel mill that could supply the factory." },
+  { n = 2, x = 82.2, y = 56.1, text = "All: the game's view." },
+]
+[feature.cargoFilter.figure.after]
+shot = "CE-01b-meat"
+alt = "The same map with about ten arrows left, all to livestock farms, and the meat button picked in the Input Stocks card."
+pins = [
+  { n = 1, x = 86.5, y = 56.1, text = "Meat picked: the table lists only livestock farms." },
+  { n = 2, x = 39.8, y = 52, text = "Only meat's arrows are left, one to each livestock farm that could supply it." },
+]
+
+[feature.boosterSources]
+where = ["industry-window"]
+why = "The worker boost needs workers who come by your lines, but the industry window doesn't show which towns they could come from. The game draws arrows from nearby towns only for a worker subsidy."
+what = "Expanding an industry's Boosters card draws arrows from the towns its workers can come from: the closest towns, the ones a worker subsidy shows, and any town that sends workers now, within the distance limit. An arrow moves only while its town sends workers; a still, white arrow is a town that could."
+good = [
+  "A booster cargo, such as tools, is an input: its suppliers are in the Input Stocks card.",
+]
+
+[[feature.boosterSources.figure]]
+shot = "CE-07"
+alt = "The map around Wellington Canning Factory with blue dotted arrows from three towns and white ones from two more, and its industry window with the Boosters card expanded."
+caption = "Wellington Canning Factory, same save, with its Boosters card expanded."
+pins = [
+  { n = 1, x = 35.8, y = 14.6, text = "Blue arrows: towns that send workers here now." },
+  { n = 2, x = 49.4, y = 12.7, text = "White arrows: nearby towns that could send workers but don't now." },
+  { n = 3, x = 91, y = 42, text = "The expanded Boosters card: the arrows show while it is open." },
+  { n = 4, x = 82, y = 53, mod = "industry-enhancements", text = "The worker list: what each worker is doing now, and for how long." },
+]
+
+# ------------------------------------------------------------ town and warehouse windows
+
+[feature.townSupplies]
+where = ["town-window"]
+why = "A town's Supplies tab rates each cargo the town needs. Its Suppliers view draws arrows to every industry that could supply any of them, all at once, so the one cargo that is short is hard to follow."
+what = "The Suppliers view gets the filter row: pick a cargo the town needs to see only where it can come from, on the map and in the table. The distance slider, the Producing toggle and the Distance column work here too."
+how = [
+  "Open a town and its Supplies tab.",
+  "Switch to the Suppliers view and pick a cargo.",
+]
+
+[[feature.townSupplies.figure]]
+caption = "Wellington's Supplies tab in the Suppliers view, with the game's town supplies data layer on."
+before_label = "All"
+after_label = "Machines"
+[feature.townSupplies.figure.before]
+shot = "CE-05b-all"
+alt = "Wellington on the map with arrows from every direction, and its town window listing fishing grounds, a brewery and machine factories as suppliers."
+pins = [
+  { n = 1, x = 83.7, y = 60.7, text = "All: arrows to every possible supplier of every cargo Wellington needs." },
+]
+[feature.townSupplies.figure.after]
+shot = "CE-05b-machines"
+alt = "The same view with machines picked: the table lists two machine factories."
+pins = [
+  { n = 1, x = 88.8, y = 60.7, text = "Machines picked." },
+  { n = 2, x = 90.6, y = 21.6, text = "Wellington gets no machines: 0 of 172, rated No Supplies." },
+  { n = 3, x = 98.2, y = 68.4, text = "Two machine factories could supply them, 12 and 14 km away. Their arrows run off the top of the picture." },
+]
+
+[feature.warehouseFlows]
+where = ["warehouse-window"]
+why = "A warehouse window shows what is stored, but nothing about who could take it or bring more. Warehouses get no cargo flow view in the game."
+what = "A Consumers and Suppliers card in the warehouse window. Expanded, it shows where the stored cargo can go (Consumers) or come from (Suppliers), as arrows on the map and as a table, with the same filters as the industry window."
+good = [
+  "The Stored column shows what each industry already holds of the cargo: a consumer's input stock, a supplier's output stock. Sort by it to see who has it and who doesn't.",
+  "Towns show a dash under Stored.",
+]
+
+[[feature.warehouseFlows.figure]]
+shot = "CE-06c"
+alt = "The expanded Consumers and Suppliers card: Consumers chosen, crude oil picked, and seven oil refineries with their stored crude oil and distance."
+caption = "Carlton Colville Warehouse stores fertilizer and crude oil. Its Consumers and Suppliers card, expanded, with crude oil picked."
+pins = [
+  { n = 1, x = 44, y = 21, text = "Consumers: where the stored cargo can go. Suppliers: where more of it can come from." },
+  { n = 2, x = 33, y = 32, text = "Crude oil picked: the oil refineries that could take it." },
+  { n = 3, x = 95.5, y = 52, text = "Carlton Colville Oil Refinery is 611 m away and holds 2 of 800." },
+  { n = 4, x = 95.5, y = 66.5, text = "Stored: Haywards Heath Oil Refinery already holds 745 of 800." },
+]
+
+[[feature.warehouseFlows.figure]]
+shot = "CE-06d-oil"
+alt = "The map around Carlton Colville Warehouse, zoomed out, with white arrows to oil refineries in several directions."
+caption = "The same warehouse on the map, zoomed out to show the far refineries."
+pins = [
+  { n = 1, x = 86.5, y = 37.4, text = "Crude oil picked in the card." },
+  { n = 2, x = 37, y = 60, text = "Arrows to the seven oil refineries that could take its crude oil, from 611 m to 20 km away." },
+]
+
+# ------------------------------------------------------------ filters and tables
+
+[feature.distanceSlider]
+where = ["industry-window", "town-window", "warehouse-window"]
+why = "The arrows reach across the whole map, while a first supply chain usually starts with the industries close by. In a long table those are easy to miss."
+what = "A slider in the filter row hides suppliers and consumers farther away than the distance it shows, both their arrows and their table rows. At the right end it reads All and hides nothing."
+good = [
+  "One limit for every window, kept for the session. The Supply Chain Planner uses it too.",
+  "Distances are straight lines, not the length of a route.",
+]
+
+[[feature.distanceSlider.figure]]
+caption = "Wellington Canning Factory's fish suppliers."
+before_label = "All distances"
+after_label = "Up to 8 km"
+[feature.distanceSlider.figure.before]
+shot = "CE-01b-fish"
+alt = "The map around Wellington Canning Factory with arrows to fishing grounds in many directions, the slider at All."
+pins = [
+  { n = 1, x = 93, y = 56.1, text = "The slider at All: every fishing ground on the map." },
+  { n = 2, x = 62, y = 52, text = "Many arrows lead to fishing grounds 10 km and more away." },
+]
+[feature.distanceSlider.figure.after]
+shot = "CE-03c"
+alt = "The same map with three short arrows left, the slider at 8.0 km and three rows in the table."
+pins = [
+  { n = 1, x = 93.4, y = 56.1, text = "The slider set to 8.0 km." },
+  { n = 2, x = 88, y = 72, text = "Three Wellington Fishing Grounds are left, 2.7 to 3.3 km away." },
+  { n = 3, x = 55, y = 47.5, text = "Only their arrows remain." },
+]
+
+[feature.producingFilter]
+where = ["industry-window", "town-window", "warehouse-window"]
+why = "The supplier lists include every industry that could make a cargo, also the ones that made none last year because no line serves them. Four canning factories could supply a town with cans, but only one is making any."
+what = "A Producing toggle (the factory icon) in the filter row. In the supplier filters it hides suppliers that produced none of the cargo in the last year. In the consumer filters (an industry's Output Stocks, a warehouse's Consumers) it hides consumer industries that produced nothing in the last year or threw almost all of it away; towns stay."
+good = [
+  "A mine nobody serves keeps producing into its full stock, which throws it all away, so as a consumer it counts as not producing. A booster such as tools then goes only where the extra production is used.",
+  "Raw producers such as farms and mines always make something, so the toggle matters most for processed cargo such as cans.",
+]
+
+[[feature.producingFilter.figure]]
+caption = "Wellington's Supplies tab, Suppliers view, cans picked."
+before_label = "Producing off"
+after_label = "Producing on"
+[feature.producingFilter.figure.before]
+shot = "CE-04-cans-all"
+alt = "Wellington's town window listing four canning factories as suppliers of cans, three of them with 0."
+pins = [
+  { n = 1, x = 91.2, y = 60.8, text = "Producing off: all four canning factories that could supply cans. Three made none last year." },
+]
+[feature.producingFilter.figure.after]
+shot = "CE-04-cans-producing"
+alt = "The same table with the Producing toggle on: only Wellington Canning Factory is left."
+pins = [
+  { n = 1, x = 91.2, y = 60.8, text = "Producing on: only Wellington Canning Factory is left, 1.4 km away." },
+]
+
+[feature.distanceColumn]
+where = ["industry-window", "town-window", "warehouse-window"]
+why = "The game's supplier and consumer tables give names and amounts, but not how far away each one is. A neighbour and a town at the far end of the map look the same."
+what = "A Distance column in the supplier and consumer tables of the industry, town and warehouse windows: the straight-line distance to the other industry or town. Sort by it to put the nearest first."
+
+[[feature.distanceColumn.figure]]
+shot = "CE-02"
+alt = "An Output Stocks card with meat picked, the slider at 6.0 km and four consumers sorted by distance, from 2.0 to 4.8 km."
+caption = "Halesworth Livestock Farm's Output Stocks card, in another save, with meat picked."
+pins = [
+  { n = 1, x = 95.5, y = 51.5, text = "Distance to each taker of meat. One click on the header sorted it nearest first: Frodsham Canning Factory, 2.0 km." },
+  { n = 2, x = 96, y = 37, text = "With the slider at 6.0 km, only the four takers within reach are listed." },
+]
+
+[feature.tableSort]
+where = ["industry-window", "town-window", "warehouse-window"]
+why = "In the game, the first click on a column sorts it smallest first, so the busiest suppliers end up at the bottom, and a sort can leave the table scrolled part way down."
+what = "In the supplier and consumer tables, the first click on a header sorts amounts largest first, names A to Z and distances nearest first; a second click flips it. Every sort shows the table from its first row."
+good = [
+  "The sort is kept per table for the session.",
+]
+
+# ------------------------------------------------------------ planner
+
+[feature.supplyChainPlanner]
+where = ["industry-window", "town-window"]
+why = "Building a supply chain means working backwards from a town or a factory: who makes each input, how far away, how much they can send, and what those suppliers need in turn. The game answers that one window at a time."
+what = """
+A Supply Chains card in the town and industry windows. Its Plan button opens a large planning window that, like the statistics window, shrinks to a strip above the game bar.
+
+The town or industry you plan for sits where it belongs in its chain: a raw producer at the left, a town at the right, a factory in the middle with its suppliers to the left and its consumers to the right. Its card shows how much of its maximum it produces and how full its input and output stocks are, and marks an input that holds production back. Each step lists the nearest industries and towns that make or take the cargos you plan, within the distance limit, with your lines that serve each leg. Below, the planned chain is listed leg by leg with distance, lines and balance, and it can be drawn on the map as arrows.
+"""
+how = [
+  "Open a town or an industry and click Plan on its Supply Chains card.",
+  "Pick the cargos to plan, then the industries and towns you want in each step.",
+  "Use a row's focus button to plan around that industry or town instead.",
+  "Show on Map draws the planned chain as arrows.",
+]
+good = [
+  "A plan opens filled with the chain already moving cargo. Existing fills it in again; Reset empties a step.",
+  "Nearest 3, 5 or 10 sets how many rows a step lists; 0 lists only what you picked, an overview of the plan.",
+  "Pick several suppliers for one input and its need is shared over them, nearest first. Each card's bar shows where the need is met.",
+  "Raw producers show their plots and their chance to grow. A chain stops one step past a booster.",
+  "The ? button explains the colours. Plans are kept for the session.",
+]
+
+[[feature.supplyChainPlanner.figure]]
+shot = "CE-08a"
+alt = "The Supply Chains card in an industry window, with a Plan button at the right."
+caption = "The Supply Chains card in an industry window; towns have one too."
+pins = [
+  { n = 1, x = 84.5, y = 60, text = "Plan opens the planner on this industry." },
+]
+
+[[feature.supplyChainPlanner.figure]]
+shot = "CE-08b"
+alt = "The Supply Chain Planner on Halesworth Livestock Farm: grain suppliers at the left, the farm's card in the middle, meat takers at the right, and the planned legs below."
+caption = "Halesworth Livestock Farm needs grain and makes meat and wool, planned within 6 km. Step 2 at the far left looks one step further: fertilizer would boost its grain supplier, but none is made within reach."
+pins = [
+  { n = 1, x = 45.6, y = 17.5, text = "The industry you plan for, in the middle, at 57 % of its maximum production. Grain is marked Limiting: its stock is nearly empty." },
+  { n = 2, x = 26.8, y = 26, text = "Who makes grain, nearest first. The picked supplier is blue, with your line that serves it in green." },
+  { n = 3, x = 24, y = 35.8, text = "Raw producers show their plots: 8 of 20 built here, and 85 a year once all are built." },
+  { n = 4, x = 62.5, y = 39, text = "Who takes the meat: the town of Frodsham, 2.1 km away, is picked and already served by your line." },
+  { n = 5, x = 83.5, y = 72, text = "The planned legs with distance, lines and balance, and a summary of what holds the chain back." },
+]
+
+[feature.plannerButton]
+where = ["mod-buttons"]
+why = "The planner covers the map, so you close it to build. Opening it again from the town or industry window takes a few clicks."
+what = "A button beside the Data Layers button at the top left opens and closes the planner, back on the town or industry you last planned for, with its plan as you left it. Before anything is planned it opens empty: pick a town or an industry in its toolbar."
+good = [
+  "Needs the Supply Chain Planner setting on.",
+]

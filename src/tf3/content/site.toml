@@ -8,6 +8,8 @@ build = "40444"
 [hero]
 title = "Transport Fever 3 mods"
 lead = "Small, focused additions to the game's own windows: clearer figures, the numbers the game keeps but never shows, and fixes for bugs found along the way."
+shot = "hero-cargo-demand"
+alt = "The Line Manager adding a stop to a delivery line: town districts in colour, markers on buildings that take the cargo, the line's vehicles with their load and status, and a tooltip naming what the new stop would reach."
 
 [[how]]
 title = "One mod per game system"
@@ -117,11 +119,29 @@ name = "Subsidies"
 [[window]]
 key = "game-bar"
 name = "Game bar"
+[window.figure]
+shot = "GEN-03b"
+alt = "The game bar's counters with the population counter's tooltip: Reach a Population of 41,151, 45% of progress towards CEO, Population now 36,638"
+caption = "The bottom of the game bar, hovering the population counter."
+pins = [
+  { n = 1, x = 64, y = 85, mod = "company-enhancements", text = "Population Counter: the population your company has reached against the next rank's; the tooltip adds the progress and today's population." },
+  { n = 2, x = 76.8, y = 95.5, mod = "company-enhancements", text = "Population Change: how much the world's population grew over 30 days, updated weekly." },
+]
 
 [[window]]
 key = "mod-buttons"
 name = "Buttons beside Data Layers"
 short = "top-left buttons"
+[window.figure]
+shot = "GEN-02"
+alt = "The buttons at the top left of the screen: the game's Data Layers, then To-Do List, Mod Performance, Supply Chain Planner and Stuck Passengers"
+caption = "The game's Data Layers button (left) and the buttons the mods add beside it."
+pins = [
+  { n = 1, x = 34.5, y = 20, mod = "todo-list", text = "To-Do List: your notes for this save." },
+  { n = 2, x = 50.5, y = 20, mod = "mod-performance-monitor", text = "Mod Performance: what each mod costs per frame." },
+  { n = 3, x = 66.5, y = 20, mod = "cargo-enhancements", text = "Supply Chain Planner, on the town or industry it last showed." },
+  { n = 4, x = 82.5, y = 20, mod = "bug-watch-stuck-passengers", text = "Stuck Passengers: turns red when passengers are left behind at a stop." },
+]
 
 [[window]]
 key = "map"
@@ -170,6 +190,15 @@ steps = [
   "Under **Settings**, set each feature Off or On.",
 ]
 after = "Off turns a feature off completely: its buttons and columns are gone and it does no work in the background."
+[install.section.figure]
+shot = "GEN-01"
+layout = "side"
+alt = "Line Enhancements' Settings: an Off / On switch for each of its features, Logging last and Off"
+caption = "Line Enhancements' Settings."
+pins = [
+  { n = 1, x = 44, y = 6.5, text = "One switch per feature, in the order the features show in the game." },
+  { n = 2, x = 35, y = 96, text = "Logging, last and off by default: turn it on only to report a problem." },
+]
 
 [[install.section]]
 title = "Report a problem"

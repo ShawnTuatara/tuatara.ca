@@ -2,6 +2,320 @@ modid = "tuatara_statistics_enhancements"
 group = "enhancements"
 order = 4
 status = "soon"
-publish = false
+publish = true
 version = "0.7.10"
 card = "Rank, sort, town cargo, coverage, vehicle and station columns; red problem buttons."
+lead = "The statistics window sums up what you need in detail: a town's cargo as one figure, a station as one figure, a vehicle's balance without what it earned and cost. This mod adds a Rank column and largest-first sorting to every table, shows towns per cargo, vehicles with their income and running costs and stations terminal by terminal, and turns a statistics button in the game bar red when its table has something to look at."
+description = "Statistics Enhancements for Transport Fever 3: a Rank column and largest-first sorting in every statistics table, town supply and demand per cargo, vehicle income and running costs, stations terminal by terminal, and statistics buttons that turn red on a problem."
+hero = "SE-03c"
+hero_alt = "The statistics window's Towns tab with a Rank column, Public Transport figures in green, yellow and red, and Demand and Supply per cargo."
+compat = "Shares the statistics window with Line, Industry and Warehouse Enhancements, which add their own columns and views; the Rank column and the sorting work in those tables too. With Line Enhancements, its Assign Lines button stays at the right of the Stations tab's Lines column."
+
+[[section]]
+title = "Every statistics table"
+features = ["rankColumn", "largestFirst", "scrollToTop"]
+
+[[section]]
+title = "Towns tab"
+features = ["townCargoColumns", "townCargoFilter", "publicTransportCoverage"]
+
+[[section]]
+title = "Vehicles tab"
+features = ["vehicleColumns"]
+
+[[section]]
+title = "Stations tab"
+features = ["stationColumns"]
+
+[[section]]
+title = "Game bar"
+features = ["problemButtons"]
+
+# ---------------------------------------------------------------- every table
+
+[feature.rankColumn]
+where = ["statistics"]
+why = "The statistics tables have no place numbers. To see where a town or a line stands, or how many rows a search leaves, you count down the list."
+what = "Every statistics table starts with a Rank column: each row's place in the current order, so you can see where a town or line stands and count rows at a glance. With no column sorted, the rows are numbered as listed."
+good = [
+  "Rows with equal values share a place (1, 2, 2, 4): seven vehicles in Very Bad condition are all 1st, the next one is 8th.",
+  "Only the rows the filters and the search leave are counted.",
+]
+
+[[feature.rankColumn.figure]]
+shot = "SE-01"
+alt = "The Towns tab sorted by population, with a Rank column from 1 to 11 before the town names."
+caption = "The Towns tab, sorted by population with one click."
+pins = [
+  { n = 1, x = 3.5, y = 41.7, text = "Rank: each town's place in the current order." },
+  { n = 2, x = 76.5, y = 25.5, text = "Sorted by population: the first click puts the largest town first (Sort Largest First)." },
+]
+
+[feature.largestFirst]
+where = ["statistics"]
+why = "In the game, the first click on a column header sorts smallest first, so the biggest towns, the busiest stations and the lines with the highest balance end up at the bottom of the list."
+what = "The first click on a column header sorts largest first: most population, most cargo, highest balance. Names and other text columns still sort A to Z first, and the Towns tab's rating gauges (reputation, traffic, happiness, delivery, noise, pollution) sort worst first, so the towns with a problem come to the top. Click the header again for the other order."
+
+[feature.scrollToTop]
+where = ["statistics"]
+why = "After a sort, a long table stays scrolled where it was, so the top of the new order is out of sight."
+what = "Whenever you sort a table, it jumps back to its first row."
+
+# ---------------------------------------------------------------- towns tab
+
+[feature.townCargoColumns]
+where = ["statistics"]
+why = "The Towns tab shows one figure each for Supply, Demand and Coverage, summed over all cargos, and the cargos as a row of icons. You can't tell which cargo a town lacks without opening its window."
+what = """
+The four columns become two. Demand shows each cargo the town wants with its amount, largest first. Supply shows each cargo your lines supply with its amount, coloured by the share of its demand met, as the town window rates supplies: green from 67 %, yellow from 33 %, red below.
+"""
+good = [
+  "Hover a supply figure for the cargo's supply of its demand in each district (residential, commercial, industrial), and for the whole town when more than one district wants it.",
+  "Demand sorts by the town's total demand, Supply by the share of all demand met, as the game's Coverage column did.",
+  "The Name, Population, Public Transport and Private Transport columns are narrower to make room.",
+]
+
+[[feature.townCargoColumns.figure]]
+caption = "The Towns tab of a world with 26 towns, the game sorted by name, the mod in list order. Colchester's one figure, 234 of 1,595 supplied, becomes a figure per cargo: one cargo nearly all supplied, one hardly, four not at all."
+[feature.townCargoColumns.figure.before]
+shot = "SE-03d-stock"
+alt = "The game's Towns tab: a Cargo column of icons, then one Supply, Demand and Coverage figure per town."
+pins = [
+  { n = 1, x = 58.5, y = 46, text = "Cargo: the cargos the town wants, as icons only." },
+  { n = 2, x = 67, y = 46, text = "One Supply, Demand and Coverage figure for all cargos: Colchester gets 234 of 1,595, 15 %." },
+]
+[feature.townCargoColumns.figure.after]
+shot = "SE-03d"
+alt = "The Towns tab with the mod: a Demand column of cargo icons with amounts, and a Supply column with coloured amounts."
+pins = [
+  { n = 1, x = 44.5, y = 6, text = "Demand: each cargo the town wants, with its amount, largest first." },
+  { n = 2, x = 68, y = 83, text = "Supply per cargo, coloured by the share of its demand met: Colchester's 190 of 202 in green, 44 of 450 in red." },
+]
+
+[[feature.townCargoColumns.figure]]
+shot = "SE-03b"
+alt = "A supply figure's tooltip: Fish, Commercial: 220 of 584 (38%)."
+caption = "Hover a supply figure: Whaley Bridge's commercial district gets 220 of the 584 fish it wants, so the figure is yellow."
+pins = [
+  { n = 1, x = 88, y = 41, text = "The cargo, then each district that wants it: how much of its demand is met, and the share." },
+  { n = 2, x = 71, y = 57, text = "Red: less than a third met, here 50 of the 337 meat Cockermouth wants." },
+]
+
+[feature.townCargoFilter]
+where = ["statistics"]
+why = "To find a buyer for a cargo you need the towns that want it, and the Towns tab can't be narrowed down to them."
+what = "The Towns tab gets a cargo list next to the eye. Pick a cargo to see only the towns that demand it; All Cargo shows them all again."
+how = [
+  "Open the statistics window's Towns tab.",
+  "Pick a cargo in the list next to the eye.",
+]
+good = [
+  "Works together with the eye and the search.",
+  "Keeps your choice until you quit the game.",
+]
+
+[[feature.townCargoFilter.figure]]
+shot = "SE-04a"
+alt = "The Towns tab's cargo list open: All Cargo, then a column of cargo icons."
+caption = "The cargo list, open."
+pins = [
+  { n = 1, x = 10, y = 8, text = "The cargo list next to the eye; All Cargo shows every town." },
+  { n = 2, x = 36.5, y = 57, text = "Every cargo some town demands, as its icon." },
+]
+
+[[feature.townCargoFilter.figure]]
+shot = "SE-04b"
+alt = "The Towns tab filtered to fish: every row's Demand column includes fish, ranked 1 to 9."
+caption = "Fish picked: only the towns that want fish are left."
+pins = [
+  { n = 1, x = 2.3, y = 48.9, text = "Rank counts only the towns the filter leaves." },
+  { n = 2, x = 86, y = 48.9, text = "Every town left wants fish." },
+]
+
+[feature.publicTransportCoverage]
+where = ["statistics"]
+why = "The Towns tab's Public Transport figure is the game's public transport reachability of commercial and industrial places. How well your lines serve a town's people is another figure, the passenger row of the town window's Supplies tab, and you have to open each town to see it."
+what = """
+The Public Transport figure keeps the game's number but is coloured by the town's public transport coverage, the passenger row of the town window's Supplies tab: green from 67 %, yellow from 33 %, red below, as the town window colours it. Hover the figure for the coverage as the town window gives it ("Public transport coverage is 60%." and "1,142/1,904").
+"""
+good = [
+  "The number itself stays the game's, so it can differ from the town window's passenger figure; the colour and the tooltip are the town window's.",
+  "Sorting by the column still sorts by the game's number.",
+]
+
+[[feature.publicTransportCoverage.figure]]
+shot = "SE-05"
+alt = "The Towns tab's Public Transport figures in green and yellow, one hovered with the tooltip: Public transport coverage is 60%, 1,142/1,904."
+caption = "Bromyard and Winslow's figure hovered: yellow for 60 % coverage."
+boxes = [ { x = 61.3, y = 16, w = 5.5, h = 84 } ]
+pins = [
+  { n = 1, x = 53, y = 24.5, text = "Public Transport: the game's number, coloured by the town's public transport coverage." },
+  { n = 2, x = 86.5, y = 60, text = "The tooltip: the coverage and the passengers served, as the town window gives them." },
+]
+
+[[feature.publicTransportCoverage.figure]]
+shot = "SE-05b"
+alt = "Bromyard and Winslow's town window, Supplies tab: the passenger row 1,142/1,904 rated Good in yellow."
+caption = "The same town's window, Supplies tab: the passenger row the colour comes from."
+pins = [
+  { n = 1, x = 33, y = 37.7, text = "Passengers: 1,142 of 1,904, rated Good in yellow, the colour the Towns tab now gives the town." },
+]
+
+# ---------------------------------------------------------------- vehicles tab
+
+[feature.vehicleColumns]
+where = ["statistics"]
+why = "The Vehicles tab shows a vehicle's Balance but not what it earned and what it cost, and its condition only as a word. The vehicle picture takes room the line names need."
+what = """
+Line comes before Vehicle and gets the room the vehicle picture doesn't need; Cargo, Load, Capacity, Utilization and Satisfaction are narrower.
+
+Before Balance come Income and Running Costs from the vehicle window's Balance card, over the same last 12 months, so Income minus Running Costs is the Balance. The last column is the vehicle's running cost a year at today's rate, as shown at the foot of the vehicle window. Condition is coloured like the vehicle window's condition bar: green, yellow or red.
+"""
+good = [
+  "Running Costs is what the vehicle cost over the last 12 months; the last column is what it costs a year at today's rate.",
+]
+
+[[feature.vehicleColumns.figure]]
+caption = "The Vehicles tab, the game alone and with the mod, in different orders. With the mod it is sorted by Condition: the seven vehicles in Very Bad condition share rank 1."
+[feature.vehicleColumns.figure.before]
+shot = "SE-06e-stock"
+alt = "The game's Vehicles tab: Name, Vehicle, Line, Cargo, Load, Capacity, Utilization, Satisfaction, Condition, Age and Balance."
+pins = [
+  { n = 1, x = 27.5, y = 37, text = "The game: the vehicle picture first, then the line." },
+  { n = 2, x = 85, y = 37, text = "Condition as plain text, and Balance as the only money figure." },
+]
+[feature.vehicleColumns.figure.after]
+shot = "SE-06e"
+alt = "The Vehicles tab with the mod: Line before Vehicle, Condition in red, yellow and green, then Age, Income, Running Costs, Balance and the running cost a year."
+pins = [
+  { n = 1, x = 37.5, y = 45, text = "Line first, with the room the small vehicle picture doesn't need." },
+  { n = 2, x = 71, y = 29, text = "Condition in the vehicle window's colours." },
+  { n = 3, x = 78, y = 37, text = "Income and Running Costs, then Balance, then the running cost a year." },
+]
+
+[[feature.vehicleColumns.figure]]
+shot = "SE-06f"
+alt = "The right part of the Vehicles tab: Condition in colour, Age, Income in blue, Running Costs in red, Balance and the running cost a year."
+caption = "The right half of the same table, closer."
+pins = [
+  { n = 1, x = 42, y = 17.3, text = "Condition coloured like the vehicle window's condition bar: Very Bad in red, Mediocre in yellow, Good in green." },
+  { n = 2, x = 57.5, y = 82.4, text = "The last 12 months: Train 68 earned $2,782,892 and cost $3,112,239 to run, a Balance of $-329,347." },
+  { n = 3, x = 89.8, y = 9.5, text = "The running cost a year at today's rate, as at the foot of the vehicle window." },
+]
+
+# ---------------------------------------------------------------- stations tab
+
+[feature.stationColumns]
+where = ["statistics"]
+why = "The Stations tab sums each station up: one line count, one word for its terminals, one Utilization and one Delay figure. A station with one overcrowded terminal and three empty ones looks fine there."
+what = """
+The Stations tab shows each station terminal by terminal. A Terminals column with the terminal count comes first, then Type with the kinds of terminals and their count: a person icon for passenger terminals, a half-person, half-cargo icon for terminals taking both, a cargo icon for any cargo, and each cargo class as a pill in its own colour with the count inside, like the station window. Then Lines shows how many of your lines stop at each terminal.
+
+After Utilization, a column shows the waiting hall and then each terminal's waiting passengers and capacity, an overcrowded terminal in the station window's warning colour, and Delay shows each terminal's unhappy passengers.
+"""
+good = [
+  "Both per-terminal columns sort by the most at any one terminal, so a station with 60 waiting at one terminal comes before one with 30 at each of two.",
+  "Every terminal's figure has a slot of the same width, packed to the right, so the figures line up from station to station. As many terminals show as the column has room for; the rest are listed on hover.",
+  "Name and Town are narrower, with the full name on hover when it is cut.",
+  "With Line Enhancements, its Assign Lines button stays at the right of the Lines column.",
+]
+
+[[feature.stationColumns.figure]]
+caption = "The Stations tab, the game alone and with the mod, both sorted by Utilization; the game's view starts further down the list."
+[feature.stationColumns.figure.before]
+shot = "SE-07c-stock"
+alt = "The game's Stations tab: one line count, a Type word such as Mixed or Passenger, Utilization and Delay per station."
+pins = [
+  { n = 1, x = 62, y = 26, text = "The game: one line count and one word for the station's type." },
+  { n = 2, x = 78, y = 20.3, text = "Utilization and Delay: one figure for the whole station." },
+]
+[feature.stationColumns.figure.after]
+shot = "SE-07c"
+alt = "The Stations tab with the mod: terminal count, Type with counts, lines per terminal, the waiting hall and each terminal's waiting and capacity, and Delay per terminal."
+pins = [
+  { n = 1, x = 44, y = 12, text = "The terminal count, Type with its counts, and how many of your lines stop at each terminal." },
+  { n = 2, x = 71, y = 35, text = "The waiting hall, then each terminal's waiting passengers and capacity." },
+  { n = 3, x = 88, y = 35, text = "Delay: the unhappy passengers at each terminal." },
+]
+
+[[feature.stationColumns.figure]]
+shot = "SE-07d"
+alt = "The Stations tab from Type to Upkeep: lines per terminal, Utilization, the waiting hall and terminals with overcrowded ones in yellow, and Delay per terminal."
+caption = "The same table from Type to Upkeep, closer."
+pins = [
+  { n = 1, x = 21, y = 12, text = "Lines per terminal: 2, 1, 1 and 1 of your lines at Petworth Station Annex's four terminals." },
+  { n = 2, x = 47.3, y = 12, text = "The waiting hall first: 73 waiting for 45 places, in yellow." },
+  { n = 3, x = 52, y = 63.7, text = "Then each terminal: Stop #77's first one has 101 waiting for 50 places, the others are nearly empty." },
+  { n = 4, x = 78, y = 63.7, text = "Delay per terminal: 21 unhappy passengers at that first terminal." },
+]
+
+[[feature.stationColumns.figure]]
+shot = "SE-07a"
+alt = "The Stations tab sorted by Type: Bulk and Goods pills in their colours with counts, six stations sharing rank 1."
+caption = "Another world, sorted by Type."
+pins = [
+  { n = 1, x = 2.3, y = 32, text = "Six stations with one bulk terminal share rank 1; the next one is 7th." },
+  { n = 2, x = 55, y = 40, text = "Terminals: how many the station has." },
+  { n = 3, x = 82.5, y = 64.6, text = "Loughton Station: 2 bulk, 1 goods and 1 passenger terminal, the cargo classes as pills in their own colours." },
+]
+
+# ---------------------------------------------------------------- game bar
+
+[feature.problemButtons]
+where = ["game-bar", "statistics"]
+why = "Some problems show only deep in a window or a table: an industry that can't expand, a warehouse about to fill up, a station where passengers pile up, a depot that can't keep up with maintenance. Nothing in the game bar tells you where to look."
+what = """
+The statistics buttons in the game bar turn red while their table has something to look at, so you see at a glance where to check. Hover a red button to see what it found and where, up to three names per kind; the button's hotkey stays beside its title.
+
+Every table with a Problems column counts the elements with a problem notification, as that column shows them. Some buttons check more:
+
+**Vehicles**: vehicles in very bad condition.
+
+**Depots**: depots and maintenance buildings whose maintenance pool is full while vehicles in their maintenance area are maintained nowhere and wear down. The tooltip says how many, and how many vehicles the pool served in the last 30 days.
+
+**Stations**: a terminal the station window marks as overcrowded; more passengers waiting for a line at a stop than all of that line's vehicles seat together, so the line needs more vehicles; or at least 10 unhappy passengers who make up 30 % of those waiting (the Delay column). Each counts once it has lasted while the game runs.
+
+**Warehouses**: a cargo that fills 85 % of the room it has (its slots and the empty slots that take it), so there is time to act before it is full.
+
+**Industries**: industries blocked from further expansion, which the game shows only in the industry's own window.
+"""
+good = [
+  "The checks run in small slices a few times a minute, so they cost next to nothing.",
+  "A button follows a change within a few seconds, a blocked industry within about half a minute.",
+]
+
+[[feature.problemButtons.figure]]
+shot = "SE-08-towns"
+alt = "The game bar with the Vehicles, Warehouses and Towns statistics buttons in red, the Towns button's tooltip listing Colchester and Cullompton."
+caption = "Three red statistics buttons, the Towns button hovered."
+pins = [
+  { n = 1, x = 20.7, y = 42, text = "Red: this table has something to look at, here Vehicles, Warehouses and Towns." },
+  { n = 2, x = 86, y = 44, text = "Hover it: the towns with a problem notification, as the Towns tab's Problems column shows them." },
+]
+
+[[feature.problemButtons.figure]]
+shot = "SE-08b"
+alt = "The Stations button's tooltip: Station Overcrowded with three stations, More waiting than the line's vehicles seat with three stops, and Delay with two stops."
+caption = "The Stations button's tooltip in another world."
+pins = [
+  { n = 1, x = 48, y = 20.5, text = "Overcrowded: The Drive's terminal 1 holds 59 passengers for 50 places." },
+  { n = 2, x = 67, y = 47.7, text = "56 wait at The Avenue for a line whose vehicles together seat 18: it needs more vehicles." },
+  { n = 3, x = 67, y = 88.7, text = "Delay: 25 of the 62 passengers waiting at Park Avenue are unhappy." },
+]
+
+[[feature.problemButtons.figure]]
+shot = "SE-08-warehouses"
+alt = "The Warehouses button's tooltip: Storage nearly full, three warehouses with a cargo at 99, 91 and 86 percent, and +6."
+caption = "The Warehouses button: cargos close to filling the room they have."
+pins = [
+  { n = 1, x = 71, y = 49, text = "Carlton Colville Warehouse's crude oil fills 99 % of the room it has." },
+  { n = 2, x = 48, y = 93, text = "Six more warehouses: the tooltip names three per kind." },
+]
+
+[[feature.problemButtons.figure]]
+shot = "SE-08-industries"
+alt = "The Industries button's tooltip: Industry is blocked from further expansion, Cheltenham Logging Camp."
+caption = "The Industries button: an industry blocked from further expansion."
+pins = [
+  { n = 1, x = 85, y = 93, text = "Without the mod, only Cheltenham Logging Camp's own window says it can't grow." },
+]

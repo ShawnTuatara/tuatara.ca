@@ -2,6 +2,86 @@ modid = "tuatara_signal_enhancements"
 group = "enhancements"
 order = 6
 status = "soon"
-publish = false
+publish = true
 version = "0.12.2"
 card = "Repeat one-way signals at a set spacing; Shift + bulldoze removes a whole stretch."
+lead = "Signalling a long one-direction stretch means placing one signal after another and judging the gaps by eye, and clearing it again means bulldozing them one by one. This mod repeats a one-way signal at a spacing you pick, out to the next switch, and removes a whole stretch's signals with one Shift + bulldoze."
+description = "Signal Enhancements for Transport Fever 3: repeats a one-way path signal at a set spacing out to the next switch, and removes every signal on a stretch of track with Shift + bulldoze."
+compat = "Works with any map and any other mod. The signals it places are the game's own one-way path signals."
+
+[feature.spacing]
+where = ["build-tools"]
+why = """
+Passing loops and long stretches run in one direction need signals at even gaps, so trains can follow each other closely. The path signal tool places one signal per click: you place each one by hand and judge the gaps by eye, and a gap left too long holds up every train behind it.
+"""
+what = """
+A Spacing option in the path signal tool, shown when One-Way is set to Yes: Off, 80, 120, 160, 240 or 320 m. Place one one-way signal and the mod adds more ahead of it in the direction of travel, one every chosen distance, until the track reaches a switch or crossing, a dead end or a station. Before a switch or station the last signal goes as close in front of it as the game allows, so trains wait close to it.
+"""
+how = [
+  "Open the path signal tool and set One-Way to Yes.",
+  "Pick a Spacing.",
+  "Place one signal where the run should start. The others follow ahead of it, in its direction of travel.",
+]
+good = [
+  "Existing signals on that stretch for the same direction, and two-way signals, are replaced by the new spacing up to the last new signal. Signals for the other direction and waypoints stay.",
+  "Spacing Off places a single signal, as in the game.",
+  "The distances are the game's rail station lengths.",
+  "A stretch shorter than one spacing gets no repeats.",
+]
+
+[[feature.spacing.figure]]
+shot = "SG-01"
+alt = "The path signal tool's Settings panel: One-Way Yes, and below it Spacing with Off, 80 m, 120 m, 160 m, 240 m and 320 m, 120 m picked."
+caption = "The path signal tool's Settings panel with the mod."
+pins = [
+  { n = 1, x = 26, y = 45, text = "One-Way set to Yes: only then the Spacing row shows." },
+  { n = 2, x = 20, y = 66, text = "Spacing: Off places one signal, as in the game; a distance repeats it ahead, here every 120 m." },
+]
+
+[[feature.spacing.figure]]
+shot = "SG-01-full"
+alt = "A single-track line seen from above, with one-way signals at even gaps along a long straight and the signal tool's Settings panel at the right."
+caption = "A long straight on a single-track line, signalled from one placed signal, with the tool's panel still open."
+pins = [
+  { n = 1, x = 84, y = 64.5, text = "The tool's Settings panel, with One-Way Yes and a spacing picked." },
+  { n = 2, x = 48.5, y = 57, text = "One-way signals the mod placed along the straight, one every chosen distance." },
+  { n = 3, x = 70.5, y = 12, text = "The run ends where the track reaches a switch." },
+]
+
+[feature.shiftBulldoze]
+where = ["build-tools"]
+why = """
+To respace a stretch or rebuild a passing loop, its signals have to go first. The bulldozer takes them one at a time, and on a long stretch it is easy to miss one, which then splits a block where you didn't want it.
+"""
+what = """
+Bulldozing a signal with Shift held also removes every other path signal on its stretch of track, out to the next switch, crossing, dead end or station. The track stays. While you hover a signal with the bulldozer and hold Shift, the signals that would go are highlighted in yellow.
+"""
+how = [
+  "Pick the bulldozer and point at a signal.",
+  "Hold Shift: the whole stretch turns yellow, and the label counts the signals that will go.",
+  "Click to remove them all.",
+]
+good = [
+  "It removes path signals for both directions. Waypoints and the track stay.",
+  "Without Shift the bulldozer removes the one signal, as in the game.",
+  "The yellow preview also shows while the game is paused.",
+]
+
+[[feature.shiftBulldoze.figure]]
+caption = "The same straight, with the bulldozer on one of its signals."
+before_label = "Bulldozer"
+after_label = "Bulldozer with Shift held"
+[feature.shiftBulldoze.figure.before]
+shot = "SG-03c"
+alt = "The bulldozer on one signal: one short piece of track yellow and the label 1 Signal Will Be Removed."
+pins = [
+  { n = 1, x = 47, y = 55, text = "The bulldozer alone takes the one signal: 1 Signal Will Be Removed." },
+]
+[feature.shiftBulldoze.figure.after]
+shot = "SG-03d"
+alt = "With Shift held, the whole straight up to the switch is yellow and the label reads 8 Signals Will Be Removed."
+pins = [
+  { n = 1, x = 44.4, y = 75, text = "With Shift held, the whole stretch out to the switch turns yellow." },
+  { n = 2, x = 61.5, y = 54.3, text = "The label counts the signals that go: 8 here." },
+  { n = 3, x = 89.8, y = 89.8, text = "The game's Shift hint lights up while Shift is held." },
+]

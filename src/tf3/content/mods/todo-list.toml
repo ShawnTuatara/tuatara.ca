@@ -2,6 +2,85 @@ modid = "tuatara_todo_list"
 group = "enhancements"
 order = 10
 status = "soon"
-publish = false
+publish = true
 version = "0.7.10"
 card = "A to-do list per save, with tasks linked to towns, industries, lines and more."
+lead = "A to-do list saved with each game, to keep track of what you want to build, fix or check next. Tasks can link to towns, industries, stations, lines and warehouses, whose windows then show the tasks about them."
+description = "To-Do List for Transport Fever 3: a to-do list saved with each game, with tasks linked to the towns, industries, stations, lines and warehouses they are about."
+compat = "Works with any map and any other mod. Its To-Do card takes its place among the cards the Enhancements mods add to the same windows."
+
+[feature.todoList]
+where = ["mod-buttons"]
+why = """
+Building a network leaves loose ends: a line to add, a warehouse to watch, a farm still without workers. The game has nowhere to note them, and a note outside the game doesn't know which save it belongs to.
+"""
+what = """
+A checklist button beside Data Layers at the top left opens the save's to-do list, with a To Do and a Done tab. Add tasks, tick them off, put them in order, edit or delete them.
+"""
+how = [
+  "Click the checklist button beside Data Layers.",
+  "Click + to add a task at the top, type it and press Enter.",
+  "Tick a task to move it to the Done tab; untick it there to bring it back.",
+  "Drag a task by its grip to reorder it: a blue bar shows where it will land, as with stops in the Line Manager.",
+]
+good = [
+  "The bulldozer on the Done tab deletes all done tasks at once.",
+  "The list and a data layer's legend share their place: opening one closes the other, and the legend opens a little lower, below the button.",
+  "Every save has its own list, saved with the game. Turned off in the mod's Settings, the list stays in the save.",
+  "Removing the mod deletes the list from that save the next time it is loaded; nothing else of the mod stays in the save.",
+]
+
+[[feature.todoList.figure]]
+shot = "TD-01"
+alt = "The To-Do List window: To Do (5) and Done (0) tabs, filter buttons, an eye and a plus, then five tasks, the last one tagged Whaley Bridge."
+caption = "Five open tasks; the last is linked to a town."
+pins = [
+  { n = 1, x = 70, y = 12, text = "Filter buttons, one per kind of element, and the eye: only the tasks about something on screen." },
+  { n = 2, x = 93.5, y = 28, text = "+ adds a task at the top." },
+  { n = 3, x = 6.8, y = 31, text = "Drag a task by its grip to reorder it; tick it when it's done." },
+  { n = 4, x = 87.7, y = 31, text = "Edit or delete a task." },
+  { n = 5, x = 31, y = 88, text = "A tag links the task to a town: click it to go there and open its window." },
+]
+
+[[feature.todoList.figure]]
+shot = "TD-02"
+alt = "The Done tab with one ticked, greyed task and a bulldozer button at the right."
+caption = "The Done tab."
+pins = [
+  { n = 1, x = 9, y = 43, text = "Untick a task to bring it back to To Do." },
+  { n = 2, x = 93.5, y = 41, text = "The bulldozer deletes all done tasks at once." },
+]
+
+[feature.elementLinks]
+where = ["town-window", "industry-window", "station-window", "line-window", "warehouse-window"]
+also = "The list's filter buttons and eye come with this setting too."
+why = """
+A task is usually about something on the map: a town, an industry, a line. Finding it again means searching the map or the statistics window, and opening a town's window doesn't remind you of what you meant to do there.
+"""
+what = """
+Tasks can link to towns, industries, stations, lines and warehouses. Their windows get a To-Do card: how many open tasks are about this element, a + to start a new task about it, and a chain to add it to the task you clicked in the list. Expanded, the card lists those tasks, each with a tick box and buttons to edit or delete it. In the list, each linked element shows as a tag under the task's text: click it to go there and open its window.
+"""
+how = [
+  "Open a town, industry, station, line or warehouse and find its To-Do card.",
+  "Click + to start a task about it; or click a task in the list, then the chain to add this element to it.",
+  "Click the card to expand it and work through its tasks without opening the list.",
+]
+good = [
+  "The checked box in the card adds the tasks already done.",
+  "In the list, filter buttons show only the tasks about towns, industries, stations, lines or warehouses, and the eye only those about something on screen.",
+  "A tag greys out once its element is gone.",
+]
+
+[[feature.elementLinks.figure]]
+shot = "TD-03"
+alt = "Whaley Bridge's town window: under the Small Suburb card, a To-Do card with 1 open task, a checked-box button, a plus and a chain, expanded to the task Add a second bus line in Whaley Bridge."
+caption = "Whaley Bridge's town window, its To-Do card expanded."
+dim = true
+boxes = [ { x = 4.5, y = 61.5, w = 91.5, h = 38 } ]
+pins = [
+  { n = 1, x = 26, y = 76.5, text = "Open tasks about this town; a click opens them in the list." },
+  { n = 2, x = 72.5, y = 68, text = "Adds the tasks already done to the card." },
+  { n = 3, x = 82, y = 68, text = "+ starts a new task about this town." },
+  { n = 4, x = 91, y = 68, text = "The chain adds the town to the task you clicked in the list; greyed while none is." },
+  { n = 5, x = 71, y = 90.5, text = "The tasks about it: tick, edit or delete them here." },
+]

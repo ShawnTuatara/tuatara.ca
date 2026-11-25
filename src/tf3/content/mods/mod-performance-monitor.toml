@@ -2,6 +2,107 @@ modid = "tuatara_mod_performance_monitor"
 group = "tools"
 order = 2
 status = "soon"
-publish = false
+publish = true
 version = "0.4.1"
 card = "What each mod's UI and game scripts cost, their peaks and the hitches they cause."
+lead = "When the game stutters or runs slowly, it is hard to tell which mod is to blame. This mod times the interface scripts and game scripts of every mod, credits each piece to the mod it belongs to, and shows the result in one window, with the last hitches and the mods that took the most of them."
+description = "Mod Performance Monitor for Transport Fever 3: shows how much frame time and simulation time each mod's scripts take, their peaks and the hitches they cause."
+compat = "Works with any map and any mod, including other authors': it times their scripts without changing what they do."
+features = ["monitor", "gameScripts", "hitchLog", "destinationRecompute"]
+issues = [
+  "A mod that wraps a function of the game's own scripts can be charged for the game's code that runs inside it, so a single large call may look heavier than the mod's own share. For example, opening a subsidy window counts the game's own window building against the mod that wraps it.",
+]
+
+[feature.monitor]
+where = ["mod-buttons"]
+why = """
+The game's own tools show how long a frame takes, but not which mod the time went to, and a stutter every few seconds hides in an average.
+"""
+what = """
+A stopwatch button beside Data Layers opens the Mod Performance window. It shows frames per second, the share of each frame all mods take together, the game speed and the simulation's own timings, then a row per mod, heaviest first: time per frame with a bar, its worst frame in the last 2 seconds and calls per frame. Click a mod to see its heaviest pieces by name. Below, the last hitches name the mods that took the most of them.
+"""
+how = [
+  "Click the stopwatch button beside Data Layers.",
+  "Look for yellow and red: green is fine, yellow worth a look, red costly. Mods that ran nothing are greyed out.",
+  "Click a mod's row for its heaviest pieces.",
+  "The stopwatch in the window stops and starts measuring; the arrows beside it reset peaks and hitches.",
+]
+good = [
+  "It times the interface scripts of every mod and of the game itself: how long a window or HUD element takes to build, per-frame steps, timers, event handlers, recipe replacements and functions a mod wraps on the game's own scripts.",
+  "Per frame, green is under 0.25 ms and red over 1 ms. A peak turns yellow from 4 ms and red from 16.7 ms, a whole frame at 60 fps.",
+  "A hitch is a frame of 50 ms or more that stands out from the usual frame, or where interface scripts took 20 ms. One with little script time is the game's own work, such as saving.",
+  "The game lowers a chosen 2× or 4× to what its simulation can keep up with, while the speed buttons keep showing your choice. The window's game speed shows what you really get, so a slow \"fastest\" is the simulation's own cost.",
+  "Callbacks the game calls straight from a widget (table sorting, filters, button clicks) aren't timed.",
+  "The monitor has a small cost of its own, shown at the foot of the window. Switch it off in the mod's Settings when you aren't looking for something.",
+]
+
+[[feature.monitor.figure]]
+shot = "PM-01"
+alt = "The Mod Performance window: 33 fps at 30.1 ms, mods 0.09 ms or 0.3 %, the game paused, a line of simulation timings, a row per mod with ms, Peak, Calls and Sim columns, and four hitches."
+caption = "A large world, paused: most mods ran nothing and are greyed out."
+pins = [
+  { n = 1, x = 26.3, y = 9.3, text = "33 frames a second, 30.1 ms each; all mods together take 0.09 ms of that (0.3 %)." },
+  { n = 2, x = 51.7, y = 9.3, text = "The game's own interface scripts, 1.88 ms a frame." },
+  { n = 3, x = 83.8, y = 9.3, text = "The game speed, here Paused. While the game runs: game time per real second, yellow or red when the simulation can't keep up." },
+  { n = 4, x = 90, y = 14, text = "The simulation's own timings: time per step, how busy it is and the mods' game scripts' share, the sync with the interface, and the Destination Changes value in use." },
+  { n = 5, x = 44, y = 21.3, text = "A row per mod, heaviest first: time per frame with a bar, its worst frame in the last 2 seconds (Peak), calls per frame and game script time (Sim)." },
+]
+
+[[feature.monitor.figure]]
+shot = "PM-02"
+alt = "The same window with Line Enhancements' row opened: its pieces listed by kind (hook, step) and name with their times, then the other mods."
+caption = "Line Enhancements' row opened."
+pins = [
+  { n = 1, x = 50, y = 24.5, text = "Its heaviest pieces: what each is (here wrappers and a per-frame step) and its name, with time per frame, longest call and calls." },
+  { n = 2, x = 80.5, y = 39.5, text = "Sim: each mod's game scripts, in ms per real second." },
+  { n = 3, x = 93.5, y = 50.5, text = "Badges: crossed tools for a mod with game scripts, a spanner for one that wraps functions of the game's own scripts." },
+  { n = 4, x = 35, y = 70.6, text = "Greyed out: mods that ran nothing in the interface." },
+]
+
+[[feature.monitor.figure]]
+shot = "PM-03"
+alt = "The Hitches list: four frames of 58 to 88 ms, each with the share of interface scripts and the mods that took the most of it."
+caption = "The last hitches, newest first."
+pins = [
+  { n = 1, x = 86, y = 27, text = "How long ago, the frame's length, how much of it interface scripts took, and the mods that took the most." },
+  { n = 2, x = 3, y = 40, text = "A long frame with little script time is the game's own work, not a mod's." },
+  { n = 3, x = 64, y = 89, text = "The monitor's own cost, and how much it times." },
+]
+
+[feature.gameScripts]
+where = ["mod-buttons"]
+why = """
+Game scripts run on the simulation's threads, where a slow one costs game speed rather than frame rate. The interface's timings don't see them.
+"""
+what = """
+With Monitor on, also times every mod's game scripts on the simulation threads: their update and event handlers and the functions their scripts share. The window's Sim column shows each mod's time in ms per real second over the last 30 seconds, a click on the mod its functions with their longest recent call, and the simulation line how much of the simulation's step time all mods' game scripts take.
+"""
+good = [
+  "The parts of game scripts that run in the interface aren't timed.",
+  "Their totals are kept in your save (a few KB) and dropped by the game once the mod is removed.",
+]
+
+[feature.hitchLog]
+where = ["background"]
+why = """
+A hitch you noticed a minute ago may be gone from the window by the time you look, and a mod's author needs figures to act on.
+"""
+what = """
+Writes each hitch to the game log (stdout.txt) with the mods that took the most of it, at most one line a second, and once a minute a count of the slow frames, the game speed (game time per real second, the engine's speed and its estimated maximum), the simulation's timings and the game scripts' time, to send to a mod's author.
+"""
+good = [
+  "Off by default.",
+]
+
+[feature.destinationRecompute]
+where = ["background"]
+why = """
+In big worlds the simulation, not the interface, often limits the game speed, and every time a person looks for a new job or shop the game searches routes.
+"""
+what = """
+A test setting for simulation speed in big worlds: how often a person looks for a new job or shop. The game's own value is 100%; here 50%, 25% or 10%. Lower values mean fewer route searches, but people react more slowly to new lines and stations.
+"""
+good = [
+  "Applied when a game loads; the window's simulation line shows the value in use.",
+  "Leave it at 100% unless you are testing.",
+]

@@ -2,7 +2,103 @@ modid = "tuatara_warehouse_enhancements"
 group = "enhancements"
 order = 5
 status = "soon"
-publish = false
+publish = true
 version = "0.1.12"
 card = "What each warehouse slot really holds, and which cargo fills up next."
 card_image = "site/card-warehouse-enhancements.webp"
+lead = "A warehouse stores cargo in slots of 500, one cargo per slot, but the game adds them all together: a warehouse can read 40 % while one cargo is full and can't be unloaded. This mod shows each slot, which cargo your lines bring, and which cargo needs action first."
+description = "Warehouse Enhancements for Transport Fever 3: shows each warehouse's slots, the slots held for cargo your lines bring, and which cargo fills up next, in the statistics window and the warehouse window."
+intro = """
+A warehouse has one slot of 500 per module. Each slot has a kind, such as Bulk, Goods or Liquid, and holds one cargo at a time. An empty slot takes any cargo of its kind, unless you pin it to one cargo in the warehouse window.
+
+The mod works out each cargo's room from its own slots and the free slots that take it, and reads which of your lines unload or load at the warehouse now. An empty slot that a line's cargo will need is held for that cargo, so it doesn't count as free.
+"""
+compat = "Works alongside [Cargo Enhancements](mod:cargo-enhancements), whose Consumers and Suppliers card shares the warehouse window, [To-Do List](mod:todo-list), and [Statistics Enhancements](mod:statistics-enhancements), whose Rank column shows in the Warehouses tab too."
+features = ["statisticsTab", "stocksCard"]
+
+[feature.statisticsTab]
+where = ["statistics"]
+why = "The statistics window's Warehouses tab lists every cargo a warehouse could take and adds all its slots into one Stored, Capacity and Utilization. A warehouse reads 82 % while its crude oil has room for 3 more, and nothing in the table says which cargo is about to fill up."
+what = "Each warehouse's slots show as a strip of tiles, grouped by kind. Free counts the free slots no cargo is held for, Next Full names the cargo that needs action first, and the arrow column shows that cargo's change over the last year. Problems get a mark in the Problems column."
+good = [
+  "A tile is green when one of your lines unloads that cargo there now, grey when none does, and red when the cargo is full.",
+  "An outlined tile is a free slot, or one held for a cargo a line brings that is out of stock right now. A filter icon marks a pinned slot.",
+  "Next Full, most urgent first: **No slot**, **Shared slot** (two cargos want the last free slot), **None brought** (lines come to load a cargo nothing brings), **Full**, **Pin unused** (a pinned slot nothing is brought to), then the time until full, yellow within a year.",
+  "The time until full counts only cargo one of your lines brings now.",
+  "Sort by Next Full, largest first, to put the warehouses that need action at the top. Click a Problems mark to open the warehouse.",
+]
+
+[[feature.statisticsTab.figure]]
+caption = "A save with 17 warehouses, the game's table sorted by name. Carlton Colville Warehouse reads 82 % in the game; with the mod, its crude oil fills up next."
+[feature.statisticsTab.figure.before]
+shot = "WE-01d-stock"
+alt = "The game's Warehouses tab: a row of cargo icons per warehouse, then Stored, Capacity, Utilization and Upkeep."
+pins = [
+  { n = 1, x = 43.6, y = 40.8, text = "Stocks lists every cargo the warehouse could take, stored or not." },
+  { n = 2, x = 89.8, y = 40.8, text = "Stored, Capacity and Utilization add all slots together: Carlton Colville reads 82 %." },
+]
+[feature.statisticsTab.figure.after]
+shot = "WE-01d"
+alt = "The Warehouses tab with the mod: a strip of slot tiles per warehouse, then Free, Next Full, the change a year and Upkeep."
+pins = [
+  { n = 1, x = 45.5, y = 20.5, text = "A tile per slot, grouped by kind: a fertilizer slot, a free Bulk slot and eight crude oil slots. Green bars: a line unloads that cargo here now." },
+  { n = 2, x = 73.8, y = 20.5, text = "Next Full: the cargo to act on first. Crude oil is full in about a month, so it is yellow." },
+  { n = 3, x = 90.5, y = 20.5, text = "That cargo's change over the last year: 61 more brought in than taken out." },
+  { n = 4, x = 67, y = 45.6, text = "Free: slots no cargo is held for, two at Droitwich Spa." },
+]
+
+[[feature.statisticsTab.figure]]
+shot = "WE-01g"
+alt = "Close-up of the Stocks column: slot tiles with fill bars, outlined free and held slots, filter icons on pinned slots, and a tooltip listing the cargos a free Bulk slot takes."
+caption = "The Stocks column up close, with the pointer on Carlton Colville's free Bulk slot."
+pins = [
+  { n = 1, x = 24.5, y = 30, text = "Slots are grouped by kind, with the kind's colour underneath: yellow for Bulk." },
+  { n = 2, x = 57.5, y = 36.5, text = "Hover a tile for what it holds or takes: this free Bulk slot takes any of seven cargos." },
+  { n = 3, x = 58.5, y = 56, text = "Grey outlines: two free slots, counted under Free." },
+  { n = 4, x = 25, y = 76, text = "A green outline and a dim icon: a slot held for fish, which a line brings but is out of stock now. Free leaves it out." },
+  { n = 5, x = 38.5, y = 86, text = "A filter icon marks a slot pinned to one cargo." },
+]
+
+[feature.stocksCard]
+where = ["warehouse-window"]
+why = "The warehouse window's Stocks card shows how much of each cargo is stored and its room, but not whether it is rising, when it will be full, or which of your lines bring it. A cargo out of stock right now isn't listed, though its next delivery needs a slot."
+what = "For each cargo, the card shows its room, its change over the last year, the time until full, and whether a line unloads it there. Expanded, the slot list says which slot is held for which cargo and ends with the lines that unload or load at the warehouse."
+how = [
+  "Open a warehouse: the cargo columns show at once.",
+  "Expand the Stocks card for the slot list and the lines. Click a line to open it.",
+]
+good = [
+  "A cargo's icon is green when a line unloads it there now and red on a problem: no slot left, a pinned cargo nothing is brought to, or a cargo lines come to load that nothing brings. Hover it for the reason.",
+  "When two cargos need the last free slot, both show in red, since whichever line arrives first takes it.",
+  "A held slot names the cargo it is held for. Click that cargo's icon to pin the slot to it.",
+  "A cargo with no slot left gets a red row in the slot list, with the lines that bring it.",
+  "The cargo columns also show for warehouses that aren't yours; the slot list, as in the game, only for your own.",
+]
+
+[[feature.stocksCard.figure]]
+caption = "Carlton Colville Warehouse, same save: crude oil has room for 3 more and fills up within a month."
+[feature.stocksCard.figure.before]
+shot = "WE-02b-stock"
+alt = "The game's Stocks card: fertilizer 126/1,000 and crude oil 3,997/4,000."
+pins = [
+  { n = 1, x = 68, y = 56.7, text = "The game shows what is stored and the room: no trend, no time until full." },
+]
+[feature.stocksCard.figure.after]
+shot = "WE-02b"
+alt = "The Stocks card with the mod: fertilizer and crude oil on green, each with its change a year and the time until full."
+pins = [
+  { n = 1, x = 30.5, y = 50, text = "Green: one of your lines unloads this cargo here now." },
+  { n = 2, x = 72, y = 74.5, text = "Crude oil's change over the last year, with the game's tendency arrow, and the time until full, yellow within a year." },
+  { n = 3, x = 32, y = 78, text = "Fertilizer falls by 30 a year, so it has no time until full." },
+]
+
+[[feature.stocksCard.figure]]
+shot = "WE-03b"
+alt = "The expanded Stocks card: a free Bulk slot, a fertilizer slot, eight crude oil slots with green bars, and six lines with arrows."
+caption = "The same warehouse with its Stocks card expanded: a free Bulk slot, the fertilizer slot, eight crude oil slots close to full, and the lines that serve it."
+layout = "side"
+pins = [
+  { n = 1, x = 52, y = 25.7, text = "Each kind counts its free slots, and names the cargo a held slot waits for." },
+  { n = 2, x = 56, y = 50.6, text = "A slot's bar is green while a line unloads its cargo here, grey when none does, red once it is full." },
+  { n = 3, x = 88, y = 78.2, text = "The lines that unload here (arrow down) or load here (arrow up). Click one to open it." },
+]
