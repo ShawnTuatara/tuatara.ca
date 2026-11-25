@@ -255,7 +255,7 @@ shot = "CE-08b"
 alt = "The Supply Chain Planner on Halesworth Livestock Farm: grain suppliers at the left, the farm's card in the middle, meat takers at the right, and the planned legs below."
 caption = "Halesworth Livestock Farm needs grain and makes meat and wool, planned within 6 km. Step 2 at the far left looks one step further: fertilizer would boost its grain supplier, but none is made within reach."
 pins = [
-  { n = 1, x = 45.6, y = 17.5, text = "The industry you plan for, in the middle, at 57 % of its maximum production. Grain is marked Limiting: its stock is nearly empty." },
+  { n = 1, x = 45.6, y = 17.5, text = "The industry you plan for, in the middle, at 59 % of its maximum production. Grain is marked Limiting: its stock is empty." },
   { n = 2, x = 26.8, y = 26, text = "Who makes grain, nearest first. The picked supplier is blue, with your line that serves it in green." },
   { n = 3, x = 24, y = 35.8, text = "Raw producers show their plots: 8 of 20 built here, and 85 a year once all are built." },
   { n = 4, x = 62.5, y = 39, text = "Who takes the meat: the town of Frodsham, 2.1 km away, is picked and already served by your line." },

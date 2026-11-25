@@ -78,11 +78,11 @@ shot = "LE-02b"
 alt = "The Assign Lines window in list view: each terminal as a card with its preferred line and greyed alternatives; one row is pointed at, showing its grip and alternative handle."
 caption = "Two grain lines share terminals 2 and 3: each prefers one and has the other as an alternative."
 pins = [
-  { n = 1, x = 85, y = 16, text = "Switches between the list and the grid." },
-  { n = 2, x = 24, y = 44.5, text = "Each terminal is a card with its type and length, the lines that prefer it first." },
-  { n = 3, x = 85, y = 57.5, text = "An alternative, greyed under the separator; the ✕ removes it." },
-  { n = 4, x = 4.5, y = 72, text = "Drag a line by its grip to another terminal to make that its preferred one." },
-  { n = 5, x = 97, y = 71, text = "Drag this handle to another terminal to add it as an alternative." },
+  { n = 1, x = 87.0, y = 16, text = "Switches between the list and the grid." },
+  { n = 2, x = 23.5, y = 44.5, text = "Each terminal is a card with its type and length, the lines that prefer it first." },
+  { n = 3, x = 85.0, y = 57.5, text = "An alternative, greyed under the separator; the ✕ removes it." },
+  { n = 4, x = 8.5, y = 72, text = "Drag a line by its grip to another terminal to make that its preferred one." },
+  { n = 5, x = 92.2, y = 71, text = "Drag this handle to another terminal to add it as an alternative." },
 ]
 
 [[feature.assignLines.figure]]
@@ -99,7 +99,7 @@ alt = "The Assign Lines window in grid view: lines as rows, terminals 1 to 4 as 
 caption = "The same station in the grid view."
 pins = [
   { n = 1, x = 96.5, y = 47.5, text = "Corner flags: green made for the line's cargo, yellow other cargo (slower), red unreachable." },
-  { n = 2, x = 57.5, y = 52.5, text = "Grain 1 prefers terminal 3 (its colour), has terminal 2 as an alternative (grey) and doesn't use terminal 4 (✕)." },
+  { n = 2, x = 64.5, y = 52.7, text = "Grain 1 prefers terminal 3 (its colour), has terminal 2 as an alternative (grey) and doesn't use terminal 4 (✕)." },
   { n = 3, x = 88, y = 91.5, text = "Left-click a cell to make it preferred, right-click to add or remove an alternative." },
 ]
 
@@ -156,9 +156,9 @@ alt = "The Line Manager on a two-stop fish delivery line with the Figures view o
 caption = "A fish delivery line from a warehouse to a town's stops."
 layout = "side"
 pins = [
-  { n = 1, x = 76.5, y = 77.9, text = "This stop loads from stocks: 11 of 500 in reach, 1.8 vehicle loads, 179 coming in a year." },
-  { n = 2, x = 58, y = 83, text = "The delivery stop: the buildings in reach hold 38 fish of the 128 they can take." },
-  { n = 3, x = 77, y = 83, text = "37 of the 60 buildings in reach that take fish are empty." },
+  { n = 1, x = 76.5, y = 77.9, text = "This stop loads from stocks: 16 of 500 in reach, 2.7 vehicle loads, 179 coming in a year." },
+  { n = 2, x = 58, y = 83, text = "The delivery stop: the buildings in reach hold 37 fish of the 128 they can take." },
+  { n = 3, x = 77, y = 83, text = "38 of the 60 buildings in reach that take fish are empty." },
 ]
 
 [feature.passengerToggle]
@@ -176,8 +176,8 @@ alt = "The Line Manager on a passenger line; in the action bar the passenger but
 caption = "A passenger line: every stop loads passengers, none loads cargo."
 layout = "side"
 pins = [
-  { n = 1, x = 58.7, y = 65, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
-  { n = 2, x = 64.8, y = 65, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
+  { n = 1, x = 58.7, y = 68.6, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
+  { n = 2, x = 64.8, y = 68.6, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
 ]
 
 [feature.cargoRemoval]
@@ -251,8 +251,8 @@ alt = "The Line Manager with the Vehicles Needed card open under the vehicle lis
 caption = "A stagecoach line with six vehicles, the card opened and one vehicle added in the what-if."
 layout = "side"
 pins = [
-  { n = 1, x = 2.5, y = 55.7, text = "Enough vehicles: 125 seats a year cover the 98 passengers arriving at the busiest stop." },
-  { n = 2, x = 58.5, y = 58.2, text = "The queue at Alexander Road, 14, would be gone in about half a year." },
+  { n = 1, x = 2.5, y = 55.7, text = "Enough vehicles: 125 seats a year cover the 97 passengers arriving at the busiest stop." },
+  { n = 2, x = 58.5, y = 58.2, text = "The queue at Alexander Road, 11, would be gone in under half a year." },
   { n = 3, x = 2.5, y = 60.5, text = "One vehicle fewer would still keep up and clear the queues within 3 years." },
   { n = 4, x = 35, y = 66.7, text = "What if: add or remove vehicles of the line's model." },
   { n = 5, x = 73, y = 69.3, text = "Now against one more: interval, seats, each stop's queue, use and running costs." },
@@ -562,7 +562,7 @@ pins = [
   { n = 1, x = 33.5, y = 15.8, text = "Income and running costs a year." },
   { n = 2, x = 56.5, y = 15.8, text = "The line's share of servicing, track, station and depot upkeep." },
   { n = 3, x = 86.5, y = 15.8, text = "Net: what is left after every cost." },
-  { n = 4, x = 95.5, y = 28.7, text = "Own Upkeep: upkeep only this line uses, saved if you remove it." },
+  { n = 4, x = 95.5, y = 22.5, text = "Own Upkeep: upkeep only this line uses, saved if you remove it." },
 ]
 
 [[feature.costViews.figure]]

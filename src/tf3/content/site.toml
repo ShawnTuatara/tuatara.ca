@@ -121,11 +121,11 @@ key = "game-bar"
 name = "Game bar"
 [window.figure]
 shot = "GEN-03b"
-alt = "The game bar's counters with the population counter's tooltip: Reach a Population of 41,151, 45% of progress towards CEO, Population now 36,638"
+alt = "The game bar's counters with the population counter's tooltip: Reach a Population of 26,763, 24% of progress towards Director, Population now 22,580 (-3)"
 caption = "The bottom of the game bar, hovering the population counter."
 pins = [
   { n = 1, x = 64, y = 85, mod = "company-enhancements", text = "Population Counter: the population your company has reached against the next rank's; the tooltip adds the progress and today's population." },
-  { n = 2, x = 76.8, y = 95.5, mod = "company-enhancements", text = "Population Change: how much the world's population grew over 30 days, updated weekly." },
+  { n = 2, x = 80.0, y = 95.5, mod = "company-enhancements", text = "Population Change: how much the world's population grew over 30 days, updated weekly." },
 ]
 
 [[window]]

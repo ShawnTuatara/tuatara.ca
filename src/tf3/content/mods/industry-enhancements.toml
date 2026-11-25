@@ -133,7 +133,7 @@ dim = true
 boxes = [ { x = 48.5, y = 0, w = 46.5, h = 67 } ]
 pins = [
   { n = 1, x = 80.5, y = 47, text = "The line, the stop and where the worker gets off: waiting at Windsor Road for Frodsham - Passengers 1." },
-  { n = 2, x = 72.5, y = 30, text = "119 days waiting, in red: past 30 days the wait makes people unhappy." },
+  { n = 2, x = 72.3, y = 35.9, text = "126 days waiting, in red: past 30 days the wait makes people unhappy." },
 ]
 
 [feature.industryColumns]

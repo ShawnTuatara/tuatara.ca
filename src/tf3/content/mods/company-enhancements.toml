@@ -26,18 +26,18 @@ good = [
 
 [[feature.populationCounter.figure]]
 shot = "CO-01a"
-alt = "The Population Counter: a population icon, 22,579, a small red down arrow, then / 26,763; at the right the Population Change icon alone."
+alt = "The Population Counter: a population icon, 22,583, a small red down arrow, then / 26,763; at the right Population Change reads +13."
 caption = "A world whose towns have shrunk a little since their highest population."
 pins = [
-  { n = 1, x = 22.5, y = 14, text = "22,579: the highest population all your towns together have reached. This is what earns ranks." },
-  { n = 2, x = 35.3, y = 14, text = "The red arrow: your towns have shrunk below that figure since." },
+  { n = 1, x = 20.5, y = 14, text = "22,583: the highest population all your towns together have reached. This is what earns ranks." },
+  { n = 2, x = 34.0, y = 14, text = "The red arrow: your towns have shrunk below that figure since." },
   { n = 3, x = 64, y = 62, text = "26,763: the population your next rank needs." },
-  { n = 4, x = 92.5, y = 62, text = "Population Change shows its icon alone until its first weekly value." },
+  { n = 4, x = 80.0, y = 62, text = "Population Change: the last 30 days' change, +13 here over the 5 days recorded so far. Its arrow comes once last week's value exists." },
 ]
 
 [[feature.populationCounter.figure]]
 shot = "CO-01b"
-alt = "The counter's tooltip: Reach a Population of 26,763. 24% of progress towards Director. Population now: 22,570 (-9)."
+alt = "The counter's tooltip: Reach a Population of 26,763. 24% of progress towards Director. Population now: 22,580 (-3)."
 caption = "Its tooltip, in the same world."
 pins = [
   { n = 1, x = 60, y = 33, text = "The population the next rank needs, as on the rank's card in the company window." },
