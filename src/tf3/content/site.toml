@@ -49,6 +49,7 @@ links = [
 title = "Helicopters frozen on the pad"
 text = "Traced landing by landing: a helicopter that hovers low while waiting for a one-pad helipad sinks onto the deck and never arrives, blocking the pad for every other helicopter."
 links = [
+  { label = "Forum report", url = "https://forum.urbangames.com/forum/index.php?thread/4590-bug-helicopters-freeze-on-a-one-pad-oil-platform-after-waiting-to-land/" },
   { label = "Helicopter Pad Freeze fix", mod = "bug-fix-helicopter-pad-freeze", url = "https://mod.io/g/transportfever3/m/bug-fix-helicopter-pad-freeze" },
 ]
 
