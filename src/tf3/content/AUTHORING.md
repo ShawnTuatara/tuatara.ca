@@ -33,6 +33,7 @@ Models: `bug-fix-crosswalk-queue.toml` (a live page, finished) and `industry-enh
 | `good` | Optional "Good to know" bullets: limits, rules of thumb, what stays as it was. |
 | `also` | Optional: where else it shows. |
 | `title`, `short`, `anchor` | Defaults from the setting's name and `what`; rarely needed. |
+| `setting` | When several parts of the page share one setting: the setting's key (the feature then needs its own `title`, and the top-level `features` list names every part). Cargo Enhancements' filter row works this way. |
 
 Text takes `code`, **bold**, [text](url) and `[text](mod:<slug>#anchor)` links. Triple-quoted strings for paragraphs; a blank line starts a new paragraph.
 

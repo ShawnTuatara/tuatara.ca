@@ -3,7 +3,7 @@ group = "enhancements"
 order = 2
 status = "soon"
 publish = true
-version = "0.28.6"
+version = "0.28.7"
 card = "Cargo flow filters for industries, towns and warehouses, and a supply chain planner."
 card_image = "site/card-cargo-enhancements.webp"
 lead = "The industry and town windows draw arrows to every industry and town that could supply or take their cargos, all at once. This mod filters them by cargo, distance and who actually produces, adds distances to the tables, gives warehouses the same view, and plans whole supply chains from the raw producers to the towns."
@@ -15,17 +15,18 @@ In the game, expanding an industry's Input Stocks or Output Stocks card, or open
 """
 compat = "Works alongside [Industry Enhancements](mod:industry-enhancements), whose worker count and list share the Boosters card, [Warehouse Enhancements](mod:warehouse-enhancements), whose Stocks card sits above Consumers and Suppliers in the warehouse window, and [To-Do List](mod:todo-list), whose cards share the industry, town and warehouse windows."
 
-[[section]]
-title = "Industry window"
-features = ["cargoFilter", "boosterSources"]
+# The filter row and the Distance column are one setting, Cargo Flow Filters (cargoFilter); each part
+# keeps its own block, with setting = "cargoFilter" and its own title.
+features = ["cargoFilter", "townSupplies", "distanceSlider", "producingFilter", "distanceColumn",
+  "tableSort", "warehouseFlows", "boosterSources", "supplyChainPlanner"]
 
 [[section]]
-title = "Town and warehouse windows"
-features = ["townSupplies", "warehouseFlows"]
+title = "Cargo Flow Filters"
+features = ["cargoFilter", "townSupplies", "distanceSlider", "producingFilter", "distanceColumn"]
 
 [[section]]
-title = "Filters and tables in all three windows"
-features = ["distanceSlider", "producingFilter", "distanceColumn", "tableSort"]
+title = "Table sort and cards"
+features = ["tableSort", "warehouseFlows", "boosterSources"]
 
 [[section]]
 title = "Supply Chain Planner"
@@ -34,6 +35,8 @@ features = ["supplyChainPlanner"]
 # ------------------------------------------------------------ industry window
 
 [feature.cargoFilter]
+setting = "cargoFilter"
+title = "Cargo Filter"
 where = ["industry-window"]
 why = "Expanding an industry's Input Stocks or Output Stocks card draws arrows to every industry and town that could supply or take any of its cargos, and lists them all in one table. For a canning factory that is every fishing ground, livestock farm and steel mill around."
 what = "Cargo buttons above the table of an expanded Input Stocks or Output Stocks card: All, as in the game, and one button per cargo. Pick a cargo to keep only its arrows and table rows: the industries and towns that can supply it to this industry, or take it from it."
@@ -83,6 +86,8 @@ pins = [
 # ------------------------------------------------------------ town and warehouse windows
 
 [feature.townSupplies]
+setting = "cargoFilter"
+title = "Town Supply Filter"
 where = ["town-window"]
 why = "A town's Supplies tab rates each cargo the town needs. Its Suppliers view draws arrows to every industry that could supply any of them, all at once, so the one cargo that is short is hard to follow."
 what = "The Suppliers view gets the filter row: pick a cargo the town needs to see only where it can come from, on the map and in the table. The distance slider, the Producing toggle and the Distance column work here too."
@@ -142,6 +147,8 @@ pins = [
 # ------------------------------------------------------------ filters and tables
 
 [feature.distanceSlider]
+setting = "cargoFilter"
+title = "Distance Slider"
 where = ["industry-window", "town-window", "warehouse-window"]
 why = "The arrows reach across the whole map, while a first supply chain usually starts with the industries close by. In a long table those are easy to miss."
 what = "A slider in the filter row hides suppliers and consumers farther away than the distance it shows, both their arrows and their table rows. At the right end it reads All and hides nothing."
@@ -171,6 +178,8 @@ pins = [
 ]
 
 [feature.producingFilter]
+setting = "cargoFilter"
+title = "Producing Filter"
 where = ["industry-window", "town-window", "warehouse-window"]
 why = "The supplier lists include every industry that could make a cargo, also the ones that made none last year because no line serves them. Four canning factories could supply a town with cans, but only one is making any."
 what = "A Producing toggle (the factory icon) in the filter row. In the supplier filters it hides suppliers that produced none of the cargo in the last year. In the consumer filters (an industry's Output Stocks, a warehouse's Consumers) it hides consumer industries that produced nothing in the last year or threw almost all of it away; towns stay."
@@ -199,6 +208,8 @@ pins = [
 ]
 
 [feature.distanceColumn]
+setting = "cargoFilter"
+title = "Distance Column"
 where = ["industry-window", "town-window", "warehouse-window"]
 why = "The game's supplier and consumer tables give names and amounts, but not how far away each one is. A neighbour and a town at the far end of the map look the same."
 what = "A Distance column in the supplier and consumer tables of the industry, town and warehouse windows: the straight-line distance to the other industry or town. Sort by it to put the nearest first."
