@@ -81,3 +81,7 @@ pins = [ … ]
 ## Check
 
 `python src/tf3/build.py --drafts --out <scratch dir>` must end without errors. `build-preview/` (`--drafts` without `--out`) is the local preview on port 8792.
+
+## Publish
+
+The Pages workflow uploads `site/` as committed; it doesn't build. After changing a TOML or a shot, run `python src/tf3/build.py` (no flags: writes `site/`) and commit `site/` with the sources, or the live pages keep the old text and images.
