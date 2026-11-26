@@ -82,3 +82,13 @@ pins = [
   { n = 4, x = 87.4, y = 56, text = "The chain links the town to a task: with the To-Do window open, click a task there, then the chain. Greyed while the window is closed, no task is picked, or the task already has this town." },
   { n = 5, x = 55, y = 69.4, text = "The tasks about it: tick, edit or delete them here." },
 ]
+
+[[feature.elementLinks.figure]]
+shot = "TD-05"
+alt = "The To-Do window with the task Add a bus line in Loughton picked, beside Loughton's town window, whose To-Do card shows a white chain."
+caption = "With a task picked in the To-Do window, the chain on a town's card turns white: click it to add the town to that task."
+pins = [
+  { n = 1, x = 31.9, y = 61.2, text = "The task picked in the list: click a task to pick it." },
+  { n = 2, x = 94.8, y = 87.5, text = "The chain, white now. It works while the To-Do window is open with a task picked, and is greyed otherwise." },
+  { n = 3, x = 67, y = 71.5, text = "Open tasks about this town: none yet, as the picked task has no links." },
+]

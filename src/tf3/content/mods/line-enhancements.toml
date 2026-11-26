@@ -119,11 +119,11 @@ good = [
 
 [[feature.distributeDelivery.figure]]
 shot = "LE-04a"
-alt = "A stop's window with the Load card: Fish at 75 %, the message that cargo can only be unloaded here, and the Distribute Delivery button."
-caption = "Stop 2 of a fish delivery line after Distribute Delivery. Stops 3 and 4 got 50 % and 25 %, each keeping less aboard than the stop before."
+alt = "The window of the first stop of a fish delivery line: the Load card with Fish at 100 % and the Distribute Delivery button."
+caption = "The first stop of a fish delivery line, where the fish is loaded. After Distribute Delivery the next stop that takes fish keeps half a load aboard and the last stop none, so it gets the rest."
 pins = [
-  { n = 1, x = 4, y = 24, text = "Fish 75 %: vehicles leave this stop with up to three quarters of a load, so a quarter is delivered here." },
-  { n = 2, x = 42, y = 40, text = "Distribute Delivery: point at it for the plan, click to apply it." },
+  { n = 1, x = 42, y = 25, text = "Fish 100 %: vehicles leave this stop full. The stops after it get the smaller levels." },
+  { n = 2, x = 48, y = 36.5, text = "Distribute Delivery: point at it for the plan, click to apply it." },
 ]
 
 [feature.stopWaiting]
@@ -173,8 +173,8 @@ shot = "LE-LM-3"
 alt = "The Line Manager on a passenger line; in the action bar the passenger button is pressed and the cargo button is greyed."
 caption = "A passenger line: every stop loads passengers, none loads cargo."
 pins = [
-  { n = 1, x = 58.4, y = 65.4, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
-  { n = 2, x = 64.3, y = 65.4, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
+  { n = 1, x = 58.2, y = 64.9, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
+  { n = 2, x = 65.8, y = 64.9, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
 ]
 
 [feature.cargoRemoval]
@@ -201,7 +201,7 @@ good = [
 also = "The line window's Vehicles card shows the same as columns you can sort, largest first, with a locate pin and the vehicle's picture, which opens its window."
 
 [[feature.vehicleStatus.figure]]
-caption = "Two bus lines with six vehicles each, in two saves; the game's list shows names, the mod's what each vehicle is doing."
+caption = "The same bus line with six vehicles: the game's list shows names, the mod's what each vehicle is doing."
 [feature.vehicleStatus.figure.before]
 shot = "LE-LM-1-stock"
 alt = "The game's Line Manager: the vehicle list shows a line colour, a name and a picture per vehicle."
@@ -466,8 +466,8 @@ alt = "The Costs & Value card opened: a waterfall from income through running, s
 caption = "The Costs & Value card opened."
 pins = [
   { n = 1, x = 72, y = 8, text = "The waterfall: income, then each cost, down to the net." },
-  { n = 2, x = 84, y = 34.5, text = "If removed: running costs saved, upkeep only this line uses, income lost and what its vehicles sell for." },
-  { n = 3, x = 84, y = 59, text = "Every cost, largest first, with the line's share: 2 of 11 vehicles serviced, a station used by 4 lines." },
+  { n = 2, x = 94, y = 40.8, text = "If removed: running costs saved, upkeep only this line uses, income lost and what its vehicles sell for." },
+  { n = 3, x = 94, y = 70, text = "Every cost, largest first, with the line's share: 3 of 16 vehicles serviced, a station used by 4 lines." },
 ]
 
 [feature.lineTiming]
@@ -493,11 +493,11 @@ pins = [
 
 [[feature.lineTiming.figure]]
 shot = "LE-15"
-alt = "The Timing card opened for a bus line: four findings, then one bar per leg split into colours, with a legend."
-caption = "The Timing card opened, for a bus line a few game months after the mod started recording."
+alt = "The Timing card opened for a bus line: two findings, then one bar per leg split into colours, with its time at the right and a legend."
+caption = "The Timing card opened, for a bus line with traffic and spacing waits."
 pins = [
-  { n = 1, x = 72, y = 55, text = "Each leg to the next stop, split into moving, the stop and each delay." },
-  { n = 2, x = 73.4, y = 97.5, text = "The colours: moving, at the stop, circling or traffic, queue or signal, terminal full." },
+  { n = 1, x = 66, y = 63, text = "Each leg to the next stop, split into moving, the stop and each delay, with its time now at the right: green when quick, red when slow." },
+  { n = 2, x = 74, y = 91, text = "The colours: moving, at the stop, circling or traffic, queue or signal, terminal full." },
 ]
 
 [feature.vehicleManageLine]

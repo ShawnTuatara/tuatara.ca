@@ -53,12 +53,12 @@ also = "The statistics Industries tab's Plots column ([Industry Columns](#indust
 
 [[feature.plotGrowth.figure]]
 shot = "IE-02c"
-alt = "A crop farm's Production card: 18/19 and 3 months in yellow under the plots icon, and a tooltip with the chance of the next try."
-caption = "Burgkunstadt Crop Farm, with the pointer on the next try."
+alt = "A crop farm's Production card: 18/19 and 3 months in grey under the plots icon, and a tooltip that names the next try, says the farm is blocked from expanding and gives the chance."
+caption = "Burgkunstadt Crop Farm, blocked from further expansion, with the pointer on the next try."
 pins = [
-  { n = 1, x = 9.5, y = 51, text = "Plots built of the most this farm may have: 18 of 19." },
-  { n = 2, x = 38.5, y = 51, text = "The next try to add a plot, in 3 months. Yellow: it may succeed." },
-  { n = 3, x = 92.5, y = 65, text = "The chance: 100 % production × 39 % shipped gives 28 %, on a scale from none at 25 % to sure at 75 %." },
+  { n = 1, x = 9.2, y = 33.2, text = "Plots built of the most this farm may have: 18 of 19." },
+  { n = 2, x = 37.5, y = 33.2, text = "The next try to add a plot, in 3 months. Grey because the farm is blocked: the try adds no plot unless the way is clear by then." },
+  { n = 3, x = 26.7, y = 62.6, text = "The chance: 100 % production × 39 % shipped gives 28 %, on a scale from none at 25 % to sure at 75 %." },
 ]
 
 [[feature.plotGrowth.figure]]
