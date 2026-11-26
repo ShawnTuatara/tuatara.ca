@@ -228,6 +228,13 @@ figcaption { margin: 10px 0 0; font-size: .9rem; color: var(--muted); line-heigh
 .legend li.on { background: var(--accent-very-dark); border-left-color: var(--accent-light); }
 .legend .n { width: 22px; height: 22px; border-radius: 50%; background: var(--highlight); color: var(--base-very-dark); font: 700 12px/22px "Lato", system-ui, sans-serif; text-align: center; margin-top: 1px; }
 .legend .mod { color: var(--muted); font-size: .8rem; display: block; }
+/* Find it in the game: the legend grouped by mod (1, 2, ...), its features lettered (1A, 1B, ...) */
+.legend.grouped li.legend-mod { background: var(--base-dark); font-weight: 700; padding-top: 10px; }
+.legend.grouped li.legend-mod .n { background: transparent; color: var(--highlight); box-shadow: inset 0 0 0 2px var(--highlight); }
+.legend.grouped li:not(.legend-mod) { padding-left: 22px; }
+.legend.grouped .n { width: 26px; border-radius: 11px; }
+.legend.grouped li { grid-template-columns: 28px 1fr; }
+.legend .feat { display: block; font-size: .8rem; font-weight: 700; color: var(--text-2); }
 
 /* Every figure: the image, and beside it the caption and the legend (user, 2026-11-25: the numbers
    beside the screenshot, so a pin can be looked up without scrolling). The image keeps its own width

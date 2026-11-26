@@ -239,8 +239,26 @@ def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float
              + (f' style="--hk:{height_share:.4f}"' if height_share < 1 else "") + '>']
     for b in boxes:
         parts.append(f'<div class="ann-box" style="left:{b["x"]}%;top:{b["y"]}%;width:{b["w"]}%;height:{b["h"]}%"></div>')
+    # A figure whose every pin names a mod ("Find it in the game"): each mod a number in order of its
+    # first pin, each of its pins a letter (1A, 1B, 2A, ...), and the legend grouped under the mods
+    # (user, 2026-11-26)
+    groups: list[tuple[str, list]] = []
+    labels: dict[int, str] = {}
+    if pins and all(p.get("mod") for p in pins):
+        numbers: dict[str, int] = {}
+        for p in sorted(pins, key=lambda q: q["n"]):
+            if p["mod"] not in numbers:
+                numbers[p["mod"]] = len(numbers) + 1
+                groups.append((p["mod"], []))
+            members = groups[numbers[p["mod"]] - 1][1]
+            labels[id(p)] = f"{numbers[p['mod']]}{chr(ord('A') + len(members))}"
+            members.append(p)
+
+    def label(p: dict) -> str:
+        return str(labels.get(id(p), p["n"]))
+
     for p in pins:
-        parts.append(f'<span class="pin" data-n="{p["n"]}" style="left:{p["x"]}%;top:{p["y"]}%" aria-hidden="true">{p["n"]}</span>')
+        parts.append(f'<span class="pin" data-n="{label(p)}" style="left:{p["x"]}%;top:{p["y"]}%" aria-hidden="true">{label(p)}</span>')
     parts.append("</div>")
     # Every figure the same way (user, 2026-11-25): the image, then beside it its caption and the
     # numbered legend, so a pin can be looked up without scrolling; stacked where the figure's box is
@@ -248,7 +266,23 @@ def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float
     aside = []
     if fig.get("caption"):
         aside.append(f"<figcaption>{md(fig['caption'])}</figcaption>")
-    if pins:
+    if groups:
+        aside.append('<ol class="legend grouped">')
+        for number, (slug, members) in enumerate(groups, 1):
+            name = MODS[slug].name
+            href = mod_href(f"mod:{slug}")
+            link = f'<a href="{esc(href)}">{esc(name)}</a>' if href else esc(name)
+            aside.append(f'<li class="legend-mod"><span class="n">{number}</span><span>{link}</span></li>')
+            for p in members:
+                feature = next((f for f in MODS[slug].features if p.get("anchor") and f.anchor == p["anchor"]), None)
+                feat = ""
+                if feature is not None:
+                    fhref = mod_href(f"mod:{slug}#{feature.anchor}")
+                    title = f'<a href="{esc(fhref)}">{esc(feature.title)}</a>' if fhref else esc(feature.title)
+                    feat = f'<span class="feat">{title}</span>'
+                aside.append(f'<li data-n="{label(p)}"><span class="n">{label(p)}</span><span>{feat}{md(p["text"])}</span></li>')
+        aside.append("</ol>")
+    elif pins:
         aside.append('<ol class="legend">')
         for p in pins:
             mod = ""
