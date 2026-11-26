@@ -403,6 +403,7 @@ Every table with a Problems column counts the elements with a problem notificati
 **Industries**: industries blocked from further expansion, which the game shows only in the industry's own window, and industries destroying part of a cargo they ship too slowly. The box gives each its own tab: Expansion Blocked, and Cargo Destroyed with the cargo, what was shipped and destroyed last year and the share destroyed.
 """
 good = [
+  "A name or figure cut short to fit its column shows in full when you point at it.",
   "The checks cost next to nothing in frame rate.",
   "A button follows a change within a few seconds, a blocked industry within about half a minute.",
 ]
