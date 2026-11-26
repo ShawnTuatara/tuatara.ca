@@ -264,13 +264,13 @@ pins = [
 where = ["game-bar", "statistics"]
 why = "Some problems show only deep in a window or a table: an industry that can't expand, a warehouse about to fill up, a station where passengers pile up, a depot that can't keep up with maintenance. Nothing in the game bar tells you where to look."
 what = """
-The statistics buttons in the game bar turn red while their table has something to look at, so you see at a glance where to check. Hover a red button to see what it found and where, up to three names per kind; the button's hotkey stays beside its title.
+The statistics buttons in the game bar turn red while their table has something to look at, so you see at a glance where to check. Point at a red button and a box opens above the bar with everything it found: a tab per kind with its count, then each element's name and its figures in columns. Click a name to open that element's window; a long list scrolls. The buttons' own tooltips stay as in the game.
 
 Every table with a Problems column counts the elements with a problem notification, as that column shows them. Some buttons check more:
 
 **Vehicles**: vehicles in very bad condition.
 
-**Depots**: depots and maintenance buildings whose maintenance pool is full while vehicles in their maintenance area are maintained nowhere and wear down. The tooltip says how many, and how many vehicles the pool served in the last 30 days.
+**Depots**: depots and maintenance buildings whose maintenance pool is full while vehicles in their maintenance area are maintained nowhere and wear down. The box says how many, and how many vehicles the pool served in the last 30 days.
 
 **Stations**: a terminal the station window marks as overcrowded; more passengers waiting for a line at a stop than all of that line's vehicles seat together, so the line needs more vehicles; or at least 10 unhappy passengers who make up 30 % of those waiting (the Delay column). Each counts once it has lasted while the game runs.
 
@@ -285,36 +285,64 @@ good = [
 
 [[feature.problemButtons.figure]]
 shot = "SE-08-towns"
-alt = "The game bar with the Vehicles, Stations, Warehouses and Towns statistics buttons in red, the Towns button's tooltip listing Colchester and Cullompton."
-caption = "Four red statistics buttons, the Towns button hovered."
+alt = "The game bar with the Vehicles, Stations, Warehouses, Towns and Industries statistics buttons in red; above it the Towns box: Problems 2, Colchester and Cullompton, both Town Rating Very Poor."
+caption = "Five red statistics buttons, the Towns button pointed at."
 pins = [
-  { n = 1, x = 36.2, y = 48, text = "Red: this table has something to look at, here Vehicles, Stations, Warehouses and Towns." },
-  { n = 2, x = 75, y = 42, text = "Hover it: the towns with a problem notification, as the Towns tab's Problems column shows them." },
+  { n = 1, x = 51.2, y = 65, text = "Red: this table has something to look at, here Vehicles, Stations, Warehouses, Towns and Industries." },
+  { n = 2, x = 92, y = 40.5, text = "The towns with a problem notification, as the Towns tab's Problems column shows them, with the notification's type." },
+  { n = 3, x = 40, y = 40.5, text = "Click a name to open that town's window." },
+]
+
+[[feature.problemButtons.figure]]
+shot = "SE-08-vehicles"
+alt = "The Vehicles box: Vehicle Condition 7, Road Vehicles 73, 74, 78 and 77 on a Bournemouth warehouse line and 76, 80 and 79 on a Bournemouth chemicals line, all at 0 percent."
+caption = "The Vehicles button: vehicles in very bad condition, with their line."
+pins = [
+  { n = 1, x = 66.5, y = 17.6, text = "Each vehicle's line: four worn trucks on one line, three on another." },
+  { n = 2, x = 78, y = 17.6, text = "Condition: at 20 % or less a vehicle counts." },
 ]
 
 [[feature.problemButtons.figure]]
 shot = "SE-08b"
-alt = "The Stations button's tooltip: Station Overcrowded with three stations, More waiting than the line's vehicles seat with three stops, and Delay with two stops."
-caption = "The Stations button's tooltip in another world."
+alt = "The Stations box with tabs Overcrowded 22, Waiting 30 and Delay 9; the Overcrowded tab lists stations with the crowded terminal, the lines stopping there and waiting over capacity, Stop #148 first with 910 of 50."
+caption = "The Stations button: a tab per kind, here the overcrowded terminals."
 pins = [
-  { n = 1, x = 48, y = 20.5, text = "Overcrowded: The Drive's terminal 1 holds 59 passengers for 50 places." },
-  { n = 2, x = 67, y = 47.7, text = "56 wait at The Avenue for a line whose vehicles together seat 18: it needs more vehicles." },
-  { n = 3, x = 67, y = 88.7, text = "Delay: 25 of the 62 passengers waiting at Park Avenue are unhappy." },
+  { n = 1, x = 78.3, y = 9.2, text = "A tab per kind of problem with its count; the box keeps its height when you switch." },
+  { n = 2, x = 94.7, y = 23.8, text = "Stop #148's terminal 1 holds 910 passengers for 50 places." },
+  { n = 3, x = 73.5, y = 41.1, text = "Four lines stop at Wadhurst Station Central's crowded terminal 2." },
+]
+
+[[feature.problemButtons.figure]]
+shot = "SE-08b-waiting"
+alt = "The Stations box's Waiting tab: station, line, the line's fleet seats and the passengers waiting for it, Stop #148 first with 910 waiting for 100 seats."
+caption = "Waiting: lines that can't clear their queue in one trip of the whole fleet."
+pins = [
+  { n = 1, x = 94.7, y = 23.8, text = "910 wait at Stop #148 for a line whose vehicles together seat 100: it needs more vehicles." },
+  { n = 2, x = 78.3, y = 9.2, text = "30 such stops across the map." },
+]
+
+[[feature.problemButtons.figure]]
+shot = "SE-08b-delay"
+alt = "The Stations box's Delay tab: Droitwich Spa Station 115 unhappy of 252 waiting, Cullompton Airport 56 of 152, and seven more."
+caption = "Delay: many of those waiting are unhappy."
+pins = [
+  { n = 1, x = 90.8, y = 23.8, text = "115 of the 252 passengers waiting at Droitwich Spa Station are unhappy, the Stations tab's Delay figure." },
 ]
 
 [[feature.problemButtons.figure]]
 shot = "SE-08-warehouses"
-alt = "The Warehouses button's tooltip: Storage Full, Wellington Warehouse's sheet metal at 100 percent; Storage Nearly Full, three warehouses with a cargo at 99, 91 and 86 percent; and +5."
+alt = "The Warehouses box's Nearly Full tab: eight warehouses with the cargo's icon, the storage buildings, stored and room, and the fill, Carlton Colville's crude oil at 3990 of 4000, 99 percent."
 caption = "The Warehouses button: cargos close to filling the room they have."
 pins = [
-  { n = 1, x = 97, y = 59.3, text = "Carlton Colville Warehouse's crude oil fills 99 % of the room it has." },
-  { n = 2, x = 43.5, y = 92.5, text = "Five more warehouses: the tooltip names three per kind." },
+  { n = 1, x = 55, y = 9.2, text = "Full: a cargo at 100 %. Nearly Full: from 85 % of its room, so there is time to act." },
+  { n = 2, x = 55.3, y = 25.7, text = "The cargo; its name on hover." },
+  { n = 3, x = 94.7, y = 23.8, text = "Carlton Colville Warehouse's crude oil: 3,990 of the 4,000 its 8 storage buildings hold." },
 ]
 
 [[feature.problemButtons.figure]]
 shot = "SE-08-industries"
-alt = "The Industries button's tooltip: Industry is blocked from further expansion, Cheltenham Logging Camp."
+alt = "The Industries box: Expansion Blocked 1, Cheltenham Logging Camp, plots 17 of 20."
 caption = "The Industries button: an industry blocked from further expansion."
 pins = [
-  { n = 1, x = 83, y = 92.5, text = "Without the mod, only Cheltenham Logging Camp's own window says it can't grow." },
+  { n = 1, x = 84.2, y = 45.8, text = "Cheltenham Logging Camp has 17 of up to 20 plots and can't add more; without the mod only its own window says so." },
 ]
