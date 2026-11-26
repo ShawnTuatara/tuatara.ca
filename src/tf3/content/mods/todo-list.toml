@@ -25,7 +25,7 @@ how = [
 ]
 good = [
   "The bulldozer on the Done tab deletes all done tasks at once.",
-  "The list and a data layer's legend share their place: opening one closes the other, and the legend opens a little lower, below the button.",
+  "The list and a data layer's legend share their place: opening one closes the other.",
   "Every save has its own list, saved with the game. Turned off in the mod's Settings, the list stays in the save.",
   "Removing the mod deletes the list from that save the next time it is loaded; nothing else of the mod stays in the save.",
 ]

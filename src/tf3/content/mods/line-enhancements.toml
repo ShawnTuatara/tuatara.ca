@@ -30,8 +30,8 @@ title = "Line Manager: vehicles"
 features = ["vehicleStatus", "vehiclesNeeded", "selectedCount", "sendToLineFilter"]
 
 [[section]]
-title = "Line Manager: names and filters"
-features = ["destinationNames", "lineTypeFilter"]
+title = "Line Manager: names"
+features = ["destinationNames"]
 
 [[section]]
 title = "Line Manager: on the map"
@@ -173,7 +173,7 @@ shot = "LE-LM-3"
 alt = "The Line Manager on a passenger line; in the action bar the passenger button is pressed and the cargo button is greyed."
 caption = "A passenger line: every stop loads passengers, none loads cargo."
 pins = [
-  { n = 1, x = 58.2, y = 64.9, text = "Passengers on All Stops, pressed: a stop of this line loads passengers." },
+  { n = 1, x = 58.2, y = 64.9, text = "Toggle Passengers on All Stops, pressed: a stop of this line loads passengers." },
   { n = 2, x = 65.8, y = 64.9, text = "Remove Cargo from All Stops, greyed: no stop of this line loads cargo." },
 ]
 
@@ -196,7 +196,7 @@ what = "Each vehicle in the Line Manager's list shows its load now, its fullest 
 good = [
   "Average fill is green from 67 %, yellow from 33 %, red below.",
   "A low average can hide one stop that needs the whole vehicle; the fullest departure shows it.",
-  "The line colour and name columns make room; the name is in the tooltip. Point at a vehicle's picture for its details.",
+  "The vehicle's name moves into the row's tooltip. Point at a vehicle's picture for its details.",
 ]
 also = "The line window's Vehicles card shows the same as columns you can sort, largest first, with a locate pin and the vehicle's picture, which opens its window."
 
@@ -258,7 +258,6 @@ pins = [
 where = ["line-manager"]
 why = "With a long vehicle list, the select-all box doesn't say how many vehicles you are about to send to a depot, sell or replace."
 what = "The Line Manager's vehicle list shows how many of its vehicles are selected, as a number between the select-all box and the Reverse button; the tooltip adds how many are listed."
-good = ["Reverse, Start / Stop and Set Color sit a little further right to make room."]
 
 [feature.sendToLineFilter]
 where = ["line-manager", "vehicle-window"]
@@ -272,7 +271,7 @@ pins = [
   { n = 1, x = 12.8, y = 4, text = "Show Only Visible Lines opens as you last left it." },
 ]
 
-# ---------------------------------------------------------------- Line Manager: names and filters
+# ---------------------------------------------------------------- Line Manager: names
 
 [feature.destinationNames]
 where = ["line-manager"]
@@ -292,17 +291,6 @@ pins = [
   { n = 1, x = 74, y = 35, text = "The mod's suggestion, first: the town it delivers to and the cargo." },
   { n = 2, x = 60.5, y = 68, text = "The game's own suggestions follow, among them 'Town - Cargo'." },
 ]
-
-[feature.lineTypeFilter]
-where = ["line-manager"]
-why = "Older game builds list passenger and cargo lines together in the Line Manager, with no way to show only one kind."
-what = "A passenger and a cargo button after the eye in the Line Manager's list. Both start pressed and every line is listed; let one up to hide those lines. The select-all box then selects only the listed lines, and the map shows only them and their vehicles."
-good = [
-  "A line carrying both is listed while either button is pressed; with both up, no line is listed.",
-  "Game build 40444 and later have their own cargo and passenger buttons in the Line Manager, so on those builds this filter turns itself off.",
-]
-
-# ---------------------------------------------------------------- Line Manager: on the map
 
 [feature.districtColors]
 where = ["line-manager", "map"]
@@ -357,7 +345,7 @@ pins = [
   { n = 2, x = 24, y = 24, text = "Red ?: buildings taking meat that no stop reaches." },
   { n = 3, x = 57.5, y = 27, text = "The district's chip: stored / capacity of its reached buildings, and +2 not reached." },
   { n = 4, x = 95, y = 33.8, text = "The add stop tooltip sums up what this station reaches." },
-  { n = 5, x = 90, y = 47.5, text = "Orange: the lots the station reaches (Selected Line's Catchment)." },
+  { n = 5, x = 90, y = 47.5, text = "Orange: the lots the station reaches (Station Catchment on Hover)." },
 ]
 
 [[feature.cargoDemand.figure]]
@@ -426,7 +414,7 @@ what = "Two cards in the line window. Verdict: Profitable, Feeder or Unprofitabl
 good = [
   "Enables: the lines carrying the output of an industry only this line supplies. A line that loses money but enables other lines' income is a Feeder.",
   "A line's share of upkeep: each track or road piece on its route is split among the lines using it by vehicles passing, a station by stops, a depot by the vehicles it services.",
-  "Figures are worked out a few lines at a time, so they appear shortly after the window opens.",
+  "The figures can take a moment to appear after the window opens.",
 ]
 
 [[feature.costCards.figure]]
@@ -523,7 +511,7 @@ good = [
   "Use is green from 70 %, yellow from 40 %, red below.",
   "Profit bar: income to the right, costs to the left (running, servicing, track and signals, stations, depots), faded where shared with other lines.",
   "Over-built: a cheaper track would do, with the upkeep it would save. Under-built: with the time lost per round trip.",
-  "Income is the Balance plus the vehicles' running costs a year, so a line whose vehicles were bought during the year reads high. A line that lost vehicles during the year can read '100%+' use.",
+  "A line that earned nothing shows – for its income. A line that lost vehicles during the year can read '100%+' use.",
   "A line's share of upkeep: each track or road piece is split among the lines using it by vehicles passing, a station by stops, a depot by the vehicles it services.",
 ]
 

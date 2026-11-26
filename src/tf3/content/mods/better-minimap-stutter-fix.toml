@@ -10,12 +10,12 @@ description = "Better Minimap Stutter Fix for Transport Fever 3: stops Better Mi
 intro = """
 Measured in a 195-minute session on a large map with the minimap open: Better Minimap alone checks the map 30 times a minute, about 5,850 times in that session. With the fix it checked twice a minute while nothing was built and three to eight times in minutes with building: about 490 checks in all.
 """
-compat = "Needs Better Minimap. Without it, or with a version of it that checks differently, the fix does nothing. Better Minimap itself is not changed: the fix only stretches the timer that starts its check."
+compat = "Needs Better Minimap. Without it, or with a version of it that checks differently, the fix does nothing. Better Minimap itself is not changed."
 
 [feature.checkInterval]
 where = ["background"]
 why = """
-While its window is open, Better Minimap checks every 2 seconds whether the map has changed: it reads every piece of terrain, every town and industry, and compares all of it with the last check, in a single frame. On a large map that takes 40 to 60 milliseconds, a visible hitch every 2 seconds.
+While its window is open, Better Minimap checks every 2 seconds whether the map has changed, and goes through the whole map in a single frame. On a large map that takes 40 to 60 milliseconds, a visible hitch every 2 seconds.
 """
 what = """
 Makes that check run every 30 seconds instead: 10, 30 or 60 seconds, or Better Minimap's own 2 seconds, in the mod's Settings. Towns growing and new industries appear at the next check, and the town markers' colours follow the same interval.
@@ -23,7 +23,7 @@ Makes that check run every 30 seconds instead: 10, 30 or 60 seconds, or Better M
 good = [
   "Each check takes as long as before; it just comes far less often. Making the check itself cheaper is up to Better Minimap's author.",
   "Better Minimap's longer pauses when it redraws the map after terrain changes stay as they are; the fix adds none.",
-  "Nothing of the mod is saved with your game that the game can't drop when the mod is removed.",
+  "It can be removed at any time.",
 ]
 
 [feature.refreshOnBuild]

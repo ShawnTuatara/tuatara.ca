@@ -77,6 +77,7 @@ pins = [ … ]
 - The game's own names, capitalised as in the game: Line Manager, Production card, Boosters card, statistics window's Industries tab, Mod Hub.
 - Figures and claims come from the mod's settings snapshot (`mods/<slug>.json`: description and tooltips) and its doc (`knowledge/mods/<modid>.md` in the game folder). Don't promise what the doc marks untested or ❓ unless the snapshot says so too.
 - No internal names: no script, recipe or API names, version histories, test notes or save names beyond what a caption needs.
+- Say what the player sees and can do, not how the mod was built (user, 2026-11-26): no column widths or room made, how a box keeps its size, how often or in what slices checks run, or how the mod works a figure out. Keep such a point only when the player notices it, said from their side: "the figures can take a moment to appear", "a name too long for its column is cut, with the full name on hover".
 
 ## Check
 

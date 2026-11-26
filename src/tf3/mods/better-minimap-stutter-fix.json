@@ -2,11 +2,11 @@
   "modid": "tuatara_better_minimap_stutter_fix",
   "name": "Better Minimap Stutter Fix",
   "summary": "Stops Better Minimap's 2-second stutter on large maps: map checks every 30 s and after building",
-  "description": "A companion to the Better Minimap mod, for large maps where it makes the game stutter. While its window is open, Better Minimap checks every 2 seconds whether the map has changed: it reads every piece of terrain, every town and industry, and compares all of it with the last check, in a single frame. On a large map that takes 40 to 60 milliseconds, a visible hitch every 2 seconds, also while the game is paused.\n\nThis mod makes that check run every 30 seconds instead (10, 30 or 60 seconds, or Better Minimap's own 2 seconds, in the mod's Settings), and once you stop building or bulldozing for a moment, so the minimap still shows your own changes: a burst of clicks with the track tool or the bulldozer is a single check, and while you keep building the minimap is checked at most every 10 seconds. Towns growing and new industries appear at the next check. The town markers' colours follow the same interval.\n\nBetter Minimap itself is not changed: this mod only stretches the timer that starts the check. Without Better Minimap, or with a version of it that checks differently, it does nothing. Both options can be changed in the mod's Settings (the gear next to the mod when choosing a game's mods), where Logging also writes the mod's messages to the game log (stdout.txt) for bug reports. Nothing of the mod is saved with your game that the game can't drop when the mod is removed.",
+  "description": "A companion to the Better Minimap mod, for large maps where it makes the game stutter. While its window is open, Better Minimap checks every 2 seconds whether the map has changed, and goes through the whole map in a single frame. On a large map that takes 40 to 60 milliseconds, a visible hitch every 2 seconds, also while the game is paused.\n\nThis mod makes that check run every 30 seconds instead (10, 30 or 60 seconds, or Better Minimap's own 2 seconds, in the mod's Settings), and once you stop building or bulldozing for a moment, so the minimap still shows your own changes: a burst of clicks with the track tool or the bulldozer is a single check, and while you keep building the minimap is checked at most every 10 seconds. Towns growing and new industries appear at the next check. The town markers' colours follow the same interval.\n\nBetter Minimap itself is not changed. Without Better Minimap, or with a version of it that checks differently, it does nothing. Both options can be changed in the mod's Settings (the gear next to the mod when choosing a game's mods), where Logging also writes the mod's messages to the game log (stdout.txt) for bug reports. The mod can be removed at any time.",
   "params": [
     {
       "key": "checkInterval",
-      "name": "Map check interval",
+      "name": "Map Check Interval",
       "tooltip": "How often Better Minimap checks whether the map changed. It does so in one frame, which stutters on large maps; Better Minimap alone checks every 2 s.",
       "values": [
         "2 s",
@@ -18,7 +18,7 @@
     },
     {
       "key": "refreshOnBuild",
-      "name": "Refresh after building",
+      "name": "Refresh After Building",
       "tooltip": "Better Minimap checks the map once you stop building or bulldozing for a moment (a burst of clicks is one check), so it shows your own changes.",
       "values": [
         "Off",

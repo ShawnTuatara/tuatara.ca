@@ -11,7 +11,7 @@ description = "Warehouse Enhancements for Transport Fever 3: shows each warehous
 intro = """
 A warehouse has one slot of 500 per module. Each slot has a kind, such as Bulk, Goods or Liquid, and holds one cargo at a time. An empty slot takes any cargo of its kind, unless you pin it to one cargo in the warehouse window.
 
-The mod works out each cargo's room from its own slots and the free slots that take it, and reads which of your lines unload or load at the warehouse now. An empty slot that a line's cargo will need is held for that cargo, so it doesn't count as free.
+A cargo's room is its own slots plus the free slots that take it. The mod also shows which of your lines unload or load at the warehouse now: an empty slot that one of their cargos will need is held for it, so it doesn't count as free.
 """
 compat = "Works alongside [Cargo Enhancements](mod:cargo-enhancements), whose Consumers and Suppliers card shares the warehouse window, [To-Do List](mod:todo-list), and [Statistics Enhancements](mod:statistics-enhancements), whose Rank column shows in the Warehouses tab too."
 features = ["statisticsTab", "stocksCard"]

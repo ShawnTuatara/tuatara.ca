@@ -14,11 +14,12 @@ compat = "Works with any map and any other mod. Tested on game build 40444, wher
 
 [feature.stuckPassengers]
 where = ["mod-buttons"]
+short = "A red icon lists the line stops where vehicles leave passengers behind with seats free."
 why = """
 Passengers who join the queue at a stop while it is over capacity can stop boarding altogether: buses and trains of their line arrive, open their doors and leave with free seats while the same passengers keep waiting, even after the stop is no longer full. They also keep the stop full, so more passengers get stuck. Commuters among them never reach work. Deleting and rebuilding the line frees them for a while, until the stop overflows again.
 """
 what = """
-The mod watches every vehicle that stops at a terminal and notes who was already waiting there for its line. When a vehicle leaves three or more seats free while someone it could have taken stays behind for the second time, that line stop counts as stuck. A vehicle leaving with a seat or two free is just nearly full at a busy stop.
+The mod watches every departure. When vehicles leave with three or more seats free while the same passengers stay behind a second time, that line stop counts as stuck. A vehicle leaving with a seat or two free is just nearly full at a busy stop.
 
 It doesn't fix the bug: it shows where it happens, so you can act on it, for example by rebuilding the line or by adding vehicles so the stop doesn't overflow.
 """

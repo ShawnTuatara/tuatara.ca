@@ -13,20 +13,20 @@ hero_alt = "Carlton Colville Warehouse on the map: white arrows fan out to every
 intro = """
 In the game, expanding an industry's Input Stocks or Output Stocks card, or opening a town's Supplies tab, draws cargo flow arrows on the map to every possible supplier or consumer and lists them in a table below. The filters here work on both at once: pick a cargo or set a distance, and the arrows and the rows follow.
 """
-compat = "Works alongside [Industry Enhancements](mod:industry-enhancements), whose worker count and list share the Boosters card, [Warehouse Enhancements](mod:warehouse-enhancements), whose Stocks card sits above Consumers and Suppliers in the warehouse window, and [To-Do List](mod:todo-list), whose cards share the industry, town and warehouse windows."
+compat = "Works alongside [Industry Enhancements](mod:industry-enhancements), whose cards share the industry window and whose Worker Sources draws the worker arrows of the Boosters card, [Warehouse Enhancements](mod:warehouse-enhancements), whose Stocks card sits above Consumers and Suppliers in the warehouse window, and [To-Do List](mod:todo-list), whose cards share the industry, town and warehouse windows."
 
 # The filter row and the Distance column are one setting, Cargo Flow Filters (cargoFilter); each part
 # keeps its own block, with setting = "cargoFilter" and its own title.
 features = ["cargoFilter", "townSupplies", "distanceSlider", "producingFilter", "distanceColumn",
-  "tableSort", "warehouseFlows", "boosterSources", "supplyChainPlanner"]
+  "tableSort", "warehouseFlows", "supplyChainPlanner"]
 
 [[section]]
 title = "Cargo Flow Filters"
 features = ["cargoFilter", "townSupplies", "distanceSlider", "producingFilter", "distanceColumn"]
 
 [[section]]
-title = "Table sort and cards"
-features = ["tableSort", "warehouseFlows", "boosterSources"]
+title = "Table sort and warehouse card"
+features = ["tableSort", "warehouseFlows"]
 
 [[section]]
 title = "Supply Chain Planner"
@@ -62,25 +62,6 @@ alt = "The same map with about ten arrows left, all to livestock farms, and the 
 pins = [
   { n = 1, x = 80.9, y = 56.1, text = "Meat picked: the table lists only livestock farms." },
   { n = 2, x = 45.7, y = 60, text = "Only meat's arrows are left, one to each livestock farm that could supply it." },
-]
-
-[feature.boosterSources]
-where = ["industry-window"]
-why = "The worker boost needs workers who come by your lines, but the industry window doesn't show which towns they could come from. The game draws arrows from nearby towns only for a worker subsidy."
-what = "Expanding an industry's Boosters card draws arrows from the towns its workers can come from: the closest towns, the ones a worker subsidy shows, and any town that sends workers now, within the distance limit. An arrow moves only while its town sends workers; a still, white arrow is a town that could."
-good = [
-  "A booster cargo, such as tools, is an input: its suppliers are in the Input Stocks card.",
-]
-
-[[feature.boosterSources.figure]]
-shot = "CE-07"
-alt = "The map around Wellington Canning Factory with blue dotted arrows from three towns and white ones from two more, and its industry window with the Boosters card expanded."
-caption = "Wellington Canning Factory, same save, with its Boosters card expanded."
-pins = [
-  { n = 1, x = 32.5, y = 14.6, text = "Blue arrows: towns that send workers here now." },
-  { n = 2, x = 47.2, y = 12.7, text = "White arrows: nearby towns that could send workers but don't now." },
-  { n = 3, x = 80.6, y = 38, text = "The expanded Boosters card: the arrows show while it is open." },
-  { n = 4, x = 80.6, y = 53, mod = "industry-enhancements", text = "The worker list: what each worker is doing now, and for how long." },
 ]
 
 # ------------------------------------------------------------ town and warehouse windows
@@ -184,7 +165,7 @@ where = ["industry-window", "town-window", "warehouse-window"]
 why = "The supplier lists include every industry that could make a cargo, also the ones that made none last year because no line serves them. Four canning factories could supply a town with cans, but only one is making any."
 what = "A Producing toggle (the factory icon) in the filter row. In the supplier filters it hides suppliers that produced none of the cargo in the last year. In the consumer filters (an industry's Output Stocks, a warehouse's Consumers) it hides consumer industries that produced nothing in the last year or threw almost all of it away; towns stay."
 good = [
-  "A mine nobody serves keeps producing into its full stock, which throws it all away, so as a consumer it counts as not producing. A booster such as tools then goes only where the extra production is used.",
+  "An industry whose output nobody picks up counts as not producing, so a booster such as tools goes only where the extra production is used.",
   "Raw producers such as farms and mines always make something, so the toggle matters most for processed cargo such as cans.",
 ]
 

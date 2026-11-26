@@ -55,8 +55,8 @@ A counter beside the Population Counter, with a house and arrow icon: how much t
 good = [
   "It is updated once a week, on Monday, and stays put in between.",
   "The tooltip gives the dates and populations, last week's value and the date of the next update.",
-  "The mod notes the population once a day and keeps the last few weeks in your save. In a save new to the mod the first value comes on the next Monday, over the days recorded so far, and the arrow once 30 days are recorded.",
-  "That record is all the mod keeps in your save, and the mod can be removed at any time.",
+  "In a save new to the mod, the first value comes on the next Monday and covers the days since; the arrow comes once a full 30 days are covered.",
+  "The mod keeps a few weeks of population figures in your save, and can be removed at any time.",
 ]
 
 [[feature.populationTrend.figure]]

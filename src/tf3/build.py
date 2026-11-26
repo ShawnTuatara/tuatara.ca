@@ -321,7 +321,7 @@ class Feature:
         self.anchor = data.get("anchor") or slugify(self.title)
         self.what = data.get("what") or clean((param or {}).get("tooltip", ""))
         self.where = data.get("where", [])
-        self.short = data.get("short") or self.what.split(". ")[0].rstrip(".") + "."
+        self.short = data.get("short") or self.what.strip().split(". ")[0].rstrip(".") + "."
 
 
 class Mod:
