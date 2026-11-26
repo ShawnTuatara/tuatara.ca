@@ -3,7 +3,7 @@ group = "enhancements"
 order = 4
 status = "soon"
 publish = true
-version = "0.7.13"
+version = "0.10.2"
 card = "Rank, sort and a cargo filter in every table; town, vehicle and station columns; industry totals and problem marks; red problem buttons."
 lead = "The statistics window sums up what you need in detail: a town's cargo as one figure, a station as one figure, a vehicle's balance without what it earned and cost. This mod adds a Rank column and largest-first sorting to every table, filters towns and industries by cargo, shows towns per cargo, vehicles with their income and running costs and stations terminal by terminal, counts each industry's cargo once per recipe, marks industries that can't expand or destroy cargo, and turns a statistics button in the game bar red when its table has something to look at."
 description = "Statistics Enhancements for Transport Fever 3: a Rank column and largest-first sorting in every statistics table, a cargo filter for towns and industries, town supply and demand per cargo, vehicle income and running costs, stations terminal by terminal, industry totals counted once per cargo, industry problem marks, and statistics buttons that turn red on a problem."
@@ -388,7 +388,7 @@ pins = [
 where = ["game-bar", "statistics"]
 why = "Some problems show only deep in a window or a table: an industry that can't expand, a warehouse about to fill up, a station where passengers pile up, a depot that can't keep up with maintenance. Nothing in the game bar tells you where to look."
 what = """
-The statistics buttons in the game bar turn red while their table has something to look at, so you see at a glance where to check. Point at a red button and a box opens above the bar with everything it found: a tab per kind with its count, then each element's name and its figures in columns. Click a name to open that element's window, or the pin before it to look at it on the map; a long list scrolls. The buttons' own tooltips stay as in the game.
+The statistics buttons in the game bar turn red while their table has something to look at, so you see at a glance where to check. Point at a red button and a box opens above the bar with everything it found: a tab per kind with its count, then each element's name and its figures in columns. Click a name to open that element's window, or the pin before it to look at it on the map; a line named among the figures has a pin too. A long list scrolls. The buttons' own tooltips stay as in the game.
 
 Every table with a Problems column counts the elements with a problem notification, as that column shows them. Some buttons check more:
 
@@ -423,7 +423,7 @@ shot = "SE-08-vehicles"
 alt = "The Vehicles box: Vehicle Condition 7, Road Vehicles 73, 74, 78, 77, 76, 80 and 79, each with a Bournemouth line and a condition of 0 percent."
 caption = "The Vehicles button: vehicles in very bad condition, with their line."
 pins = [
-  { n = 1, x = 64, y = 17.6, text = "Each vehicle's line; a name too long for its column is cut." },
+  { n = 1, x = 64, y = 17.6, text = "Each vehicle's line, with its own pin; point at a cut name to see it in full." },
   { n = 2, x = 78.5, y = 17.6, text = "Condition: at 20 % or less a vehicle counts." },
   { n = 3, x = 14.5, y = 25.7, text = "The pin before a name looks at the vehicle on the map; click the name to open its window." },
 ]
