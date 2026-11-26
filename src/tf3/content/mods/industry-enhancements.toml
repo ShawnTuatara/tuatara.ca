@@ -147,17 +147,18 @@ good = [
   "Plots shows a raw producer's plots built of the most it may have (5/8) and the next try to grow, as [Plot Growth](#plot-growth) does in the Production card. Sort by it to find the producers that can grow largest.",
   "Input is about Recipe In × Workload × (1 + boost). The boosts on now show in green beside Workload.",
   "Recipe In and Recipe Out sort by the largest cargo, Input, Output and Shipment by the sum. Boosters and Workplaces sort the boosts that are on first, then by how much they add.",
+  "Shipment amounts are coloured by the share of last year's production that was shipped: green from 67 %, yellow from 33 %, red below, white for an industry that made nothing.",
   "Requirements is left out, since Input shows the same cargos.",
 ]
 
 [[feature.industryColumns.figure]]
 shot = "IE-05c"
-alt = "The statistics window's Industries tab with the mod's columns: Plots, Recipe In, Recipe Out, Workload, Input, Output, Shipment, Boosters and Workplaces, with cargo icons and amounts."
-caption = "The Industries tab of a 2010 save, sorted by Problems. The Rank column comes from [Statistics Enhancements](mod:statistics-enhancements#rank-column)."
+alt = "The statistics window's Industries tab with the mod's columns: Plots, Recipe In, Recipe Out, Workload, Input, Output, Shipment, Boosters and Workplaces, with cargo icons and amounts; shipment amounts are green, yellow or red."
+caption = "The Industries tab of a large world, sorted by Problems. The Rank column comes from [Statistics Enhancements](mod:statistics-enhancements#rank-column)."
 pins = [
-  { n = 1, x = 24.5, y = 7, text = "Plots: plots built of the most the producer may have, then the next try to grow, coloured as in the Production card." },
-  { n = 2, x = 46.5, y = 49.5, text = "Recipe In and Recipe Out: each cargo a year at the recipe's base rate, without boosts. This oil refinery makes three products from 231 crude oil." },
-  { n = 3, x = 48.5, y = 13, text = "Workload, then the boosts on now in green: this farm's +57 % is its worker boost." },
-  { n = 4, x = 70, y = 7, text = "Input, Output and Shipment: an icon and an amount per cargo." },
-  { n = 5, x = 84.3, y = 43.6, text = "Boosters: how much faster each cargo booster makes production, green while it is on. Workplaces adds the worker boost after the worker count." },
+  { n = 1, x = 24, y = 3.4, text = "Plots: plots built of the most the producer may have, then the next try to grow, coloured as in the Production card." },
+  { n = 2, x = 49, y = 39.9, text = "Recipe In and Recipe Out: each cargo a year at the recipe's base rate, without boosts. This oil refinery makes three products from 299 crude oil." },
+  { n = 3, x = 49, y = 3.4, text = "Workload, with the boosts on now in green beside it: this farm's +91 % is its worker boost." },
+  { n = 4, x = 82.5, y = 52.1, text = "Shipment: an icon and an amount per cargo, coloured by the share of last year's production shipped: green from 67 %, yellow from 33 %, red below." },
+  { n = 5, x = 92.5, y = 3.4, text = "Boosters: how much faster each cargo booster makes production, green while it is on. Workplaces adds the worker boost after the worker count." },
 ]

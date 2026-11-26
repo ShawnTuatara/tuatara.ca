@@ -489,16 +489,37 @@ pins = [
 ]
 
 [feature.vehicleManageLine]
-where = ["vehicle-window", "line-window"]
-why = "To change a vehicle's line in the Line Manager, you first open the line's window, then Manage Line."
-what = "A vehicle's window gets the Line Manager button at the bottom, set apart to the left of Reverse. It opens the Line Manager on the vehicle's line. The line window's Manage Line button shows the same Line Manager icon instead of the crossed arrows."
-good = ["Vehicles without a line don't get the button."]
+where = ["vehicle-window", "station-window", "statistics", "line-window"]
+why = "A vehicle's window, a station's terminals and the statistics table all name a line, but none leads to it in the Line Manager: you open the line's window first, then press Manage Line there."
+what = "A Line Manager icon right of a line's name opens the Line Manager on that line. It shows in the vehicle window's Basics card, on each line's row under a terminal in the station window, and in the statistics window's Lines tab after the rename pencil. The line window's Manage Line button gets the same icon instead of the crossed arrows."
+good = [
+  "Hover the icon for its tooltip, Manage Line. A click does what the line window's Manage Line button does.",
+  "Vehicles without a line show no icon.",
+]
 
 [[feature.vehicleManageLine.figure]]
-shot = "LE-18a"
-alt = "The bottom of a ship's window: Send to Line, then the Line Manager button with its tooltip Manage Line, then Reverse and the other vehicle buttons."
+shot = "LE-18b"
+alt = "The Basics card of a train's window: the line Bodmin Workers - Crop Farm with its colour dot, the Line Manager icon right of the name with its tooltip Manage Line, and two more icons beside it."
+caption = "A train's window: the icon beside its line."
 pins = [
-  { n = 1, x = 45.9, y = 64, text = "The Line Manager button opens the Line Manager on this ship's line." },
+  { n = 1, x = 55.5, y = 25.7, text = "The Line Manager icon opens the Line Manager on this train's line." },
+]
+
+[[feature.vehicleManageLine.figure]]
+shot = "LE-18c"
+alt = "Petworth Station Exchange's window, Terminals card: the tram line under terminal 1 and under terminal 3 each has the Line Manager icon right of its name; the pointer is on the first, showing the tooltip Manage Line."
+caption = "A station with one line at two of its terminals."
+pins = [
+  { n = 1, x = 57.3, y = 46.9, text = "The icon right of the line's name opens the Line Manager on that line." },
+  { n = 2, x = 57.3, y = 76.9, text = "Each line listed under a terminal has its own." },
+]
+
+[[feature.vehicleManageLine.figure]]
+shot = "LE-18d"
+alt = "The statistics window's Lines tab: after the rename pencil each row has the Line Manager icon; the pointer is on the fourth row's, showing the tooltip Manage Line."
+caption = "The Name column of the Lines tab."
+pins = [
+  { n = 1, x = 41.3, y = 24.4, text = "The icon after the rename pencil opens the Line Manager on that line." },
 ]
 
 # ---------------------------------------------------------------- statistics window

@@ -195,8 +195,8 @@ shot = "GEN-01"
 alt = "Line Enhancements' Settings: an Off / On switch for each of its features, Logging last and Off"
 caption = "Line Enhancements' Settings."
 pins = [
-  { n = 1, x = 55.5, y = 6.5, text = "One switch per feature, in the order the features show in the game." },
-  { n = 2, x = 46.5, y = 96, text = "Logging, last and off by default: turn it on only to report a problem." },
+  { n = 1, x = 55.5, y = 7.8, text = "One switch per feature, in the order the features show in the game." },
+  { n = 2, x = 46.5, y = 95.7, text = "Logging, last and off by default: turn it on only to report a problem." },
 ]
 
 [[install.section]]

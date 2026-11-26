@@ -38,14 +38,14 @@ good = [
 
 [[feature.monitor.figure]]
 shot = "PM-01"
-alt = "The Mod Performance window: 58 fps at 17.3 ms, mods 0.32 ms or 1.9 %, the game paused, a line of simulation timings, a row per mod with a UI time bar, ms, Peak, Calls and Sim columns, and four hitches."
+alt = "The Mod Performance window: 70 fps at 14.3 ms, mods 0.06 ms or 0.4 %, the game paused, a line of simulation timings, a row per mod with a UI time bar, ms, Peak, Calls and Sim columns, and four hitches."
 caption = "A large world, paused: most mods ran nothing and are greyed out."
 pins = [
-  { n = 1, x = 26.3, y = 9.3, text = "58 frames a second, 17.3 ms each; all mods together take 0.32 ms of that (1.9 %)." },
-  { n = 2, x = 51.7, y = 9.3, text = "The game's own interface scripts, 1.53 ms a frame." },
-  { n = 3, x = 83.8, y = 9.3, text = "The game speed, here Paused. While the game runs: game time per real second, yellow or red when the simulation can't keep up." },
-  { n = 4, x = 90, y = 14, text = "The simulation's own timings: time per step, how busy it is and the mods' game scripts' share, and the sync with the interface." },
-  { n = 5, x = 44, y = 21.3, text = "A row per mod, heaviest first: time per frame with a bar (UI time), its worst frame in the last 2 seconds (Peak), calls per frame and game script time (Sim). The game's own scripts and the monitor sit at the bottom, in lighter grey." },
+  { n = 1, x = 24.5, y = 10.5, text = "70 frames a second, 14.3 ms each; all mods together take 0.06 ms of that (0.4 %)." },
+  { n = 2, x = 51.2, y = 10.5, text = "The game's own interface scripts, 1.26 ms a frame." },
+  { n = 3, x = 83.3, y = 10.5, text = "The game speed, here Paused. While the game runs: game time per real second, yellow or red when the simulation can't keep up." },
+  { n = 4, x = 72, y = 14.8, text = "The simulation's own timings: time per step, how busy it is and the mods' game scripts' share, and the sync with the interface." },
+  { n = 5, x = 49.7, y = 22.6, text = "A row per mod, heaviest first: time per frame with a bar (UI time), its worst frame in the last 2 seconds (Peak), calls per frame and game script time (Sim). The game's own scripts and the monitor sit at the bottom, in lighter grey." },
 ]
 
 [[feature.monitor.figure]]
@@ -53,10 +53,10 @@ shot = "PM-02"
 alt = "The same window with Line Enhancements' row opened: its pieces listed by kind (hook, step) and name with their times, then the other mods."
 caption = "Line Enhancements' row opened."
 pins = [
-  { n = 1, x = 50, y = 24.5, text = "Its heaviest pieces: what each is (here wrappers and a per-frame step) and its name, with time per frame, longest call and calls." },
-  { n = 2, x = 80.5, y = 39.5, text = "Sim: each mod's game scripts, in ms per real second." },
-  { n = 3, x = 92.3, y = 48.1, text = "Badges: crossed tools for a mod with game scripts, a spanner for one that wraps functions of the game's own scripts." },
-  { n = 4, x = 25.6, y = 74.1, text = "Greyed out: mods that ran nothing in the interface." },
+  { n = 1, x = 80, y = 29, text = "Its heaviest pieces: what each is (here wrappers and a per-frame step) and its name, with time per frame, longest call and calls." },
+  { n = 2, x = 88.5, y = 18, text = "Sim: each mod's game scripts, in ms per real second." },
+  { n = 3, x = 91.5, y = 46.1, text = "Badges: crossed tools for a mod with game scripts, a spanner for one that wraps functions of the game's own scripts." },
+  { n = 4, x = 30, y = 72.8, text = "Greyed out: mods that ran nothing in the interface." },
 ]
 
 [[feature.monitor.figure]]
