@@ -5,6 +5,7 @@ status = "soon"
 publish = true
 version = "0.7.11"
 card = "A to-do list per save, with tasks linked to towns, industries, lines and more."
+card_image = "TD-01"
 lead = "A to-do list saved with each game, to keep track of what you want to build, fix or check next. Tasks can link to towns, industries, stations, lines and warehouses, whose windows then show the tasks about them."
 description = "To-Do List for Transport Fever 3: a to-do list saved with each game, with tasks linked to the towns, industries, stations, lines and warehouses they are about."
 compat = "Works with any map and any other mod. Its To-Do card takes its place among the cards the Enhancements mods add to the same windows."

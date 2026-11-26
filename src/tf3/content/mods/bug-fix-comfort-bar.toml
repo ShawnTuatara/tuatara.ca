@@ -5,6 +5,7 @@ status = "soon"
 publish = true
 version = "0.1"
 card = "A train's Comfort bar no longer counts the locomotive as zero comfort."
+card_image = "BF-CB-01"
 lead = "The vehicle window shows false wear on a locomotive-hauled train's Comfort bar, even on a new train. This mod counts only the parts with seats."
 description = "Bug Fix - Comfort Bar for Transport Fever 3: the vehicle window's Comfort bar no longer counts a train's locomotive as zero comfort."
 compat = "Works with any map and any other mod. Seen on game build 40444, where the game bug is still there."

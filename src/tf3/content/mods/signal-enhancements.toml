@@ -5,6 +5,7 @@ status = "soon"
 publish = true
 version = "0.12.2"
 card = "Repeat one-way signals at a set spacing; Shift + bulldoze removes a whole stretch."
+card_image = "site/card-signal-enhancements.webp"
 lead = "Signalling a long one-direction stretch means placing one signal after another and judging the gaps by eye, and clearing it again means bulldozing them one by one. This mod repeats a one-way signal at a spacing you pick, out to the next switch, and removes a whole stretch's signals with one Shift + bulldoze."
 description = "Signal Enhancements for Transport Fever 3: repeats a one-way path signal at a set spacing out to the next switch, and removes every signal on a stretch of track with Shift + bulldoze."
 compat = "Works with any map and any other mod. The signals it places are the game's own one-way path signals."

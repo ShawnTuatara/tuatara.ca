@@ -5,6 +5,7 @@ status = "soon"
 publish = true
 version = "0.4.2"
 card = "What each mod's UI and game scripts cost, their peaks and the hitches they cause."
+card_image = "PM-01"
 lead = "When the game stutters or runs slowly, it is hard to tell which mod is to blame. This mod times the interface scripts and game scripts of every mod, credits each piece to the mod it belongs to, and shows the result in one window, with the last hitches and the mods that took the most of them."
 description = "Mod Performance Monitor for Transport Fever 3: shows how much frame time and simulation time each mod's scripts take, their peaks and the hitches they cause."
 compat = "Works with any map and any mod, including other authors': it times their scripts without changing what they do."

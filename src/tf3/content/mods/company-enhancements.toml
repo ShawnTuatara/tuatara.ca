@@ -5,6 +5,7 @@ status = "soon"
 publish = true
 version = "0.3.3"
 card = "Population reached and needed for the next rank, and its change over 30 days."
+card_image = "site/card-company-enhancements.webp"
 lead = "Your company's ranks are earned by population, but the game bar never shows how close you are to the next one, or whether your towns are growing. This mod adds two counters beside Transported Passengers and Cargo: the population reached against the next rank's, and how much it changed over the last 30 days."
 description = "Company Enhancements for Transport Fever 3: counters at the bottom of the screen for the population your company has reached, the population its next rank needs, and the population's change over 30 days."
 compat = "Works with any map and any other mod. Both counters only read the game; the change counter keeps a short population record in your save."
