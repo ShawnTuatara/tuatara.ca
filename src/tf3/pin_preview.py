@@ -21,7 +21,8 @@ FONT = r"C\:/Windows/Fonts/arialbd.ttf"
 PIN = 28            # site.css .pin, CSS px
 ASIDE_MAX_W = 776   # 1080 content - 280 legend - 24 gap
 WIDE_MAX_W = 1080
-PANE_MAX_W = 516    # the landing page's "find it" panes
+PANE_MAX_W = 516    # the landing page's "find it" panes, beside the legend
+PANE_WIDE_W = 806   # ... and with the legend below (1080 - 250 list - 24 gap)
 MAX_H = 860         # a 1000 px tall window minus 140 (site.css)
 WIDE_RATIO = 3      # build.py
 
@@ -54,8 +55,9 @@ def figures(data: dict, folder_of) -> list[tuple[str, str, dict]]:
         for i, fig in enumerate(feat.get("figure", [])):
             add(f"[[feature.{key}.figure]] #{i + 1}", fig, folder_of("feature"))
     for w in data.get("window", []):
-        if w.get("figure"):
-            add(f"[[window]] {w['key']} figure", w["figure"], "site")
+        for v in w.get("view", []):
+            for i, fig in enumerate(v.get("figure") or [v]):
+                add(f"[[window]] {w['key']} view {v['tab']!r}" + (f" figure {i + 1}" if v.get("figure") else ""), fig, "site")
     for s in data.get("install", {}).get("section", []):
         if s.get("figure"):
             add(f"[[install.section]] {s['title']!r} figure", s["figure"], "site")
@@ -66,8 +68,8 @@ def render(folder: str, fig: dict, dst: pathlib.Path, grid: bool, pane: bool) ->
     w, h = shot_size(folder, fig["shot"])
     pins = fig.get("pins", [])
     aside = bool(pins or fig.get("caption"))
-    if aside and w >= WIDE_RATIO * h and w > ASIDE_MAX_W:
-        k = min(1.0, WIDE_MAX_W / w)
+    if aside and ((w >= WIDE_RATIO * h and w > ASIDE_MAX_W) or fig.get("legend") == "below"):
+        k = min(1.0, (PANE_WIDE_W if pane else WIDE_MAX_W) / w)
     else:
         k = min(1.0, (PANE_MAX_W if pane else ASIDE_MAX_W if aside else WIDE_MAX_W) / w, MAX_H / h)
     sw, sh = max(2, round(w * k / 2) * 2), max(2, round(h * k / 2) * 2)

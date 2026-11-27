@@ -293,7 +293,7 @@ pins = [
 ]
 
 [feature.districtColors]
-where = ["line-manager", "map"]
+where = ["line-manager"]
 why = "The game colours town buildings by district only while you add or move a line's stops. In the Line Manager's other views you can't see where homes, shops and workplaces are."
 what = "Town buildings keep their district colours (residential, commercial, industrial) in every view of the Line Manager, so you can see where people live, shop and work while you plan where a line should stop."
 
@@ -308,7 +308,7 @@ pins = [
 ]
 
 [feature.lineCatchment]
-where = ["line-manager", "map"]
+where = ["line-manager"]
 why = "Planning a stop means guessing which homes, shops and workplaces it would reach."
 what = "Select one line in the Line Manager, or edit its stops, and point at one of its stops or at any station on the map, also while adding a stop: the town lots that station reaches turn orange."
 good = ["With several lines selected, or in Send to Line, the map is as usual."]
@@ -322,7 +322,7 @@ pins = [
 ]
 
 [feature.cargoDemand]
-where = ["line-manager", "line-window", "map"]
+where = ["line-manager"]
 why = "Town buildings take cargo such as food or goods only from stops that reach them. The game doesn't show which buildings want your line's cargo, which of them your stops reach and which run empty."
 what = "Select one or more cargo lines in the Line Manager (lines carrying the same cargo count together), or edit a line's stops. Over the buildings that take the cargo, a yellow ! marks those your stops reach that hold none of it, and a red ? those in the line's towns that no stop reaches. Each district gets a chip with what its reached buildings store against what they can take."
 how = [
@@ -366,7 +366,7 @@ pins = [
 ]
 
 [feature.descentZones]
-where = ["line-manager", "map"]
+where = ["line-manager"]
 why = "Planes skip waypoints close to the airport they fly to. Once the flight still to go is about ten times their height, they start descending and fly straight to the runway, dropping the waypoints left. The game shows none of this, so a waypoint placed there seems to be ignored."
 what = "Select one air line in the Line Manager and each airport it lands at shows a red circle where the descent starts (ten times its planes' cruise height), the straight paths planes then fly to the runway for the earliest and the latest start, and a blue strip along the runway's approach line. Waypoints all planes skip get a red mark, those only some planes skip an orange one."
 good = [

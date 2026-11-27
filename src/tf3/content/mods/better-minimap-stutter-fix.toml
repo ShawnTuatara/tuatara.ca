@@ -27,7 +27,7 @@ good = [
 ]
 
 [feature.refreshOnBuild]
-where = ["build-tools"]
+where = ["background"]
 why = """
 With a check only every 30 seconds, a road or station you have just built could take half a minute to show on the minimap.
 """

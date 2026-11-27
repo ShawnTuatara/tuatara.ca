@@ -14,7 +14,7 @@ features = ["goAround"]
 compat = "Works with any map and any other mod. The bug was found and the fix tested on game build 40425."
 
 [feature.goAround]
-where = ["background", "popups"]
+where = ["background"]
 why = """
 A helicopter that has to wait for a busy one-pad helipad, an oil platform's for example, hovers near it. When it finally comes in from that hover it can settle on the pad without ever arriving: it stays en route, never unloads or boards, and blocks the pad, so every helicopter bound for that platform circles forever. It happens most on short hops between platforms, where helicopters fly low.
 """

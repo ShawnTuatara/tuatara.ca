@@ -152,6 +152,21 @@ a.card:hover { border-color: var(--accent-light); background: var(--base-light-m
 .feature-list a { text-decoration: none; }
 .feature-list a:hover b { text-decoration: underline; }
 [data-pane] .shot-box { margin-bottom: 16px; }
+/* A window's screens (user, 2026-11-26): tabs over the pane, styled like the window buttons beside it.
+   Without JavaScript the tabs are hidden and the screens stack, each under its name. */
+.view-tabs { display: none; }
+.js .view-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 14px; }
+.view-tab { background: var(--base-medium); border: 1px solid var(--base-very-light); color: var(--text-2); border-radius: var(--radius-btn); padding: 6px 12px; cursor: pointer; font: inherit; font-size: .93rem; }
+.view-tab:hover { border-color: var(--accent-light); color: var(--text); }
+.view-tab[aria-selected="true"] { background: var(--accent-dark); border-color: var(--accent-dark); color: #fff; cursor: default; }
+.view-tab:focus-visible { outline: 2px solid var(--accent-very-light); outline-offset: 2px; }
+.js .view:not(.active) { display: none; }
+.view + .view { margin-top: 24px; }
+.js .view + .view { margin-top: 0; }
+.view-label { margin: 0 0 10px; font-size: 1rem; }
+.js .view-label { display: none; }
+.view-caption { margin: 0 0 12px; color: var(--muted); font-size: .9rem; }
+.not-pictured { margin: 16px 0 6px; color: var(--muted); font-size: .9rem; }
 
 /* Mod page */
 .mod-head { padding: 44px 0 28px; }
@@ -220,6 +235,9 @@ figure.shot { margin: 0; }
   border: 2px solid var(--base-very-dark); box-shadow: 0 0 0 1.5px rgb(255 255 255 / .85), 0 2px 8px rgb(0 0 0 / .6); cursor: default; padding: 0; transition: transform .12s;
 }
 .pin:hover, .pin.on { transform: scale(1.18); }
+/* A pin's area: outlined while the pin or its legend line is pointed at (user, 2026-11-26) */
+.ann-area { position: absolute; border: 2px solid var(--highlight); border-radius: 6px; background: rgb(255 255 49 / .10); pointer-events: none; opacity: 0; transition: opacity .12s; }
+.ann-area.on { opacity: 1; }
 figcaption { margin: 10px 0 0; font-size: .9rem; color: var(--muted); line-height: 1.45; }
 /* Legend rows like a game table: alternating rows, the active one in accent */
 .legend { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--base-very-light); }
@@ -247,6 +265,7 @@ figcaption { margin: 10px 0 0; font-size: .9rem; color: var(--muted); line-heigh
 .shot.has-aside.wide { grid-template-columns: minmax(0, 1fr); }
 .shot.wide .shot-aside > :first-child { margin-top: 12px; }
 .shot.wide .legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); background: var(--base-medium); }
+.shot.wide .legend.grouped li.legend-mod { grid-column: 1 / -1; }
 @container (max-width: 720px) {
   .shot.has-aside { grid-template-columns: minmax(0, 1fr); }
   .shot-aside > :first-child { margin-top: 12px; }

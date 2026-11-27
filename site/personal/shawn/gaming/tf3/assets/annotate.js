@@ -94,6 +94,28 @@
     });
   });
 
+  // A window's screens: the tabs over a "find it" pane show one screen at a time (arrow keys move along).
+  document.querySelectorAll(".view-tabs").forEach(function (bar) {
+    var tabs = Array.prototype.slice.call(bar.querySelectorAll("[role=tab]"));
+    function show(i, focus) {
+      tabs.forEach(function (t, k) {
+        var on = k === i;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+        var view = document.getElementById(t.getAttribute("aria-controls"));
+        if (view) view.classList.toggle("active", on);
+      });
+      if (focus) tabs[i].focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { show(i, false); });
+      t.addEventListener("keydown", function (ev) {
+        if (ev.key === "ArrowRight") { ev.preventDefault(); show((i + 1) % tabs.length, true); }
+        if (ev.key === "ArrowLeft") { ev.preventDefault(); show((i + tabs.length - 1) % tabs.length, true); }
+      });
+    });
+  });
+
   // "Find it in the game": one window's features at a time.
   document.querySelectorAll(".where").forEach(function (where) {
     var buttons = where.querySelectorAll(".where-list button");

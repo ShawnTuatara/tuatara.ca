@@ -221,6 +221,30 @@ WIDE_RATIO = 3
 ASIDE_MAX_W = 776
 
 
+def pin_features(p: dict, where: str) -> list:
+    """The features a pin names: `feature` / `features` (setting keys) or `anchor` (a string or a list)."""
+    slug = p.get("mod")
+    if not slug or slug not in MODS:
+        return []
+    keys = p.get("features") or ([p["feature"]] if p.get("feature") else [])
+    anchors = p.get("anchor") or []
+    anchors = [anchors] if isinstance(anchors, str) else anchors
+    found = []
+    for k in keys:
+        f = next((f for f in MODS[slug].features if f.key == k), None)
+        if f is None:
+            err(f"{where}: pin {p.get('n')} names unknown feature {slug}.{k}")
+        else:
+            found.append(f)
+    for a in anchors:
+        f = next((f for f in MODS[slug].features if f.anchor == a), None)
+        if f is None:
+            err(f"{where}: pin {p.get('n')} names unknown anchor {slug}#{a}")
+        else:
+            found.append(f)
+    return found
+
+
 def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float = 1.0) -> str:
     img = IMAGES.find(folder, fig["shot"])
     if not img:
@@ -257,6 +281,14 @@ def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float
     def label(p: dict) -> str:
         return str(labels.get(id(p), p["n"]))
 
+    # A pin's `area` is the part of the picture it is about, outlined while the pin or its legend line is
+    # pointed at (user, 2026-11-26: highlight the areas)
+    for p in pins:
+        a = p.get("area")
+        if a:
+            if a["x"] < 0 or a["y"] < 0 or a["x"] + a["w"] > 100.05 or a["y"] + a["h"] > 100.05:
+                err(f"{where}: pin {p.get('n')}'s area is outside the image")
+            parts.append(f'<div class="ann-area" data-n="{label(p)}" style="left:{a["x"]}%;top:{a["y"]}%;width:{a["w"]}%;height:{a["h"]}%"></div>')
     for p in pins:
         parts.append(f'<span class="pin" data-n="{label(p)}" style="left:{p["x"]}%;top:{p["y"]}%" aria-hidden="true">{label(p)}</span>')
     parts.append("</div>")
@@ -274,12 +306,11 @@ def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float
             link = f'<a href="{esc(href)}">{esc(name)}</a>' if href else esc(name)
             aside.append(f'<li class="legend-mod"><span class="n">{number}</span><span>{link}</span></li>')
             for p in members:
-                feature = next((f for f in MODS[slug].features if p.get("anchor") and f.anchor == p["anchor"]), None)
-                feat = ""
-                if feature is not None:
+                titles = []
+                for feature in pin_features(p, where):
                     fhref = mod_href(f"mod:{slug}#{feature.anchor}")
-                    title = f'<a href="{esc(fhref)}">{esc(feature.title)}</a>' if fhref else esc(feature.title)
-                    feat = f'<span class="feat">{title}</span>'
+                    titles.append(f'<a href="{esc(fhref)}">{esc(feature.title)}</a>' if fhref else esc(feature.title))
+                feat = f'<span class="feat">{" · ".join(titles)}</span>' if titles else ""
                 aside.append(f'<li data-n="{label(p)}"><span class="n">{label(p)}</span><span>{feat}{md(p["text"])}</span></li>')
         aside.append("</ol>")
     elif pins:
@@ -296,7 +327,8 @@ def figure(fig: dict, folder: str, drafts: bool, where: str, height_share: float
         parts.append('<div class="shot-aside">' + "".join(aside) + "</div>")
     # a wide strip (a table row band, the game bar) keeps the full width, with the legend straight under
     # it in columns: beside it, the strip would shrink to a sliver
-    wide = img["w"] >= WIDE_RATIO * img["h"] and img["w"] > ASIDE_MAX_W
+    # (`legend = "below"` asks for the same: a statistics half, readable only at the full width)
+    wide = (img["w"] >= WIDE_RATIO * img["h"] and img["w"] > ASIDE_MAX_W) or fig.get("legend") == "below"
     cls = "shot" + (" has-aside" if aside else "") + (" wide" if aside and wide else "")
     return f'<div class="shot-box"><figure class="{cls}">' + "".join(parts) + "</figure></div>"
 
@@ -557,15 +589,42 @@ def find_it(site: dict, mods: list[Mod], drafts: bool) -> str:
         n_mods = len({m.slug for m, _ in feats})
         buttons.append(f'<li><button type="button" data-show="{esc(w["key"])}" aria-pressed="{"true" if i == 0 else "false"}">'
                        f'{esc(w["name"])} <span>{n_mods} mod{"s" if n_mods > 1 else ""}</span></button></li>')
-        fig = ""
-        if w.get("figure"):
-            f = w["figure"]
-            if any(not p.get("mod") or p["mod"] in Ctx.visible for p in f.get("pins", [])):
-                fig = figure(f, "site", drafts, f"window {w['key']}")
-        rows = "".join(f'<li><a href="mods/{m.slug}/#{f.anchor}"><b>{esc(f.title)}</b></a> '
-                       f'<span class="muted">· {esc(m.name)}</span><br><span class="small">{md(f.short)}</span></li>'
-                       for m, f in feats)
-        panes.append(f'<div data-pane="{esc(w["key"])}"{" hidden" if i else ""}>{fig}<ul class="feature-list">{rows}</ul></div>')
+        # A window's screens (user, 2026-11-26): tabs over the pane, one picture each (or a statistics table
+        # in two halves, one under the other), every feature pinned where it shows. The old flat list of the
+        # window's features is gone; a feature no picture shows is named under the pictures.
+        views = [v for v in w.get("view", [])
+                 if any(not p.get("mod") or p["mod"] in Ctx.visible for f in (v.get("figure") or [v]) for p in f.get("pins", []))]
+        pinned: set[int] = set()
+        tabs, bodies = [], []
+        for k, v in enumerate(views):
+            figs = v.get("figure") or [v]
+            html = []
+            for j, f in enumerate(figs):
+                wh = f"window {w['key']} view {v['tab']}" + (f" figure {j + 1}" if len(figs) > 1 else "")
+                html.append(figure(f, "site", drafts, wh))
+                for p in f.get("pins", []):
+                    if not p.get("mod") or p["mod"] in Ctx.visible:
+                        pinned.update(id(x) for x in pin_features(p, wh))
+            vid = f"view-{w['key']}-{k}"
+            cap = f'<p class="view-caption">{md(v["view_caption"])}</p>' if v.get("view_caption") else ""
+            tabs.append(f'<button type="button" class="view-tab" role="tab" id="{vid}-tab" aria-controls="{vid}" '
+                        f'aria-selected="{"true" if k == 0 else "false"}" tabindex="{0 if k == 0 else -1}">{esc(v["tab"])}</button>')
+            bodies.append(f'<div class="view{" active" if k == 0 else ""}" role="tabpanel" id="{vid}" aria-labelledby="{vid}-tab">'
+                          f'<h3 class="view-label">{esc(v["tab"])}</h3>{cap}{"".join(html)}</div>')
+        bar = (f'<div class="view-tabs" role="tablist" aria-label="{esc(w["name"])} screens">{"".join(tabs)}</div>'
+               if len(views) > 1 else "")
+        rest = [(m, f) for m, f in feats if id(f) not in pinned]
+        if views and rest:
+            for m, f in rest:
+                warn(f"find it: {w['key']}: {m.slug}.{f.key} is pinned in none of its pictures")
+        rows = ""
+        if rest:
+            head = '<p class="not-pictured">Also here, not in a picture:</p>' if views else ""
+            rows = head + '<ul class="feature-list">' + "".join(
+                f'<li><a href="mods/{m.slug}/#{f.anchor}"><b>{esc(f.title)}</b></a> '
+                f'<span class="muted">· {esc(m.name)}</span><br><span class="small">{md(f.short)}</span></li>'
+                for m, f in rest) + "</ul>"
+        panes.append(f'<div data-pane="{esc(w["key"])}"{" hidden" if i else ""}>{bar}{"".join(bodies)}{rows}</div>')
     return (f'<section class="window" id="where"><div class="window-title"><h2>Find it in the game</h2>'
             f'<p>Open a window, see what the mods add there.</p></div><div class="where">'
             f'<ul class="where-list">{"".join(buttons)}</ul><div>{"".join(panes)}</div></div></section>')

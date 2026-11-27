@@ -11,7 +11,7 @@ description = "Signal Enhancements for Transport Fever 3: repeats a one-way path
 compat = "Works with any map and any other mod. The signals it places are the game's own one-way path signals."
 
 [feature.spacing]
-where = ["build-tools"]
+where = ["laying-track"]
 why = """
 Passing loops and long stretches run in one direction need signals at even gaps, so trains can follow each other closely. The path signal tool places one signal per click: you place each one by hand and judge the gaps by eye, and a gap left too long holds up every train behind it.
 """
@@ -50,7 +50,7 @@ pins = [
 ]
 
 [feature.shiftBulldoze]
-where = ["build-tools"]
+where = ["bulldoze"]
 why = """
 To respace a stretch or rebuild a passing loop, its signals have to go first. The bulldozer takes them one at a time, and on a long stretch it is easy to miss one, which then splits a block where you didn't want it.
 """

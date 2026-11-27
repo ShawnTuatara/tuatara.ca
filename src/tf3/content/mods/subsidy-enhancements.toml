@@ -14,7 +14,7 @@ A subsidy goes through three phases: an offer, which you accept or decline; in p
 compat = "Works with any map and any other mod. Only the display changes: subsidies, their timing and their rewards stay as the game sets them. The mod saves nothing with your game, so it can be removed at any time."
 
 [feature.offerCountdown]
-where = ["popups", "subsidies"]
+where = ["notifications", "subsidies"]
 why = """
 A subsidy offer stays open for about six months, then it is withdrawn with a Subsidy Missed notification. The game never shows how long you have left to accept it, and the calendar line on the offer is easily taken for that: it is the time you get to fulfil the subsidy once you accept.
 """
@@ -44,7 +44,7 @@ pins = [
 ]
 
 [feature.rewardCountdown]
-where = ["popups", "subsidies"]
+where = ["notifications", "subsidies"]
 why = """
 Once a subsidy is fulfilled, its reward runs for a set time: 2x income on the supplying lines, or on the connection, for five years. Its Subsidy Effect Active notification shows no time left, so you can't tell at a glance when the extra income ends.
 """
@@ -73,7 +73,7 @@ pins = [
 ]
 
 [feature.greenRing]
-where = ["popups"]
+where = ["notifications"]
 why = """
 In the notification list, a subsidy's icon has a ring that fills with its time left. The ring is white whether the subsidy is an offer, in progress or paying its reward, and the icon is the same in every phase, so you hover each one to tell them apart.
 """

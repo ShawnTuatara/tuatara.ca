@@ -60,31 +60,94 @@ links = [
   { label = "Descent Zones", mod = "line-enhancements" },
 ]
 
-# "Find it in the game": the windows, in the order shown. A feature lists the keys of the windows it shows in
-# (`where`); `short` is the label on a mod page's feature chips. An optional figure shows the window with pins
-# (pins with `mod` disappear while that mod's page isn't built).
+# "Find it in the game": the windows, in the order shown, each with its screens as tabs (user, 2026-11-26).
+# A feature lists the keys of the windows it shows in (`where`); `short` is the label on a mod page's feature
+# chips. Each [[window.view]] is a tab: a picture (`shot`, `alt`, `caption`, `pins`), or a statistics table
+# in two halves as [[window.view.figure]] under it. Shots are in shots/site/ or named "<mod slug>/<id>".
+# A pin names its mod and its feature(s) by setting key (`feature` / `features`) or by `anchor`; `area` is
+# the part of the picture outlined while the pin or its legend line is pointed at. `legend = "below"` puts
+# the legend under the picture, at the pane's full width. A feature pinned in none of its window's tabs is
+# listed under them (and the build warns); a window without tabs lists its features.
+# Pictures made from other shots (crops, stacks) come from make_window_composites.py.
+
+# ---------------------------------------------------------------- Line Manager
+
 [[window]]
 key = "line-manager"
 name = "Line Manager"
-[window.figure]
-shot = "where-line-manager"
-alt = "The Line Manager with the bus line Abingdon Passengers (C) selected: its four vehicles with load and status, the Vehicles Needed card and the stop list as a table of figures"
-caption = "The Line Manager with a line selected and the Stop Figures switch on, with Line Enhancements on."
+
+[[window.view]]
+tab = "Line Manager"
+shot = "line-enhancements/LE-LM-4"
+alt = "The Line Manager with the fish delivery line Bromyard and Winslow - Delivery Fish 3 selected: its six vehicles with load and status, the Vehicles Needed card, and the stop list as a table of figures"
+caption = "A fish delivery line from a warehouse to a town's stops, its six vehicles selected and the stop list switched to figures."
 pins = [
-  { n = 1, x = 5, y = 33.8, mod = "line-enhancements", anchor = "selected-vehicle-count", text = "Count beside the select-all box: how many vehicles are selected." },
-  { n = 2, x = 43.3, y = 41.4, mod = "line-enhancements", anchor = "vehicle-load-and-status", text = "Load, fullest, average and status: what each vehicle carries and is doing now." },
-  { n = 3, x = 62.1, y = 59.8, mod = "line-enhancements", anchor = "vehicles-needed", text = "Card under the vehicle list: how many vehicles the line needs to keep up with what arrives; open it for a what-if. It fills in as the game runs." },
-  { n = 4, x = 63, y = 70.9, mod = "line-enhancements", anchor = "toggle-passengers-on-all-stops", text = "Action bar toggles: change every stop of the selected lines at once (passengers on or off, cargo removed) and switch the stop list to figures." },
-  { n = 5, x = 43.3, y = 83, mod = "line-enhancements", anchor = "stop-figures", text = "Stop list as a table: what waits, loads and is unhappy at each stop." },
+  { n = 1, x = 8.7, y = 31.1, mod = "line-enhancements", feature = "selectedCount", area = { x = 2.2, y = 32.6, w = 9, h = 3.2 }, text = "Beside the select-all box: how many vehicles are selected." },
+  { n = 2, x = 83.6, y = 30.4, mod = "line-enhancements", feature = "sendToLineFilter", area = { x = 70.4, y = 32.4, w = 26.3, h = 3.5 }, text = "Send to Line opens with Show Only Visible Lines as you last left it." },
+  { n = 3, x = 74.6, y = 49, mod = "line-enhancements", feature = "vehicleStatus", area = { x = 8, y = 36.5, w = 64, h = 16.5 }, text = "Each vehicle's load, its fullest departure, its average fill and what it is doing now." },
+  { n = 4, x = 83.6, y = 56.4, mod = "line-enhancements", feature = "vehiclesNeeded", area = { x = 2.2, y = 54.1, w = 94.5, h = 11.7 }, text = "Vehicles Needed: 7 more to keep up with what arrives, 8 to clear the queues. Open the card for a what-if." },
+  { n = 5, x = 33.6, y = 68.5, mod = "line-enhancements", features = ["stopWaiting", "passengerToggle", "cargoRemoval"], area = { x = 49.3, y = 67, w = 18.7, h = 3.2 }, text = "Action bar toggles: the stop list as figures, passengers on or off at every stop, cargo off every stop." },
+  { n = 6, x = 82.1, y = 75.5, mod = "line-enhancements", feature = "stopWaiting", area = { x = 2.2, y = 74.3, w = 93.3, h = 7 }, text = "Stop figures: what waits now, how many loads that is, and what each stop picks up a year." },
+  { n = 7, x = 58.2, y = 94.3, mod = "line-enhancements", feature = "lineTiming", area = { x = 40.3, y = 93.2, w = 21, h = 4.6 }, text = "Frequency with its average over recent loops." },
 ]
+
+[[window.view]]
+tab = "Stop Window"
+shot = "line-enhancements/LE-04a"
+alt = "The window of the first stop of a fish delivery line: the Load card with Fish at 100 % and the Distribute Delivery button."
+caption = "A stop's window, opened from the Line Manager's stop list: the first stop of a fish delivery line."
+pins = [
+  { n = 1, x = 48, y = 36.5, mod = "line-enhancements", feature = "distributeDelivery", text = "Distribute Delivery in the Load card: point at it for the plan, click to give the stops after this one decreasing fill levels." },
+  { n = 2, x = 42, y = 25, mod = "line-enhancements", feature = "distributeDelivery", text = "Fish 100 %: vehicles leave this stop full; the stops after it get the smaller levels." },
+]
+
+[[window.view]]
+tab = "Auto-Rename"
+shot = "line-enhancements/LE-06"
+alt = "The Auto-Rename list for one line: Bromyard and Winslow - Delivery Fish first, then the game's suggestions."
+caption = "Auto-Rename on a line taking fish from a warehouse to a town's stops."
+pins = [
+  { n = 1, x = 74, y = 35, mod = "line-enhancements", feature = "destinationNames", text = "First suggestion: the place the line delivers to and the cargo." },
+]
+
+[[window.view]]
+tab = "World View"
+shot = "line-enhancements/LE-09a"
+alt = "The map of Macclesfield in the Line Manager's add-stop view for a meat line: blue pins and red question marks on buildings, district colours, orange lots around the stop and a tooltip counting the buildings"
+caption = "The map while the Line Manager is open: adding a stop to a meat delivery line, pointer on a station. The colours and marks go away when you close the Line Manager."
+pins = [
+  { n = 1, x = 52, y = 5.5, mod = "line-enhancements", feature = "cargoDemand", text = "Blue pins: buildings taking meat that the pointed-at station reaches." },
+  { n = 2, x = 10, y = 28, mod = "line-enhancements", feature = "cargoDemand", text = "Red ?: a building taking meat that no stop of the line reaches." },
+  { n = 3, x = 57.5, y = 27, mod = "line-enhancements", feature = "cargoDemand", text = "District chip: what its reached buildings store against what they can take, +n not reached." },
+  { n = 4, x = 95, y = 33.8, mod = "line-enhancements", feature = "cargoDemand", text = "The add stop tooltip sums up what this station would reach." },
+  { n = 5, x = 91, y = 47, mod = "line-enhancements", feature = "lineCatchment", text = "Orange lots: the buildings in reach of the stop you point at." },
+  { n = 6, x = 4, y = 88, mod = "line-enhancements", feature = "districtColors", text = "Green, blue and yellow buildings: residential, commercial and industrial districts, in every Line Manager view." },
+]
+
+[[window.view]]
+tab = "World View: Air Line"
+shot = "line-enhancements/LE-10a"
+alt = "An air line's route over snowy land to an airport at the left: two orange paths run straight to the runway from two yellow rings, a faint pink line crosses the view at the right, and a small red ring sits below the route."
+caption = "One air line selected in the Line Manager: 14 planes landing at the airport at the left."
+pins = [
+  { n = 1, x = 10.5, y = 72, mod = "line-enhancements", feature = "descentZones", text = "The blue strip along the runway's approach line: a last waypoint on it is kept." },
+  { n = 2, x = 23, y = 66.5, mod = "line-enhancements", feature = "descentZones", text = "A waypoint the planes skip, marked red." },
+  { n = 3, x = 40.6, y = 50.9, mod = "line-enhancements", feature = "descentZones", text = "The straight paths planes fly once they descend, for the earliest and the latest start." },
+  { n = 4, x = 61.8, y = 66.5, mod = "line-enhancements", feature = "descentZones", text = "Where those paths start." },
+  { n = 5, x = 82.5, y = 68, mod = "line-enhancements", feature = "descentZones", text = "The edge of the descent circle: inside it, planes skip the waypoints left." },
+]
+
+# ---------------------------------------------------------------- entity windows
 
 [[window]]
 key = "line-window"
-name = "Line window"
-[window.figure]
+name = "Line Window"
+
+[[window.view]]
+tab = "Line Window"
 shot = "where-line-window"
 alt = "Window of the train line Petworth to Frodsham with the Basics, To-Do, Verdict, Vehicles, Timing and Costs & Value cards and the Manage Line button"
-caption = "A line window with Line Enhancements and To-Do List on."
+caption = "A train line's window."
 pins = [
   { n = 1, x = 34.6, y = 23.6, mod = "todo-list", anchor = "to-do-in-windows", text = "To-Do card: open tasks about this line, + for a new one." },
   { n = 2, x = 34.6, y = 31.8, mod = "line-enhancements", anchor = "line-cost-cards", text = "Verdict card: whether the line earns or loses money a year once all upkeep is counted, and why." },
@@ -96,189 +159,502 @@ pins = [
 
 [[window]]
 key = "station-window"
-name = "Station window"
-[window.figure]
+name = "Station Window"
+
+[[window.view]]
+tab = "Station Window"
 shot = "where-station"
 alt = "Window of Petworth Station Annex with the To-Do card, four terminals each listing its lines, and the Configure and Assign Lines buttons"
-caption = "A station window with Line Enhancements and To-Do List on."
+caption = "A station with four terminals."
 pins = [
   { n = 1, x = 35, y = 8.4, mod = "todo-list", anchor = "to-do-in-windows", text = "To-Do card: open tasks about this station, + for a new one." },
   { n = 2, x = 54.2, y = 29.8, mod = "line-enhancements", anchor = "manage-line-buttons", text = "Line Manager icon beside each line's name: opens the Line Manager on that line." },
-  { n = 3, x = 56.9, y = 94.5, mod = "line-enhancements", anchor = "assign-lines", text = "Button next to Configure: set each line's preferred and alternative terminals in one window." },
+  { n = 3, x = 56.9, y = 94.5, mod = "line-enhancements", anchor = "assign-lines", text = "Assign Lines, next to Configure: opens the window in the next tab." },
+]
+
+[[window.view]]
+tab = "Assign Lines"
+shot = "line-enhancements/LE-02b"
+alt = "The Assign Lines window: a card per terminal with its type and length and the lines that prefer it, alternatives greyed under a separator"
+caption = "The Assign Lines window: two grain lines share terminals 2 and 3, each preferring one and using the other as an alternative."
+pins = [
+  { n = 1, x = 79.7, y = 16, mod = "line-enhancements", feature = "assignLines", text = "Switches between this list and a grid." },
+  { n = 2, x = 23.5, y = 44.5, mod = "line-enhancements", feature = "assignLines", text = "A card per terminal, with its type and length, the lines that prefer it first." },
+  { n = 3, x = 82.0, y = 57.5, mod = "line-enhancements", feature = "assignLines", text = "An alternative, greyed under the separator; the ✕ removes it." },
+  { n = 4, x = 8.5, y = 72, mod = "line-enhancements", feature = "assignLines", text = "Drag a line by its grip to another terminal to make that its preferred one." },
+  { n = 5, x = 92.2, y = 71, mod = "line-enhancements", feature = "assignLines", text = "Drag this handle to another terminal to add it as an alternative." },
 ]
 
 [[window]]
 key = "industry-window"
-name = "Industry window"
-[window.figure]
+name = "Industry Window"
+
+[[window.view]]
+tab = "Industry Window"
 shot = "where-industry"
 alt = "Industry window of Abenberg Weaving Mill with the Production, To-Do, Boosters, Input Stocks, Output Stocks and Supply Chains cards"
-caption = "An industry window with Industry Enhancements, Cargo Enhancements and To-Do List on."
+caption = "A weaving mill's window, its Boosters card open."
 pins = [
-  { n = 1, x = 40, y = 13.6, mod = "industry-enhancements", anchor = "recipe-figures", text = "Production: each recipe row its own figures, not the first recipe's." },
-  { n = 2, x = 29.5, y = 41.9, mod = "industry-enhancements", anchor = "worker-status", text = "Boosters: every worker counted, not only those who came by line." },
-  { n = 3, x = 44.3, y = 53.6, mod = "industry-enhancements", anchor = "worker-status", text = "Worker list: what each worker is doing now." },
-  { n = 4, x = 40, y = 28.1, mod = "todo-list", anchor = "to-do-in-windows", text = "To-Do card: open tasks about this industry, + for a new one." },
-  { n = 5, x = 40, y = 69, mod = "cargo-enhancements", anchor = "cargo-filter", text = "Input / Output Stocks, expanded: cargo filter, distance column and slider." },
-  { n = 6, x = 40, y = 89.8, mod = "cargo-enhancements", anchor = "supply-chain-planner", text = "Supply Chains: opens the supply chain planner." },
+  { n = 1, x = 40, y = 13.6, mod = "industry-enhancements", feature = "recipeFigures", text = "Production: each recipe row its own figures, not the first recipe's." },
+  { n = 2, x = 29.5, y = 41.9, mod = "industry-enhancements", feature = "workerStatus", text = "Boosters: every worker counted, not only those who came by line." },
+  { n = 3, x = 44.3, y = 53.6, mod = "industry-enhancements", feature = "workerStatus", text = "Worker list: who works here; the Boosters tab shows it in full." },
+  { n = 4, x = 40, y = 28.1, mod = "todo-list", feature = "elementLinks", text = "To-Do card: open tasks about this industry, + for a new one." },
+  { n = 5, x = 40, y = 69, mod = "cargo-enhancements", feature = "cargoFilter", text = "Input and Output Stocks: open a card for its cargo filter, slider and Distance column (Output Stocks tab)." },
+  { n = 6, x = 40, y = 89.8, mod = "cargo-enhancements", feature = "supplyChainPlanner", text = "Supply Chains: opens the supply chain planner on this industry." },
+]
+
+[[window.view]]
+tab = "Production"
+shot = "industry-enhancements/IE-02c"
+alt = "A crop farm's Production card: plots 18/19 and the next try in 3 months in grey, with the tooltip giving the chance"
+caption = "A crop farm blocked from further expansion, the pointer on the next try."
+pins = [
+  { n = 1, x = 9.2, y = 33.2, mod = "industry-enhancements", feature = "plotGrowth", text = "Plots built of the most this farm may have: 18 of 19." },
+  { n = 2, x = 37.5, y = 33.2, mod = "industry-enhancements", feature = "plotGrowth", text = "The next try to add a plot, in 3 months; grey because the farm is blocked." },
+  { n = 3, x = 26.7, y = 62.6, mod = "industry-enhancements", feature = "plotGrowth", text = "The chance: 100 % production × 39 % shipped gives 28 %." },
+]
+
+[[window.view]]
+tab = "Boosters"
+shot = "industry-enhancements/IE-04b"
+alt = "A livestock farm's Boosters card open: the worker count and a list of workers with what each is doing now, where to, for how long, home and time left"
+caption = "A livestock farm's Boosters card, the pointer on the first worker's Now."
+pins = [
+  { n = 1, x = 22, y = 8.4, mod = "industry-enhancements", feature = "workerStatus", text = "16 (10)/10: 16 came by line and count for the boost, 10 more work here, 10 are needed." },
+  { n = 2, x = 49.5, y = 29, mod = "industry-enhancements", feature = "workerStatus", text = "126 days waiting, in red: past 30 days the wait makes people unhappy." },
+  { n = 3, x = 66.8, y = 47, mod = "industry-enhancements", feature = "workerStatus", text = "The line, the stop and where the worker gets off." },
+]
+
+[[window.view]]
+tab = "Output Stocks"
+shot = "cargo-enhancements/CE-02"
+alt = "An Output Stocks card with meat picked, the slider at 6.0 km and four consumers sorted by distance, from 2.0 to 4.8 km."
+caption = "A livestock farm's Output Stocks card, open, with meat picked."
+pins = [
+  { n = 1, x = 36.5, y = 37, mod = "cargo-enhancements", feature = "cargoFilter", text = "Cargo buttons: the table and the map's arrows show only the picked cargo." },
+  { n = 2, x = 46.5, y = 28, mod = "cargo-enhancements", feature = "producingFilter", text = "Factory toggle: hides takers that make nothing with it." },
+  { n = 3, x = 96, y = 37, mod = "cargo-enhancements", feature = "distanceSlider", text = "Slider: hides takers farther than 6.0 km, in the table and on the map." },
+  { n = 4, x = 95.5, y = 51.5, mod = "cargo-enhancements", features = ["distanceColumn", "tableSort"], text = "Distance to each taker; the first click on a header sorts nearest first (amounts largest first)." },
+]
+
+[[window.view]]
+tab = "World View"
+shot = "industry-enhancements/IE-WS-1"
+alt = "A canning factory's window with its Boosters card open, and on the map blue and white arrows from towns to the factory"
+caption = "The map while an industry's Boosters card is open."
+legend = "below"
+pins = [
+  { n = 1, x = 32.5, y = 14.6, mod = "industry-enhancements", feature = "workerSources", text = "Blue arrows: towns that send workers here now." },
+  { n = 2, x = 47.2, y = 12.7, mod = "industry-enhancements", feature = "workerSources", text = "White arrows: nearby towns that could send workers but don't now." },
 ]
 
 [[window]]
 key = "town-window"
-name = "Town window"
-[window.figure]
-shot = "where-town"
-alt = "Window of Wellington on the Supplies view, scrolled to the To-Do card, the Supply Chains card and the Suppliers table with its cargo filter row"
-caption = "A town window on its Supplies view, scrolled to the cards the mods add, with Cargo Enhancements and To-Do List on."
+name = "Town Window"
+
+[[window.view]]
+tab = "To-Do"
+shot = "todo-list/TD-03"
+alt = "Cheltenham's town window with its To-Do card open: one task, Add a bus line in Cheltenham"
+caption = "A town's window, its To-Do card open."
 pins = [
-  { n = 1, x = 27, y = 10.4, mod = "todo-list", anchor = "to-do-in-windows", text = "To-Do card: open tasks about this town, + for a new one." },
-  { n = 2, x = 42, y = 72.3, mod = "cargo-enhancements", anchor = "supply-chain-planner", text = "Supply Chains card: opens the supply chain planner on this town." },
-  { n = 3, x = 50, y = 82.2, mod = "cargo-enhancements", anchor = "town-supply-filter", text = "Cargo buttons: pick a cargo to see where it can come from; the factory toggle and the distance slider narrow the list." },
-  { n = 4, x = 69.8, y = 89.5, mod = "cargo-enhancements", anchor = "distance-column", text = "Last column: how far each supplier is; the first click on the header sorts nearest first." },
+  { n = 1, x = 21, y = 56, mod = "todo-list", feature = "elementLinks", text = "Open tasks about this town; a click opens them in the list." },
+  { n = 2, x = 69.2, y = 56, mod = "todo-list", feature = "elementLinks", text = "Adds the tasks already done to the card." },
+  { n = 3, x = 78.9, y = 56, mod = "todo-list", feature = "elementLinks", text = "+ starts a new task about this town." },
+  { n = 4, x = 87.4, y = 56, mod = "todo-list", feature = "elementLinks", text = "The chain links the town to the task picked in the To-Do window." },
+  { n = 5, x = 55, y = 69.4, mod = "todo-list", feature = "elementLinks", text = "The tasks about it: tick, edit or delete them here." },
+]
+
+[[window.view]]
+tab = "Supplies"
+shot = "where-town-supplies"
+alt = "Wellington's town window on its Supplies view: the Supply Chains card and the Suppliers table with machines picked, two machine factories 12 and 14 km away"
+caption = "A town's Supplies view, with machines picked in the Suppliers table."
+pins = [
+  { n = 1, x = 75, y = 56.8, mod = "cargo-enhancements", feature = "supplyChainPlanner", text = "Supply Chains card: Plan opens the supply chain planner on this town." },
+  { n = 2, x = 40, y = 67.6, mod = "cargo-enhancements", feature = "townSupplies", text = "Cargo buttons: pick a cargo to see where it can come from; the map's arrows follow." },
+  { n = 3, x = 53.5, y = 67.6, mod = "cargo-enhancements", feature = "producingFilter", text = "Factory toggle: hides suppliers that made nothing last year." },
+  { n = 4, x = 72, y = 67.6, mod = "cargo-enhancements", feature = "distanceSlider", text = "Slider: hides suppliers farther away, in the table and on the map." },
+  { n = 5, x = 73.5, y = 75.7, mod = "cargo-enhancements", features = ["distanceColumn", "tableSort"], text = "Distance to each supplier; the first click on a header sorts nearest first." },
 ]
 
 [[window]]
 key = "warehouse-window"
-name = "Warehouse window"
-[window.figure]
+name = "Warehouse Window"
+
+[[window.view]]
+tab = "Warehouse Window"
 shot = "where-warehouse"
 alt = "Window of Carlton Colville Warehouse with the Stocks card showing room and time until full per cargo, the To-Do card and the Consumers and Suppliers card"
-caption = "A warehouse window with Warehouse Enhancements, Cargo Enhancements and To-Do List on. The Consumers and Suppliers card is closed here."
+caption = "A warehouse's window, its cards closed."
 pins = [
-  { n = 1, x = 35, y = 9.5, mod = "warehouse-enhancements", anchor = "warehouse-stocks-card", text = "Stocks card: per cargo the room left, its change a year and when it is full; open it for the slot list and the lines." },
-  { n = 2, x = 35, y = 33.3, mod = "todo-list", anchor = "to-do-in-windows", text = "To-Do card: open tasks about this warehouse, + for a new one." },
-  { n = 3, x = 62, y = 45.6, mod = "cargo-enhancements", anchor = "warehouse-consumers-and-suppliers", text = "Consumers and Suppliers card: where the warehouse's cargo can go and where it comes from, with a cargo filter, distance slider and Distance column." },
+  { n = 1, x = 35, y = 9.5, mod = "warehouse-enhancements", feature = "stocksCard", text = "Stocks card: per cargo the room left, its change a year and when it is full." },
+  { n = 2, x = 35, y = 33.3, mod = "todo-list", feature = "elementLinks", text = "To-Do card: open tasks about this warehouse, + for a new one." },
+  { n = 3, x = 62, y = 45.6, mod = "cargo-enhancements", feature = "warehouseFlows", text = "Consumers and Suppliers card: where the warehouse's cargo can go and come from." },
+]
+
+[[window.view]]
+tab = "Stocks Card"
+shot = "warehouse-enhancements/WE-03b"
+alt = "A warehouse's Stocks card open: slot kinds with their free slots, a bar per slot and the lines that unload or load each cargo"
+caption = "The Stocks card open: a free Bulk slot, the fertilizer slot and eight crude oil slots."
+pins = [
+  { n = 1, x = 52, y = 25.7, mod = "warehouse-enhancements", feature = "stocksCard", text = "Each kind counts its free slots and names the cargo a held slot waits for." },
+  { n = 2, x = 4.4, y = 50.6, mod = "warehouse-enhancements", feature = "stocksCard", text = "A slot's bar: green while a line unloads its cargo here, grey when none does, red once full." },
+  { n = 3, x = 88, y = 78.2, mod = "warehouse-enhancements", feature = "stocksCard", text = "The lines that unload (arrow down) or load (arrow up) here; click one to open it." },
+]
+
+[[window.view]]
+tab = "Consumers and Suppliers"
+shot = "cargo-enhancements/CE-06c"
+alt = "The warehouse's Consumers and Suppliers card open with crude oil picked: seven oil refineries with what they store and how far they are"
+caption = "The Consumers and Suppliers card open, with crude oil picked."
+pins = [
+  { n = 1, x = 46, y = 21, mod = "cargo-enhancements", feature = "warehouseFlows", text = "Consumers: where the stored cargo can go. Suppliers: where more of it can come from." },
+  { n = 2, x = 33, y = 32, mod = "cargo-enhancements", feature = "warehouseFlows", text = "Crude oil picked: the oil refineries that could take it, and what they already store." },
+  { n = 3, x = 46.5, y = 40.5, mod = "cargo-enhancements", feature = "producingFilter", text = "Factory toggle: hides takers that make nothing." },
+  { n = 4, x = 95.5, y = 32, mod = "cargo-enhancements", feature = "distanceSlider", text = "Slider: hides the farther ones." },
+  { n = 5, x = 96.5, y = 45, mod = "cargo-enhancements", features = ["distanceColumn", "tableSort"], text = "Distance; the first click on a header sorts nearest first." },
 ]
 
 [[window]]
 key = "vehicle-window"
-name = "Vehicle window"
-[window.figure]
+name = "Vehicle Window"
+
+[[window.view]]
+tab = "Vehicle Window"
 shot = "where-vehicle-window"
 alt = "Window of Train 82, a locomotive with two coaches on the line Petworth to Frodsham, with its details open: speed, loading speed, noise, pollution and comfort"
-caption = "A vehicle window with Line Enhancements and Fix Comfort Bar on, the vehicle's details open."
+caption = "A train's window, its details open."
 pins = [
   { n = 1, x = 52.7, y = 37.6, mod = "line-enhancements", anchor = "manage-line-buttons", text = "Line Manager icon beside the line's name: opens the Line Manager on that line." },
   { n = 2, x = 35.4, y = 97.1, mod = "line-enhancements", anchor = "send-to-line-remembers-filter", text = "Send to Line: the popover opens with Show Only Visible Lines as you last left it." },
-  { n = 3, x = 75.2, y = 81.4, mod = "bug-fix-comfort-bar", anchor = "fix-comfort-bar", text = "Seat row in the vehicle details: a locomotive-hauled passenger train in good condition no longer shows a false red part." },
+  { n = 3, x = 75.2, y = 81.4, mod = "bug-fix-comfort-bar", anchor = "fix-comfort-bar", text = "Comfort row: a locomotive-hauled passenger train in good condition no longer shows a false red part." },
 ]
 
 [[window]]
 key = "vehicle-store"
-name = "Vehicle store"
-[window.figure]
+name = "Vehicle Store"
+
+[[window.view]]
+tab = "Vehicle Store"
 shot = "where-vehicle-store"
 alt = "The Replace Vehicles window in its table layout on the Wagon tab, listing wagons and coaches with their figures compared with the wagon being replaced and their running cost a year"
-caption = "A Replace Vehicles window in the table layout, Wagon tab, with Vehicle Enhancements on. The other tabs and the Buy Vehicles window have the running cost column too."
+caption = "Replacing a wagon, in the store's table layout, Wagon tab. The other tabs and the Buy Vehicles window have the running cost column too."
 pins = [
   { n = 1, x = 35.7, y = 14.9, mod = "vehicle-enhancements", anchor = "wagon-weight-and-length", text = "Two columns after capacity: each wagon's weight and length." },
   { n = 2, x = 47.1, y = 14.9, mod = "vehicle-enhancements", anchor = "replace-comparison", text = "Green and red figures and bars: better or worse than the vehicle you replace." },
   { n = 3, x = 92.3, y = 14.9, mod = "vehicle-enhancements", anchor = "running-cost-column", text = "Column after the buy button: each vehicle's running cost a year." },
 ]
 
+# ---------------------------------------------------------------- statistics: each table in a left and a
+# right half (user, 2026-11-26: the whole window at the page's width can't be read)
+
 [[window]]
 key = "statistics"
-name = "Statistics window"
-short = "statistics"
-[window.figure]
-shot = "where-statistics"
-alt = "The statistics window's Industries tab, expanded, with the red statistics buttons in the game bar below it"
-caption = "The Industries tab, sorted by Problems, with the statistics mods on. The other tabs have their own pins on the mod pages."
+name = "Statistics Window"
+
+[[window.view]]
+tab = "Industries"
+[[window.view.figure]]
+shot = "where-stats-industries-left"
+alt = "The left half of the statistics window's Industries tab, sorted by Problems: Rank, Name, Problems, Plots, Recipe In, Recipe Out and Workload"
+caption = "The Industries tab, left half, sorted by Problems."
+legend = "below"
 pins = [
-  { n = 1, x = 65.7, y = 3.3, mod = "statistics-enhancements", anchor = "cargo-filter-in-the-industries-tab", text = "Cargo list: pick a cargo to see only the industries that need, boost with or make it." },
-  { n = 2, x = 2.3, y = 9, mod = "statistics-enhancements", anchor = "rank-column", text = "First column: each row's place in the current order; rows that tie share a place." },
-  { n = 3, x = 22.2, y = 31.3, mod = "statistics-enhancements", anchor = "industry-problem-marks", text = "Problems column: marks industries blocked from expanding or destroying cargo they ship too slowly; click a mark to open the industry." },
-  { n = 4, x = 55.3, y = 9, mod = "statistics-enhancements", anchor = "industry-recipe-totals", text = "Input and Output columns: each cargo counted once for industries with several recipes." },
-  { n = 5, x = 94.4, y = 86.6, mod = "statistics-enhancements", anchor = "problem-buttons", text = "Statistics buttons: they turn red while their table has something to look at." },
-  { n = 6, x = 33.5, y = 9, mod = "industry-enhancements", anchor = "statistics-column-enhancements", text = "Plots, Recipe, Workload, Shipment, Boosters and Workplaces columns: the industry's figures side by side." },
+  { n = 1, x = 2.5, y = 16.5, mod = "statistics-enhancements", feature = "rankColumn", area = { x = 1.5, y = 8, w = 5.5, h = 92 }, text = "Rank: each row's place in the current order; rows that tie share a place. Every tab has it." },
+  { n = 2, x = 40.5, y = 6.5, mod = "statistics-enhancements", features = ["largestFirst", "scrollToTop"], area = { x = 33.5, y = 5.5, w = 5.5, h = 7 }, text = "The first click on a header sorts largest first (names A to Z) and shows the table from its first row." },
+  { n = 3, x = 37.2, y = 30.4, mod = "statistics-enhancements", feature = "industryProblemMarks", area = { x = 34.5, y = 11.5, w = 4, h = 88.5 }, text = "Problems: industries blocked from expanding, or destroying cargo they ship too slowly. Click a mark to open the industry." },
+  { n = 4, x = 44, y = 9.9, mod = "industry-enhancements", feature = "industryColumns", area = { x = 40.5, y = 8, w = 13, h = 92 }, text = "Plots: built of the most allowed, then the next try to grow." },
+  { n = 5, x = 63, y = 30.4, mod = "industry-enhancements", feature = "industryColumns", area = { x = 52.5, y = 8, w = 30, h = 92 }, text = "Recipe In and Recipe Out: each cargo a year at the recipe's base rate." },
+  { n = 6, x = 93, y = 23.5, mod = "industry-enhancements", feature = "industryColumns", area = { x = 88, y = 8, w = 11.5, h = 92 }, text = "Workload, with the boosts on now in green." },
 ]
+[[window.view.figure]]
+shot = "where-stats-industries-right"
+alt = "The right half of the same tab: the cargo list, Input, Output, Shipment, Boosters and Workplaces"
+caption = "The same tab, right half."
+legend = "below"
+pins = [
+  { n = 1, x = 41.5, y = 3.5, mod = "statistics-enhancements", features = ["industryCargoFilter", "townCargoFilter"], area = { x = 43, y = 1, w = 14, h = 4.5 }, text = "Cargo list: only the industries (or, in the Towns tab, the towns) that need, boost with or make the picked cargo." },
+  { n = 2, x = 12, y = 9.9, mod = "statistics-enhancements", feature = "industryRecipeTotals", area = { x = 0, y = 8, w = 34, h = 92 }, text = "Input and Output: each cargo counted once for industries with several recipes." },
+  { n = 3, x = 37, y = 9.9, mod = "industry-enhancements", feature = "industryColumns", area = { x = 41, y = 8, w = 23, h = 92 }, text = "Shipment per cargo, coloured by the share of last year's production shipped." },
+  { n = 4, x = 62, y = 9.9, mod = "industry-enhancements", feature = "industryColumns", area = { x = 66, y = 8, w = 12.5, h = 92 }, text = "Boosters: how much faster each cargo booster makes production, green while on." },
+  { n = 5, x = 82.5, y = 9.9, mod = "industry-enhancements", feature = "workerStatus", area = { x = 79, y = 8, w = 18, h = 92 }, text = "Workplaces: workers who came by line (others working here) / needed, then the worker boost." },
+]
+
+[[window.view]]
+tab = "Towns"
+[[window.view.figure]]
+shot = "where-stats-towns-left"
+alt = "The left half of the Towns tab: Rank, Name, Size, Population, Public and Private Transport, and Demand with a cargo chip per cargo"
+caption = "The Towns tab, left half."
+legend = "below"
+pins = [
+  { n = 1, x = 58.8, y = 3, mod = "statistics-enhancements", feature = "publicTransportCoverage", area = { x = 59.5, y = 3.5, w = 4.5, h = 96.5 }, text = "Public Transport: the game's number, coloured by the town's public transport coverage." },
+  { n = 2, x = 77, y = 6, mod = "statistics-enhancements", feature = "townCargoColumns", area = { x = 67, y = 3.5, w = 33, h = 96.5 }, text = "Demand: each cargo the town wants, with its amount, largest first." },
+]
+[[window.view.figure]]
+shot = "where-stats-towns-right"
+alt = "The right half of the Towns tab: Supply per cargo in green, yellow or red, and the six rating gauges"
+caption = "The same tab, right half."
+legend = "below"
+pins = [
+  { n = 1, x = 14, y = 6, mod = "statistics-enhancements", feature = "townCargoColumns", area = { x = 4, y = 3, w = 20, h = 97 }, text = "Supply per cargo, coloured by the share of its demand met." },
+  { n = 2, x = 47.5, y = 6, mod = "statistics-enhancements", feature = "largestFirst", area = { x = 52, y = 3, w = 45, h = 97 }, text = "The rating gauges sort worst first on the first click." },
+]
+
+[[window.view]]
+tab = "Lines"
+[[window.view.figure]]
+shot = "line-enhancements/LE-18d"
+alt = "The left part of the Lines tab: Rank, Name with a Line Manager icon beside each line, Vehicles, Cargo, Load, Capacity and Utilization"
+caption = "The Lines tab, left half."
+legend = "below"
+pins = [
+  { n = 1, x = 41.3, y = 33.9, mod = "line-enhancements", feature = "vehicleManageLine", area = { x = 36.5, y = 10, w = 3.5, h = 90 }, text = "Line Manager icon beside each line's name: opens the Line Manager on it." },
+]
+[[window.view.figure]]
+shot = "where-stats-lines-right"
+alt = "The right half of the Lines tab: Utilization with last year's use as a bar, Satisfy, Frequency, Rate, a profit bar per line, Balance and Net, and the Lines, Costs and Track view buttons"
+caption = "The same tab, right half, in the mod's Lines view."
+legend = "below"
+pins = [
+  { n = 1, x = 29.5, y = 3, mod = "line-enhancements", feature = "costViews", area = { x = 33.5, y = 0.5, w = 7.5, h = 5.5 }, text = "The three views: Lines, Costs and Track." },
+  { n = 2, x = 12, y = 9.8, mod = "line-enhancements", feature = "costViews", area = { x = 0, y = 7.5, w = 17, h = 92.5 }, text = "The load now, then last year's use as a bar." },
+  { n = 3, x = 60, y = 9.8, mod = "line-enhancements", feature = "costViews", area = { x = 48, y = 7.5, w = 21, h = 92.5 }, text = "The profit bar: income to the right, each cost to the left, the net as a line under it." },
+  { n = 4, x = 91, y = 9.8, mod = "line-enhancements", feature = "costViews", area = { x = 87, y = 7.5, w = 13, h = 92.5 }, text = "Net: the Balance less the line's share of upkeep." },
+]
+
+[[window.view]]
+tab = "Stations"
+[[window.view.figure]]
+shot = "where-stats-stations-left"
+alt = "The left half of the Stations tab: Rank, Name, Town, the terminal count and Type"
+caption = "The Stations tab, left half."
+legend = "below"
+pins = [
+  { n = 1, x = 85, y = 6.5, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 72, y = 4, w = 13, h = 96 }, text = "The terminal count, and Type: how many terminals of each kind." },
+]
+[[window.view.figure]]
+shot = "where-stats-stations-right"
+alt = "The right half of the Stations tab: lines per terminal with the Assign Lines button, Utilization, the waiting hall and each terminal's waiting passengers, Delay per terminal and Upkeep"
+caption = "The same tab, right half."
+legend = "below"
+pins = [
+  { n = 1, x = 2.5, y = 6.5, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 4, y = 4, w = 12, h = 96 }, text = "How many of your lines stop at each terminal." },
+  { n = 2, x = 18.2, y = 18.5, mod = "line-enhancements", feature = "assignLines", area = { x = 13, y = 9, w = 3.5, h = 91 }, text = "Assign Lines for the station, from its row." },
+  { n = 3, x = 40, y = 6, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 26, y = 4, w = 42.5, h = 96 }, text = "The waiting hall, then each terminal's waiting passengers against its capacity; yellow when over." },
+  { n = 4, x = 78.5, y = 6, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 76, y = 4, w = 14, h = 96 }, text = "Delay: the unhappy passengers at each terminal." },
+]
+
+[[window.view]]
+tab = "Vehicles"
+[[window.view.figure]]
+shot = "where-stats-vehicles-left"
+alt = "The left half of the Vehicles tab: Rank, Name, Line, Vehicle and Cargo"
+caption = "The Vehicles tab, left half, sorted by condition."
+legend = "below"
+pins = [
+  { n = 1, x = 56, y = 9, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 45.5, y = 4, w = 30, h = 96 }, text = "Line first, with more room for its name." },
+]
+[[window.view.figure]]
+shot = "where-stats-vehicles-right"
+alt = "The right half of the Vehicles tab: Load, Capacity, Utilization, Satisfaction, Condition in colour, Age, Income, Running Costs, Balance and the running cost a year"
+caption = "The same tab, right half."
+legend = "below"
+pins = [
+  { n = 1, x = 44, y = 30.5, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 32, y = 4, w = 8.5, h = 96 }, text = "Condition in the vehicle window's colours." },
+  { n = 2, x = 56.5, y = 17.5, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 55, y = 4, w = 20, h = 96 }, text = "Income and Running Costs over the last 12 months, before Balance." },
+  { n = 3, x = 89, y = 3, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 87.5, y = 4, w = 12, h = 96 }, text = "The running cost a year at today's rate." },
+]
+
+[[window.view]]
+tab = "Warehouses"
+[[window.view.figure]]
+shot = "where-stats-warehouses-left"
+alt = "The left half of the Warehouses tab: Rank, Name, Problems and Stocks as a strip of slot tiles"
+caption = "The Warehouses tab, left half."
+legend = "below"
+pins = [
+  { n = 1, x = 77, y = 6, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 66, y = 3.5, w = 26, h = 96.5 }, text = "A tile per slot, grouped by kind; green bars where a line unloads that cargo now." },
+]
+[[window.view.figure]]
+shot = "where-stats-warehouses-right"
+alt = "The right half of the Warehouses tab: Free, Next Full, the change a year and Upkeep"
+caption = "The same tab, right half."
+legend = "below"
+pins = [
+  { n = 1, x = 22, y = 6, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 23, y = 3.5, w = 8, h = 96.5 }, text = "Free: slots no cargo is held for." },
+  { n = 2, x = 50, y = 6, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 50, y = 3.5, w = 13, h = 96.5 }, text = "Next Full: the cargo to act on first, and when it fills." },
+  { n = 3, x = 66, y = 6, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 69, y = 3.5, w = 10, h = 96.5 }, text = "That cargo's change over the last year." },
+]
+
+# ---------------------------------------------------------------- other screens
 
 [[window]]
 key = "subsidies"
 name = "Subsidies"
-[window.figure]
+
+[[window.view]]
+tab = "Subsidy Windows"
 shot = "where-subsidies"
 alt = "Two subsidy windows: an offer with a countdown bar under Decline and Accept, and a fulfilled subsidy with a bar for its reward's time left"
-caption = "An open offer (left) and a fulfilled subsidy whose reward is running (right), with Subsidy Enhancements on."
+caption = "An open offer (left) and a fulfilled subsidy whose reward is running (right)."
 pins = [
   { n = 1, x = 42.7, y = 97, mod = "subsidy-enhancements", anchor = "offer-countdown", text = "Bar under Decline and Accept: the time left to accept the offer; the date above it is the time to fulfil it once accepted." },
   { n = 2, x = 91.6, y = 59.2, mod = "subsidy-enhancements", anchor = "reward-countdown", text = "Bar under the reward text: how long the reward effect has left, here 2x income on the supplying lines." },
 ]
 
 [[window]]
+key = "notifications"
+name = "Notifications"
+
+[[window.view]]
+tab = "Notifications"
+shot = "where-notifications"
+alt = "The notification strip's subsidy tiles with coloured rings, and under it the Subsidy Available and Subsidy Effect Active cards they open, each with a countdown bar"
+caption = "The subsidy tiles in the notification strip, and the cards two of them open."
+pins = [
+  { n = 1, x = 69.4, y = 7.7, mod = "subsidy-enhancements", feature = "greenRing", text = "Ring on each subsidy tile: yellow while in progress, green while its reward runs, white for an open offer." },
+  { n = 2, x = 83.7, y = 55.8, mod = "subsidy-enhancements", feature = "offerCountdown", text = "Subsidy Available: the bar shows how long you have left to accept." },
+  { n = 3, x = 80.6, y = 91.3, mod = "subsidy-enhancements", feature = "rewardCountdown", text = "Subsidy Effect Active: the bar shows how long the reward has left." },
+]
+
+[[window]]
 key = "game-bar"
-name = "Game bar"
-[window.figure]
+name = "Game Bar"
+
+[[window.view]]
+tab = "Counters"
+shot = "where-game-bar-counters"
+alt = "The bottom of the game bar: Earnings, transported passengers and cargo, the population counter 22,583 with a red down arrow over 26,763, and the population change +13"
+caption = "The counters at the bottom of the game bar."
+pins = [
+  { n = 1, x = 71.2, y = 35, mod = "company-enhancements", feature = "populationCounter", area = { x = 62, y = 60, w = 20.5, h = 38 }, text = "The population your company has reached against what the next rank needs; a red arrow while today's is lower." },
+  { n = 2, x = 89.2, y = 35, mod = "company-enhancements", feature = "populationTrend", area = { x = 92.5, y = 60, w = 7.3, h = 38 }, text = "How much the world's population grew over 30 days, updated weekly." },
+]
+
+[[window.view]]
+tab = "Population Tooltip"
 shot = "GEN-03b"
 alt = "The game bar's counters with the population counter's tooltip: Reach a Population of 26,763, 24% of progress towards Director, Population now 22,580 (-3)"
-caption = "The bottom of the game bar, hovering the population counter."
+caption = "Hovering the population counter."
 pins = [
-  { n = 1, x = 40.5, y = 90.7, mod = "company-enhancements", anchor = "population-counter", text = "Counter after Transported Passengers and Cargo: the population your company has reached against the next rank's; the tooltip adds the progress and today's population." },
-  { n = 2, x = 84.5, y = 90.7, mod = "company-enhancements", anchor = "population-change", text = "Counter beside it: how much the world's population grew over 30 days, updated weekly." },
+  { n = 1, x = 40.5, y = 90.7, mod = "company-enhancements", feature = "populationCounter", text = "The tooltip adds the progress to the next rank and today's population." },
+]
+
+[[window.view]]
+tab = "Statistics Buttons"
+shot = "statistics-enhancements/SE-08-towns"
+alt = "Five red statistics buttons in the game bar, the pointer on Towns, and a box above them listing towns with a problem notification"
+caption = "The statistics buttons, the pointer on the Towns button."
+pins = [
+  { n = 1, x = 66, y = 73.7, mod = "statistics-enhancements", feature = "problemButtons", text = "Red: that table has something to look at, here Vehicles, Stations, Warehouses, Towns and Industries." },
+  { n = 2, x = 91, y = 46, mod = "statistics-enhancements", feature = "problemButtons", text = "Rest the pointer on a red button: a box lists what is wrong, with the notification's type." },
+  { n = 3, x = 14.5, y = 46, mod = "statistics-enhancements", feature = "problemButtons", text = "The pin before a name looks at it on the map; click the name to open its window." },
 ]
 
 [[window]]
 key = "mod-buttons"
-name = "Buttons beside Data Layers"
-short = "top-left buttons"
-[window.figure]
+name = "HUD Buttons"
+
+[[window.view]]
+tab = "Buttons"
 shot = "GEN-02"
 alt = "The buttons at the top left of the screen: the game's Data Layers, then To-Do List, Mod Performance, Supply Chain Planner and Stuck Passengers"
-caption = "The game's Data Layers button (left) and the buttons the mods add beside it."
+caption = "The game's Data Layers button (left) and the buttons the mods add beside it. The next tabs show the windows they open."
 pins = [
   { n = 1, x = 23.3, y = 50, mod = "todo-list", anchor = "to-do-list", text = "Checklist button: your notes for this save." },
   { n = 2, x = 51, y = 18.5, mod = "mod-performance-monitor", anchor = "monitor", text = "Stopwatch button: what each mod costs per frame." },
   { n = 3, x = 67, y = 18.5, mod = "cargo-enhancements", anchor = "supply-chain-planner", text = "Planner button: opens the supply chain planner on the town or industry it last showed." },
-  { n = 4, x = 83, y = 18.5, mod = "bug-watch-stuck-passengers", anchor = "stuck-passenger-alert", text = "Button beside Data Layers: turns red when passengers are left behind at a stop." },
+  { n = 4, x = 83, y = 18.5, mod = "bug-watch-stuck-passengers", anchor = "stuck-passenger-alert", text = "Turns red when passengers are left behind at a stop." },
+]
+
+[[window.view]]
+tab = "To-Do List"
+shot = "todo-list/TD-01"
+alt = "The To-Do List window with eight open tasks, filter buttons and tags linking tasks to towns, stations and lines"
+caption = "The To-Do List window: eight open tasks, most linked to something on the map."
+pins = [
+  { n = 1, x = 50.5, y = 13.3, mod = "todo-list", feature = "elementLinks", text = "Filter buttons, one per kind of element, and the eye: only the tasks about something on screen." },
+  { n = 2, x = 91.9, y = 13.3, mod = "todo-list", feature = "todoList", text = "+ adds a task at the top." },
+  { n = 3, x = 2.6, y = 35.1, mod = "todo-list", feature = "todoList", text = "Drag a task by its grip to reorder it; tick it when it's done." },
+  { n = 4, x = 90, y = 35.1, mod = "todo-list", feature = "todoList", text = "Edit or delete a task." },
+  { n = 5, x = 55.7, y = 79.7, mod = "todo-list", feature = "elementLinks", text = "A tag links the task to a town, station or line: click it to go there and open its window." },
+]
+
+[[window.view]]
+tab = "Mod Performance"
+shot = "mod-performance-monitor/PM-01"
+alt = "The Mod Performance window: frame time and the mods' share, the game speed, the simulation's timings and a row per mod"
+caption = "The Mod Performance window in a large world, paused."
+pins = [
+  { n = 1, x = 24.5, y = 10.5, mod = "mod-performance-monitor", feature = "monitor", text = "Frames a second and ms each, and what all mods together take of that." },
+  { n = 2, x = 83.3, y = 10.5, mod = "mod-performance-monitor", feature = "monitor", text = "The game speed: game time per real second while the game runs." },
+  { n = 3, x = 72, y = 14.8, mod = "mod-performance-monitor", feature = "gameScripts", text = "The simulation's timings, with the mods' game scripts' share." },
+  { n = 4, x = 49.7, y = 22.6, mod = "mod-performance-monitor", features = ["monitor", "gameScripts"], text = "A row per mod, heaviest first: UI time per frame, its worst frame, calls, and game script time (Sim)." },
+]
+
+[[window.view]]
+tab = "Supply Chain Planner"
+shot = "cargo-enhancements/CE-08b"
+alt = "The supply chain planner for a livestock farm: grain suppliers at the left, the farm in the middle, meat and wool takers at the right, the planned legs below"
+caption = "The supply chain planner, opened from its button or a Supply Chains card: a livestock farm needs grain and makes meat and wool."
+legend = "below"
+pins = [
+  { n = 1, x = 52.6, y = 57.5, mod = "cargo-enhancements", feature = "supplyChainPlanner", text = "The industry you plan for, in the middle, with what limits it." },
+  { n = 2, x = 23.2, y = 24, mod = "cargo-enhancements", feature = "supplyChainPlanner", text = "Who makes grain, nearest first; the picked supplier in blue, your line serving it in green." },
+  { n = 3, x = 83.2, y = 38.5, mod = "cargo-enhancements", feature = "supplyChainPlanner", text = "Who takes the meat: a town 2.1 km away, picked and already served by your line." },
+  { n = 4, x = 79.6, y = 73, mod = "cargo-enhancements", feature = "supplyChainPlanner", text = "The planned legs with distance, lines and balance, and what holds the chain back." },
+]
+
+[[window.view]]
+tab = "Stuck Passengers"
+shot = "bug-watch-stuck-passengers/BW-SP-01a"
+alt = "The Stuck Passengers window: one line stop with stuck passengers, with the line, its vehicles, the stop and the number waiting"
+caption = "The Stuck Passengers window: one line stop with stuck passengers, found among 428 departures."
+pins = [
+  { n = 1, x = 49.5, y = 42, mod = "bug-watch-stuck-passengers", feature = "stuckPassengers", text = "How many line stops have stuck passengers, and how many departures were watched." },
+  { n = 2, x = 47, y = 77, mod = "bug-watch-stuck-passengers", feature = "stuckPassengers", text = "The line and its vehicles: clicks open the line or the Line Manager." },
+  { n = 3, x = 73, y = 77, mod = "bug-watch-stuck-passengers", feature = "stuckPassengers", text = "The stop where they are stuck, and how many wait there." },
 ]
 
 [[window]]
-key = "map"
-name = "On the map"
-short = "map"
-[window.figure]
-shot = "line-enhancements/LE-09a"
-alt = "The map of Macclesfield in the Line Manager's add-stop view for a meat line: blue pins and red question marks on buildings, district colours, orange lots around the stop and a tooltip counting the buildings"
-caption = "The Line Manager's add-stop view for a meat line, pointer on a station, with Line Enhancements on. The colours and marks go away when you leave the Line Manager."
+key = "laying-track"
+name = "Laying Track"
+
+[[window.view]]
+tab = "Path Signal Tool"
+shot = "signal-enhancements/SG-01-full"
+alt = "A long straight of single track with one-way signals repeated along it, and the path signal tool's Settings panel with a spacing picked"
+caption = "Placing one path signal with a spacing on a long single-track straight."
+legend = "below"
 pins = [
-  { n = 1, x = 52, y = 5.5, mod = "line-enhancements", anchor = "cargo-demand", text = "Blue pins: buildings the pointed-at station reaches that take the cargo; the tooltip and the district chip count how stocked they are." },
-  { n = 2, x = 10, y = 28, mod = "line-enhancements", anchor = "cargo-demand", text = "Red ?: a building that takes the cargo but that no stop of the line reaches." },
-  { n = 3, x = 91, y = 47, mod = "line-enhancements", anchor = "station-catchment-on-hover", text = "Orange lots: the buildings in reach of the stop you point at." },
-  { n = 4, x = 4, y = 88, mod = "line-enhancements", anchor = "district-colors-in-line-manager", text = "Green, blue and yellow buildings: residential, commercial and industrial districts, kept in every Line Manager view." },
+  { n = 1, x = 82, y = 64.5, mod = "signal-enhancements", feature = "spacing", text = "The tool's Settings panel: One-Way Yes and a spacing, Off or 80 to 320 m." },
+  { n = 2, x = 48.5, y = 57, mod = "signal-enhancements", feature = "spacing", text = "One-way signals the mod placed along the straight, one every chosen distance." },
+  { n = 3, x = 70.5, y = 12, mod = "signal-enhancements", feature = "spacing", text = "The run ends where the track reaches a switch." },
 ]
 
 [[window]]
-key = "build-tools"
-name = "Track and bulldoze tools"
-short = "build tools"
-[window.figure]
-shot = "where-build-tools"
-alt = "A straight of track with a path signal repeated along it, the whole run marked yellow by the bulldozer with Shift held, and below it the path signal tool's Settings panel with the Spacing option"
-caption = "The bulldozer with Shift held over a spaced signal (above) and the path signal tool's Settings panel (below, from another frame), with Signal Enhancements on."
-pins = [
-  { n = 1, x = 51, y = 24, mod = "signal-enhancements", anchor = "signal-spacing", text = "Signals along the straight: one signal placed with a spacing is repeated at that distance up to the next switch." },
-  { n = 2, x = 63, y = 46.7, mod = "signal-enhancements", anchor = "shift-bulldoze-signal-stretch", text = "Yellow stretch: with Shift held the bulldozer marks the whole run of signals for removal." },
-  { n = 3, x = 62, y = 93.5, mod = "signal-enhancements", anchor = "signal-spacing", text = "Spacing row in the path signal tool: Off or 80 to 320 m, shown when One-Way is Yes." },
-]
+key = "bulldoze"
+name = "Bulldoze"
 
-[[window]]
-key = "popups"
-name = "Pop-ups"
-short = "pop-up"
-[window.figure]
-shot = "where-popups"
-alt = "Two subsidy pop-ups, Subsidy Available and Subsidy Effect Active, each with a countdown bar, above the game bar's row of subsidy tiles with coloured rings"
-caption = "The pop-ups and tiles for subsidies, with Subsidy Enhancements on."
+[[window.view]]
+tab = "Bulldozer"
+shot = "signal-enhancements/SG-03d"
+alt = "The bulldozer with Shift held over a spaced signal: the whole run of signals out to the switch marked yellow, with a label counting 8 signals"
+caption = "The bulldozer with Shift held over one signal of a spaced run."
+legend = "below"
 pins = [
-  { n = 1, x = 83.7, y = 36.5, mod = "subsidy-enhancements", anchor = "offer-countdown", text = "Subsidy Available: the bar shows how long you have left to accept." },
-  { n = 2, x = 80.6, y = 72.1, mod = "subsidy-enhancements", anchor = "reward-countdown", text = "Subsidy Effect Active: the bar shows how long the reward has left." },
-  { n = 3, x = 69.4, y = 92.3, mod = "subsidy-enhancements", anchor = "subsidy-ring-colors", text = "Ring on each subsidy tile: yellow while in progress, green while its reward runs, white for an open offer." },
+  { n = 1, x = 47, y = 75, mod = "signal-enhancements", feature = "shiftBulldoze", text = "With Shift held, the whole stretch out to the switch turns yellow." },
+  { n = 2, x = 61.5, y = 54.3, mod = "signal-enhancements", feature = "shiftBulldoze", text = "The label counts the signals that go: 8 here." },
+  { n = 3, x = 87.3, y = 89.8, mod = "signal-enhancements", feature = "shiftBulldoze", text = "The game's Shift hint lights up while Shift is held." },
 ]
 
 [[window]]
 key = "background"
-name = "In the background"
-short = "background"
+name = "In the Background"
+short = "Background"
 
 [install]
 title = "Installing the mods"

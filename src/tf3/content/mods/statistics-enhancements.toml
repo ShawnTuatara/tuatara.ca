@@ -385,7 +385,7 @@ pins = [
 # ---------------------------------------------------------------- game bar
 
 [feature.problemButtons]
-where = ["game-bar", "statistics"]
+where = ["game-bar"]
 why = "Some problems show only deep in a window or a table: an industry that can't expand, a warehouse about to fill up, a station where passengers pile up, a depot that can't keep up with maintenance. Nothing in the game bar tells you where to look."
 what = """
 The statistics buttons in the game bar turn red while their table has something to look at, so you see at a glance where to check. Point at a red button and a box opens above the bar with everything it found: a tab per kind with its count, then each element's name and its figures in columns. Click a name to open that element's window, or the pin before it to look at it on the map; a line named among the figures has a pin too. A long list scrolls. The buttons' own tooltips stay as in the game.

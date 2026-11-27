@@ -26,7 +26,7 @@ Models: `bug-fix-crosswalk-queue.toml` (a live page, finished) and `industry-enh
 
 | Field | |
 |---|---|
-| `where` | Keys of the windows it shows in: `line-manager`, `line-window`, `station-window`, `industry-window`, `town-window`, `warehouse-window`, `vehicle-window`, `vehicle-store`, `statistics`, `subsidies`, `game-bar`, `mod-buttons`, `map`, `build-tools`, `popups`, `background`. |
+| `where` | Keys of the windows it shows in: `line-manager`, `line-window`, `station-window`, `industry-window`, `town-window`, `warehouse-window`, `vehicle-window`, `vehicle-store`, `statistics`, `subsidies`, `notifications`, `game-bar`, `mod-buttons`, `laying-track`, `bulldoze`, `background`. |
 | `why` | The problem in the game, from the player's side. One short paragraph (two at most). |
 | `what` | What the feature does. Defaults to the setting's tooltip; write it when the tooltip is too terse. |
 | `how` | Optional numbered steps, when it isn't obvious where to click. |
