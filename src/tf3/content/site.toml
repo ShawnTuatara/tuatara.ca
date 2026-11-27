@@ -103,11 +103,12 @@ pins = [
 
 [[window.view]]
 tab = "Auto-Rename"
-shot = "line-enhancements/LE-06"
-alt = "The Auto-Rename list for one line: Bromyard and Winslow - Delivery Fish first, then the game's suggestions."
-caption = "Auto-Rename on a line taking fish from a warehouse to a town's stops."
+shot = "where-auto-rename"
+alt = "The bottom of the Line Manager with a fish delivery line selected: the Auto-Rename button pressed in the action bar, and under it the list of names, Wellington - Delivery Fish first"
+caption = "Auto-Rename, opened from the action bar over a line's stops, on a line taking fish from a warehouse to a town's stops."
 pins = [
-  { n = 1, x = 74, y = 35, mod = "line-enhancements", feature = "destinationNames", text = "First suggestion: the place the line delivers to and the cargo." },
+  { n = 1, x = 33, y = 11.5, mod = "line-enhancements", feature = "destinationNames", text = "The game's Auto-Rename button: opens the list below." },
+  { n = 2, x = 80, y = 36.5, mod = "line-enhancements", feature = "destinationNames", text = "First suggestion: the place the line delivers to and the cargo." },
 ]
 
 [[window.view]]
@@ -155,6 +156,17 @@ pins = [
   { n = 4, x = 34.6, y = 76.8, mod = "line-enhancements", anchor = "line-timing", text = "Timing card: the normal loop against the loop now, and what slows the line." },
   { n = 5, x = 40, y = 88.6, mod = "line-enhancements", anchor = "line-cost-cards", text = "Costs & Value card: income against every cost, and what removing the line would change." },
   { n = 6, x = 42.6, y = 96.8, mod = "line-enhancements", anchor = "manage-line-buttons", text = "Line Manager icon at the bottom left: opens the Line Manager on this line." },
+]
+
+[[window.view]]
+tab = "Costs & Value Card"
+shot = "line-enhancements/LE-16b"
+alt = "The Costs & Value card opened: a waterfall from income through running, servicing, track, stations and depots to the net, an If removed table and a list of every cost."
+caption = "The Costs & Value card opened, for a bus line."
+pins = [
+  { n = 1, x = 72, y = 8, mod = "line-enhancements", feature = "costCards", text = "The waterfall: income, then each cost, down to the net." },
+  { n = 2, x = 94, y = 40.8, mod = "line-enhancements", feature = "costCards", text = "If removed: running costs saved, upkeep only this line uses, income lost and what its vehicles sell for." },
+  { n = 3, x = 94, y = 70, mod = "line-enhancements", feature = "costCards", text = "Every cost, largest first, with the line's share." },
 ]
 
 [[window]]
@@ -347,156 +359,165 @@ pins = [
   { n = 3, x = 92.3, y = 14.9, mod = "vehicle-enhancements", anchor = "running-cost-column", text = "Column after the buy button: each vehicle's running cost a year." },
 ]
 
-# ---------------------------------------------------------------- statistics: each table in a left and a
-# right half (user, 2026-11-26: the whole window at the page's width can't be read)
+# ---------------------------------------------------------------- statistics: each tab in a left and a
+# right half, each half a tab here (user, 2026-11-26: the whole window at the page's width can't be read;
+# the left half keeps the window's tab bar as an anchor)
 
 [[window]]
 key = "statistics"
 name = "Statistics Window"
 
 [[window.view]]
-tab = "Industries"
-[[window.view.figure]]
+tab = "Industries - Left"
 shot = "where-stats-industries-left"
 alt = "The left half of the statistics window's Industries tab, sorted by Problems: Rank, Name, Problems, Plots, Recipe In, Recipe Out and Workload"
 caption = "The Industries tab, left half, sorted by Problems."
 legend = "below"
 pins = [
-  { n = 1, x = 2.5, y = 16.5, mod = "statistics-enhancements", feature = "rankColumn", area = { x = 1.5, y = 8, w = 5.5, h = 92 }, text = "Rank: each row's place in the current order; rows that tie share a place. Every tab has it." },
-  { n = 2, x = 40.5, y = 6.5, mod = "statistics-enhancements", features = ["largestFirst", "scrollToTop"], area = { x = 33.5, y = 5.5, w = 5.5, h = 7 }, text = "The first click on a header sorts largest first (names A to Z) and shows the table from its first row." },
-  { n = 3, x = 37.2, y = 30.4, mod = "statistics-enhancements", feature = "industryProblemMarks", area = { x = 34.5, y = 11.5, w = 4, h = 88.5 }, text = "Problems: industries blocked from expanding, or destroying cargo they ship too slowly. Click a mark to open the industry." },
-  { n = 4, x = 44, y = 9.9, mod = "industry-enhancements", feature = "industryColumns", area = { x = 40.5, y = 8, w = 13, h = 92 }, text = "Plots: built of the most allowed, then the next try to grow." },
-  { n = 5, x = 63, y = 30.4, mod = "industry-enhancements", feature = "industryColumns", area = { x = 52.5, y = 8, w = 30, h = 92 }, text = "Recipe In and Recipe Out: each cargo a year at the recipe's base rate." },
-  { n = 6, x = 93, y = 23.5, mod = "industry-enhancements", feature = "industryColumns", area = { x = 88, y = 8, w = 11.5, h = 92 }, text = "Workload, with the boosts on now in green." },
-]
-[[window.view.figure]]
-shot = "where-stats-industries-right"
-alt = "The right half of the same tab: the cargo list, Input, Output, Shipment, Boosters and Workplaces"
-caption = "The same tab, right half."
-legend = "below"
-pins = [
-  { n = 1, x = 41.5, y = 3.5, mod = "statistics-enhancements", features = ["industryCargoFilter", "townCargoFilter"], area = { x = 43, y = 1, w = 14, h = 4.5 }, text = "Cargo list: only the industries (or, in the Towns tab, the towns) that need, boost with or make the picked cargo." },
-  { n = 2, x = 12, y = 9.9, mod = "statistics-enhancements", feature = "industryRecipeTotals", area = { x = 0, y = 8, w = 34, h = 92 }, text = "Input and Output: each cargo counted once for industries with several recipes." },
-  { n = 3, x = 37, y = 9.9, mod = "industry-enhancements", feature = "industryColumns", area = { x = 41, y = 8, w = 23, h = 92 }, text = "Shipment per cargo, coloured by the share of last year's production shipped." },
-  { n = 4, x = 62, y = 9.9, mod = "industry-enhancements", feature = "industryColumns", area = { x = 66, y = 8, w = 12.5, h = 92 }, text = "Boosters: how much faster each cargo booster makes production, green while on." },
-  { n = 5, x = 82.5, y = 9.9, mod = "industry-enhancements", feature = "workerStatus", area = { x = 79, y = 8, w = 18, h = 92 }, text = "Workplaces: workers who came by line (others working here) / needed, then the worker boost." },
+  { n = 1, x = 2.3, y = 17, mod = "statistics-enhancements", feature = "rankColumn", area = { x = 2.5, y = 9, w = 5, h = 91 }, text = "Rank: each row's place in the current order; rows that tie share a place. Every tab has it." },
+  { n = 2, x = 31.5, y = 10, mod = "statistics-enhancements", features = ["largestFirst", "scrollToTop"], area = { x = 34.5, y = 6, w = 3.7, h = 7 }, text = "The first click on a header sorts largest first (names A to Z) and shows the table from its first row." },
+  { n = 3, x = 37.6, y = 20.5, mod = "statistics-enhancements", feature = "industryProblemMarks", area = { x = 35, y = 12, w = 5, h = 88 }, text = "Problems: industries blocked from expanding, or destroying cargo they ship too slowly. Click a mark to open the industry." },
+  { n = 4, x = 44, y = 10, mod = "industry-enhancements", feature = "industryColumns", area = { x = 40.5, y = 8, w = 12.5, h = 92 }, text = "Plots: built of the most allowed, then the next try to grow." },
+  { n = 5, x = 62, y = 20.5, mod = "industry-enhancements", feature = "industryColumns", area = { x = 52, y = 8, w = 30, h = 92 }, text = "Recipe In and Recipe Out: each cargo a year at the recipe's base rate." },
+  { n = 6, x = 90.5, y = 17, mod = "industry-enhancements", feature = "industryColumns", area = { x = 88, y = 8, w = 12, h = 92 }, text = "Workload, with the boosts on now in green." },
 ]
 
 [[window.view]]
-tab = "Towns"
-[[window.view.figure]]
+tab = "Industries - Right"
+shot = "where-stats-industries-right"
+alt = "The right half of the Industries tab: the cargo list, Input, Output, Shipment, Boosters and Workplaces"
+caption = "The Industries tab, right half."
+legend = "below"
+pins = [
+  { n = 1, x = 36.5, y = 3.5, mod = "statistics-enhancements", feature = "industryCargoFilter", area = { x = 43.5, y = 1, w = 12.5, h = 5 }, text = "Cargo list: only the industries that need, boost with or make the picked cargo." },
+  { n = 2, x = 11, y = 7, mod = "statistics-enhancements", feature = "industryRecipeTotals", area = { x = 0, y = 5.5, w = 34, h = 94.5 }, text = "Input and Output: each cargo counted once for industries with several recipes." },
+  { n = 3, x = 55, y = 7, mod = "industry-enhancements", feature = "industryColumns", area = { x = 43, y = 5.5, w = 22, h = 94.5 }, text = "Shipment per cargo, coloured by the share of last year's production shipped." },
+  { n = 4, x = 77, y = 7, mod = "industry-enhancements", feature = "industryColumns", area = { x = 66.5, y = 5.5, w = 11, h = 94.5 }, text = "Boosters: how much faster each cargo booster makes production, green while on." },
+  { n = 5, x = 83, y = 17, mod = "industry-enhancements", feature = "workerStatus", area = { x = 85, y = 5.5, w = 14, h = 94.5 }, text = "Workplaces: workers who came by line (others working here) / needed, then the worker boost." },
+]
+
+[[window.view]]
+tab = "Towns - Left"
 shot = "where-stats-towns-left"
 alt = "The left half of the Towns tab: Rank, Name, Size, Population, Public and Private Transport, and Demand with a cargo chip per cargo"
 caption = "The Towns tab, left half."
 legend = "below"
 pins = [
-  { n = 1, x = 58.8, y = 3, mod = "statistics-enhancements", feature = "publicTransportCoverage", area = { x = 59.5, y = 3.5, w = 4.5, h = 96.5 }, text = "Public Transport: the game's number, coloured by the town's public transport coverage." },
-  { n = 2, x = 77, y = 6, mod = "statistics-enhancements", feature = "townCargoColumns", area = { x = 67, y = 3.5, w = 33, h = 96.5 }, text = "Demand: each cargo the town wants, with its amount, largest first." },
-]
-[[window.view.figure]]
-shot = "where-stats-towns-right"
-alt = "The right half of the Towns tab: Supply per cargo in green, yellow or red, and the six rating gauges"
-caption = "The same tab, right half."
-legend = "below"
-pins = [
-  { n = 1, x = 14, y = 6, mod = "statistics-enhancements", feature = "townCargoColumns", area = { x = 4, y = 3, w = 20, h = 97 }, text = "Supply per cargo, coloured by the share of its demand met." },
-  { n = 2, x = 47.5, y = 6, mod = "statistics-enhancements", feature = "largestFirst", area = { x = 52, y = 3, w = 45, h = 97 }, text = "The rating gauges sort worst first on the first click." },
+  { n = 1, x = 62, y = 4.5, mod = "statistics-enhancements", feature = "publicTransportCoverage", area = { x = 58, y = 8, w = 6, h = 92 }, text = "Public Transport: the game's number, coloured by the town's public transport coverage." },
+  { n = 2, x = 77, y = 10, mod = "statistics-enhancements", feature = "townCargoColumns", area = { x = 68.5, y = 8, w = 31.5, h = 92 }, text = "Demand: each cargo the town wants, with its amount, largest first." },
 ]
 
 [[window.view]]
-tab = "Lines"
-[[window.view.figure]]
-shot = "line-enhancements/LE-18d"
-alt = "The left part of the Lines tab: Rank, Name with a Line Manager icon beside each line, Vehicles, Cargo, Load, Capacity and Utilization"
+tab = "Towns - Right"
+shot = "where-stats-towns-right"
+alt = "The right half of the Towns tab: the cargo list, Supply per cargo in green, yellow or red, and the six rating gauges"
+caption = "The Towns tab, right half."
+legend = "below"
+pins = [
+  { n = 1, x = 33, y = 3.5, mod = "statistics-enhancements", feature = "townCargoFilter", area = { x = 41, y = 1, w = 13.5, h = 5 }, text = "Cargo list: only the towns that want the picked cargo." },
+  { n = 2, x = 16, y = 10, mod = "statistics-enhancements", feature = "townCargoColumns", area = { x = 4, y = 8, w = 22, h = 92 }, text = "Supply per cargo, coloured by the share of its demand met." },
+  { n = 3, x = 46, y = 10, mod = "statistics-enhancements", feature = "largestFirst", area = { x = 51, y = 8, w = 44, h = 92 }, text = "The rating gauges sort worst first on the first click." },
+]
+
+[[window.view]]
+tab = "Lines - Left"
+shot = "where-stats-lines-left"
+alt = "The left half of the Lines tab: Rank, Name with a Line Manager icon beside each line, Vehicles, Cargo, Load and Capacity"
 caption = "The Lines tab, left half."
 legend = "below"
 pins = [
-  { n = 1, x = 41.3, y = 33.9, mod = "line-enhancements", feature = "vehicleManageLine", area = { x = 36.5, y = 10, w = 3.5, h = 90 }, text = "Line Manager icon beside each line's name: opens the Line Manager on it." },
+  { n = 1, x = 49.3, y = 17, mod = "line-enhancements", feature = "vehicleManageLine", area = { x = 44.3, y = 12, w = 2.6, h = 88 }, text = "Line Manager icon beside each line's name: opens the Line Manager on it." },
 ]
-[[window.view.figure]]
+
+[[window.view]]
+tab = "Lines - Right"
 shot = "where-stats-lines-right"
 alt = "The right half of the Lines tab: Utilization with last year's use as a bar, Satisfy, Frequency, Rate, a profit bar per line, Balance and Net, and the Lines, Costs and Track view buttons"
-caption = "The same tab, right half, in the mod's Lines view."
+caption = "The Lines tab, right half, in the mod's Lines view."
 legend = "below"
 pins = [
-  { n = 1, x = 29.5, y = 3, mod = "line-enhancements", feature = "costViews", area = { x = 33.5, y = 0.5, w = 7.5, h = 5.5 }, text = "The three views: Lines, Costs and Track." },
-  { n = 2, x = 12, y = 9.8, mod = "line-enhancements", feature = "costViews", area = { x = 0, y = 7.5, w = 17, h = 92.5 }, text = "The load now, then last year's use as a bar." },
-  { n = 3, x = 60, y = 9.8, mod = "line-enhancements", feature = "costViews", area = { x = 48, y = 7.5, w = 21, h = 92.5 }, text = "The profit bar: income to the right, each cost to the left, the net as a line under it." },
-  { n = 4, x = 91, y = 9.8, mod = "line-enhancements", feature = "costViews", area = { x = 87, y = 7.5, w = 13, h = 92.5 }, text = "Net: the Balance less the line's share of upkeep." },
+  { n = 1, x = 28.5, y = 2.8, mod = "line-enhancements", feature = "costViews", area = { x = 32, y = 0.5, w = 9.5, h = 5 }, text = "The three views: Lines, Costs and Track." },
+  { n = 2, x = 12, y = 7, mod = "line-enhancements", feature = "costViews", area = { x = 0, y = 8.5, w = 16, h = 91.5 }, text = "The load now, then last year's use as a bar." },
+  { n = 3, x = 60, y = 7, mod = "line-enhancements", feature = "costViews", area = { x = 43.5, y = 8.5, w = 33, h = 91.5 }, text = "The profit bar: income to the right, each cost to the left, the net as a line under it." },
+  { n = 4, x = 89.2, y = 7, mod = "line-enhancements", feature = "costViews", area = { x = 88, y = 8.5, w = 12, h = 91.5 }, text = "Net: the Balance less the line's share of upkeep." },
 ]
 
 [[window.view]]
-tab = "Stations"
-[[window.view.figure]]
+tab = "Stations - Left"
 shot = "where-stats-stations-left"
 alt = "The left half of the Stations tab: Rank, Name, Town, the terminal count and Type"
-caption = "The Stations tab, left half."
+caption = "The Stations tab, left half, sorted by Utilization."
 legend = "below"
 pins = [
-  { n = 1, x = 85, y = 6.5, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 72, y = 4, w = 13, h = 96 }, text = "The terminal count, and Type: how many terminals of each kind." },
+  { n = 1, x = 94, y = 10, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 79, y = 8, w = 21, h = 92 }, text = "The terminal count, and Type: how many terminals of each kind." },
 ]
-[[window.view.figure]]
+
+[[window.view]]
+tab = "Stations - Right"
 shot = "where-stats-stations-right"
 alt = "The right half of the Stations tab: lines per terminal with the Assign Lines button, Utilization, the waiting hall and each terminal's waiting passengers, Delay per terminal and Upkeep"
-caption = "The same tab, right half."
+caption = "The Stations tab, right half."
 legend = "below"
 pins = [
-  { n = 1, x = 2.5, y = 6.5, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 4, y = 4, w = 12, h = 96 }, text = "How many of your lines stop at each terminal." },
-  { n = 2, x = 18.2, y = 18.5, mod = "line-enhancements", feature = "assignLines", area = { x = 13, y = 9, w = 3.5, h = 91 }, text = "Assign Lines for the station, from its row." },
-  { n = 3, x = 40, y = 6, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 26, y = 4, w = 42.5, h = 96 }, text = "The waiting hall, then each terminal's waiting passengers against its capacity; yellow when over." },
-  { n = 4, x = 78.5, y = 6, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 76, y = 4, w = 14, h = 96 }, text = "Delay: the unhappy passengers at each terminal." },
+  { n = 1, x = 8, y = 10, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 9, y = 12, w = 11, h = 88 }, text = "How many of your lines stop at each terminal." },
+  { n = 2, x = 21, y = 4, mod = "line-enhancements", feature = "assignLines", area = { x = 19.5, y = 12, w = 2.8, h = 88 }, text = "Assign Lines for the station, from its row." },
+  { n = 3, x = 44, y = 10, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 39.5, y = 8, w = 30, h = 92 }, text = "The waiting hall, then each terminal's waiting passengers against its capacity; yellow when over." },
+  { n = 4, x = 78, y = 10, mod = "statistics-enhancements", feature = "stationColumns", area = { x = 76, y = 8, w = 12, h = 92 }, text = "Delay: the unhappy passengers at each terminal." },
 ]
 
 [[window.view]]
-tab = "Vehicles"
-[[window.view.figure]]
+tab = "Vehicles - Left"
 shot = "where-stats-vehicles-left"
 alt = "The left half of the Vehicles tab: Rank, Name, Line, Vehicle and Cargo"
-caption = "The Vehicles tab, left half, sorted by condition."
+caption = "The Vehicles tab, left half, sorted by Condition."
 legend = "below"
 pins = [
-  { n = 1, x = 56, y = 9, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 45.5, y = 4, w = 30, h = 96 }, text = "Line first, with more room for its name." },
-]
-[[window.view.figure]]
-shot = "where-stats-vehicles-right"
-alt = "The right half of the Vehicles tab: Load, Capacity, Utilization, Satisfaction, Condition in colour, Age, Income, Running Costs, Balance and the running cost a year"
-caption = "The same tab, right half."
-legend = "below"
-pins = [
-  { n = 1, x = 44, y = 30.5, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 32, y = 4, w = 8.5, h = 96 }, text = "Condition in the vehicle window's colours." },
-  { n = 2, x = 56.5, y = 17.5, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 55, y = 4, w = 20, h = 96 }, text = "Income and Running Costs over the last 12 months, before Balance." },
-  { n = 3, x = 89, y = 3, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 87.5, y = 4, w = 12, h = 96 }, text = "The running cost a year at today's rate." },
+  { n = 1, x = 55, y = 10, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 45.5, y = 8, w = 31, h = 92 }, text = "Line first, with more room for its name." },
 ]
 
 [[window.view]]
-tab = "Warehouses"
-[[window.view.figure]]
+tab = "Vehicles - Right"
+shot = "where-stats-vehicles-right"
+alt = "The right half of the Vehicles tab: Load, Capacity, Utilization, Satisfaction, Condition in colour, Age, Income, Running Costs, Balance and the running cost a year"
+caption = "The Vehicles tab, right half."
+legend = "below"
+pins = [
+  { n = 1, x = 42.5, y = 20.5, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 31.5, y = 8, w = 8.5, h = 92 }, text = "Condition in the vehicle window's colours." },
+  { n = 2, x = 55.7, y = 7, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 55, y = 8, w = 22, h = 92 }, text = "Income and Running Costs over the last 12 months, before Balance." },
+  { n = 3, x = 88.9, y = 7, mod = "statistics-enhancements", feature = "vehicleColumns", area = { x = 89.5, y = 8, w = 10.5, h = 92 }, text = "The running cost a year at today's rate." },
+]
+
+[[window.view]]
+tab = "Warehouses - Left"
 shot = "where-stats-warehouses-left"
 alt = "The left half of the Warehouses tab: Rank, Name, Problems and Stocks as a strip of slot tiles"
 caption = "The Warehouses tab, left half."
 legend = "below"
 pins = [
-  { n = 1, x = 77, y = 6, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 66, y = 3.5, w = 26, h = 96.5 }, text = "A tile per slot, grouped by kind; green bars where a line unloads that cargo now." },
+  { n = 1, x = 74, y = 7, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 65.5, y = 8, w = 27, h = 92 }, text = "A tile per slot, grouped by kind; green bars where a line unloads that cargo now." },
+  { n = 2, x = 62.5, y = 24.5, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 60.5, y = 8, w = 4, h = 92 }, text = "Problems: a cargo with no slot left, a pinned cargo nothing brings, or a cargo lines load that nothing brings. Click the mark to open the warehouse." },
 ]
-[[window.view.figure]]
+
+[[window.view]]
+tab = "Warehouses - Right"
 shot = "where-stats-warehouses-right"
 alt = "The right half of the Warehouses tab: Free, Next Full, the change a year and Upkeep"
-caption = "The same tab, right half."
+caption = "The Warehouses tab, right half."
 legend = "below"
 pins = [
-  { n = 1, x = 22, y = 6, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 23, y = 3.5, w = 8, h = 96.5 }, text = "Free: slots no cargo is held for." },
-  { n = 2, x = 50, y = 6, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 50, y = 3.5, w = 13, h = 96.5 }, text = "Next Full: the cargo to act on first, and when it fills." },
-  { n = 3, x = 66, y = 6, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 69, y = 3.5, w = 10, h = 96.5 }, text = "That cargo's change over the last year." },
+  { n = 1, x = 19, y = 7, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 23, y = 8, w = 6, h = 92 }, text = "Free: slots no cargo is held for." },
+  { n = 2, x = 47, y = 7, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 49, y = 8, w = 12, h = 92 }, text = "Next Full: the cargo to act on first, and when it fills." },
+  { n = 3, x = 64.5, y = 7, mod = "warehouse-enhancements", feature = "statisticsTab", area = { x = 67, y = 8, w = 9, h = 92 }, text = "That cargo's change over the last year." },
 ]
 
 # ---------------------------------------------------------------- other screens
 
 [[window]]
 key = "subsidies"
-name = "Subsidies"
+name = "Subsidy Window"
 
 [[window.view]]
-tab = "Subsidy Windows"
+tab = "Subsidy Window"
 shot = "where-subsidies"
 alt = "Two subsidy windows: an offer with a countdown bar under Decline and Accept, and a fulfilled subsidy with a bar for its reward's time left"
 caption = "An open offer (left) and a fulfilled subsidy whose reward is running (right)."
@@ -564,7 +585,7 @@ shot = "GEN-02"
 alt = "The buttons at the top left of the screen: the game's Data Layers, then To-Do List, Mod Performance, Supply Chain Planner and Stuck Passengers"
 caption = "The game's Data Layers button (left) and the buttons the mods add beside it. The next tabs show the windows they open."
 pins = [
-  { n = 1, x = 23.3, y = 50, mod = "todo-list", anchor = "to-do-list", text = "Checklist button: your notes for this save." },
+  { n = 1, x = 35, y = 18.5, mod = "todo-list", anchor = "to-do-list", text = "Checklist button: your notes for this save." },
   { n = 2, x = 51, y = 18.5, mod = "mod-performance-monitor", anchor = "monitor", text = "Stopwatch button: what each mod costs per frame." },
   { n = 3, x = 67, y = 18.5, mod = "cargo-enhancements", anchor = "supply-chain-planner", text = "Planner button: opens the supply chain planner on the town or industry it last showed." },
   { n = 4, x = 83, y = 18.5, mod = "bug-watch-stuck-passengers", anchor = "stuck-passenger-alert", text = "Turns red when passengers are left behind at a stop." },

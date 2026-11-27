@@ -449,7 +449,7 @@ def page(*, title: str, description: str, crumbs: list, body: str, canonical: st
          og_image: str | None = None, current: str = "", draft: bool = False, built: str = "") -> str:
     p = Ctx.prefix
     crumb_html = " › ".join(f'<a href="{esc(h)}">{esc(t)}</a>' if h else f"<span>{esc(t)}</span>" for t, h in crumbs)
-    nav = [("Mods", f"{p}#mods", "mods"), ("Find it", f"{p}#where", "where"),
+    nav = [("Find it", f"{p}#where", "where"), ("Mods", f"{p}#mods", "mods"),
            ("Research", f"{p}#research", "research"), ("Install", f"{p}install/", "install")]
     nav_html = "".join(f'<a href="{esc(h)}"{" aria-current=" + chr(34) + "page" + chr(34) if k == current else ""}>{t}</a>'
                        for t, h, k in nav)
@@ -542,6 +542,8 @@ def landing(site: dict, mods: list[Mod], drafts: bool, built: str) -> str:
     body.append(f'<section class="window" id="how"><div class="window-title"><h2>How the mods work</h2>'
                 f'<p>Every mod follows the same rules.</p></div><div class="steps">{steps}</div></section>')
 
+    # Find it first (user, 2026-11-27): its links lead on to the mod pages, so it comes before the grid
+    body.append(find_it(site, mods, drafts))
     grid = ['<section class="window" id="mods"><div class="window-title"><h2>The mods</h2></div>']
     for key, title, sub in GROUPS:
         group = sorted((m for m in mods if m.group == key), key=lambda m: m.order)
@@ -551,7 +553,6 @@ def landing(site: dict, mods: list[Mod], drafts: bool, built: str) -> str:
     grid.append("</section>")
     body.append("".join(grid))
 
-    body.append(find_it(site, mods, drafts))
 
     cards = []
     for r in site.get("research", []):

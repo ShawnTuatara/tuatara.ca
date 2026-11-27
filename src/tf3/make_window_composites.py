@@ -4,7 +4,7 @@
 
 Writes into shots/site/: where-subsidies.png (the offer window next to the reward window),
 where-notifications.png (the ring strip above the offer and reward cards), and the
-crops (where-<window>-<part>.png): the statistics tables cut into a left and a right half so each is
+crops (where-<window>-<part>.png): the statistics tabs, each cut into a left and a right half so it is
 readable at the page's width, the town window's Supplies view and the game bar's counters. The padding is
 transparent. Pins for all of them are in content/site.toml; if a master changes size or a crop moves,
 recompute them.
@@ -43,17 +43,21 @@ run([SUB / "SU-03d.png", SUB / "SU-01a.png", SUB / "SU-02b.png"],
 # Crops: (output, master, w, h, x, y). A statistics table at the page's width is too small to read
 # (user, 2026-11-26), so each is cut at a column boundary into a left and a right half.
 CROPS = [
-    ("where-stats-industries-left", OUT / "where-statistics.png", 1500, 1000, 150, 0),
-    ("where-stats-industries-right", OUT / "where-statistics.png", 1250, 1000, 1650, 0),
-    ("where-stats-towns-left", SHOTS / "statistics-enhancements" / "SE-03d.png", 1575, 620, 0, 0),
-    ("where-stats-towns-right", SHOTS / "statistics-enhancements" / "SE-03d.png", 1180, 620, 1560, 0),
-    ("where-stats-lines-right", SHOTS / "line-enhancements" / "LE-17d.png", 1478, 620, 1262, 0),
-    ("where-stats-stations-left", SHOTS / "statistics-enhancements" / "SE-07c.png", 1290, 600, 0, 0),
-    ("where-stats-stations-right", SHOTS / "statistics-enhancements" / "SE-07c.png", 1450, 600, 1290, 0),
-    ("where-stats-vehicles-left", SHOTS / "statistics-enhancements" / "SE-06e.png", 1340, 420, 0, 0),
-    ("where-stats-vehicles-right", SHOTS / "statistics-enhancements" / "SE-06e.png", 1400, 420, 1340, 0),
-    ("where-stats-warehouses-left", SHOTS / "warehouse-enhancements" / "WE-01d.png", 1340, 620, 0, 0),
-    ("where-stats-warehouses-right", SHOTS / "warehouse-enhancements" / "WE-01d.png", 1400, 620, 1340, 0),
+    # the statistics window, expanded, one capture per tab (where-stats-<tab>.png, 2770 x 1012 in the
+    # 3440 x 1369 game window, 2026-11-27); 998 high leaves out the game bar's buttons below it. The left
+    # half keeps the tab bar, the right half the filter bar.
+    ("where-stats-industries-left", OUT / "where-stats-industries.png", 1510, 998, 0, 0),
+    ("where-stats-industries-right", OUT / "where-stats-industries.png", 1260, 998, 1510, 0),
+    ("where-stats-towns-left", OUT / "where-stats-towns.png", 1560, 998, 0, 0),
+    ("where-stats-towns-right", OUT / "where-stats-towns.png", 1210, 998, 1560, 0),
+    ("where-stats-lines-left", OUT / "where-stats-lines.png", 1280, 998, 0, 0),
+    ("where-stats-lines-right", OUT / "where-stats-lines.png", 1490, 998, 1280, 0),
+    ("where-stats-stations-left", OUT / "where-stats-stations.png", 1180, 998, 0, 0),
+    ("where-stats-stations-right", OUT / "where-stats-stations.png", 1590, 998, 1180, 0),
+    ("where-stats-vehicles-left", OUT / "where-stats-vehicles.png", 1356, 998, 0, 0),
+    ("where-stats-vehicles-right", OUT / "where-stats-vehicles.png", 1414, 998, 1356, 0),
+    ("where-stats-warehouses-left", OUT / "where-stats-warehouses.png", 1385, 998, 0, 0),
+    ("where-stats-warehouses-right", OUT / "where-stats-warehouses.png", 1385, 998, 1385, 0),
     # the town window of Cargo Enhancements' Wellington frame, machines picked
     ("where-town-supplies", SHOTS / "cargo-enhancements" / "CE-05b-machines.png", 580, 1150, 2826, 14),
     # the game bar's counters, no tooltip over them (user, 2026-11-26)
