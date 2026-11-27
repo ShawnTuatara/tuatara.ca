@@ -1,33 +1,13 @@
 {
   "modid": "tuatara_subsidy_enhancements",
   "name": "Subsidy Enhancements",
-  "summary": "Subsidy countdowns: Offer Countdown, Reward Countdown, and Subsidy Ring Colors by phase",
-  "description": "Improvements to subsidies. Each feature can be turned off in the mod's Settings (the gear next to the mod when choosing a game's mods). Settings also has a Logging switch, off by default, that writes the mod's messages to the game log (stdout.txt) for bug reports.\n\nOffer Countdown: a subsidy offer stays open for about six months, then it is withdrawn, but the game never shows how long you have left to accept it. With this mod an offer you haven't accepted yet shows its time left as a bar, drawn like the countdown the game shows once a subsidy is accepted: in the Subsidy Available notification and in the subsidy's window, under Decline and Accept. The bar empties as the offer runs out. The calendar line on an offer still shows the time you get to fulfil it once accepted.\n\nReward Countdown: once a subsidy is fulfilled, its reward runs for a set time (2x income on the supplying lines or the connection for five years), but its Subsidy Effect Active notification shows no time left. With this mod it shows a bar with the reward's time left, in the notification and in the subsidy's window.\n\nSubsidy Ring Colors: in the notification list, the ring around an accepted subsidy's icon is yellow while the subsidy is in progress and green while its reward runs, so both phases stand apart at a glance from offers, which keep the white ring.\n\nOnly the display is changed: subsidies, their timing and their rewards stay as the game sets them. The mod saves nothing with your game, so it can be removed at any time.",
+  "summary": "Countdowns: time left on subsidy offers and rewards, and colour-coded rings on subsidy notifications",
+  "description": "Improvements to subsidies. The feature can be turned off in the mod's Settings (the gear next to the mod when choosing a game's mods). Settings also has a Logging switch, off by default, that writes the mod's messages to the game log (stdout.txt) for bug reports.\n\nCountdowns: the game shows a subsidy's time left only while the subsidy is in progress. An offer stays open for about six months before it is withdrawn, and a fulfilled subsidy's reward runs for a set time (2x income on the supplying lines or the connection for five years), but the game shows neither time left. With this mod both show as a bar, drawn like the game's countdown for an accepted subsidy: an offer's time left to accept in its Subsidy Available notification and in its window, under Decline and Accept; a reward's time left in its Subsidy Effect Active notification and in its window. The calendar line on an offer still shows the time you get to fulfil it once accepted.\n\nIn the notification list, every subsidy's tile then has a countdown ring around its icon (the game draws one only while a subsidy is in progress), colour-coded by phase: white for an offer, yellow while in progress, green while the reward runs.\n\nOnly the display is changed: subsidies, their timing and their rewards stay as the game sets them. The mod saves nothing with your game, so it can be removed at any time.",
   "params": [
     {
-      "key": "offerCountdown",
-      "name": "Offer Countdown",
-      "tooltip": "A subsidy offer shows how long it stays on offer,\nin its notification and in its window.",
-      "values": [
-        "Off",
-        "On"
-      ],
-      "default": "On"
-    },
-    {
-      "key": "rewardCountdown",
-      "name": "Reward Countdown",
-      "tooltip": "A fulfilled subsidy shows how long its reward runs,\nin its notification and in its window.",
-      "values": [
-        "Off",
-        "On"
-      ],
-      "default": "On"
-    },
-    {
-      "key": "greenRing",
-      "name": "Subsidy Ring Colors",
-      "tooltip": "Accepted subsidies' notification rings: yellow while\nin progress, green while the reward runs; offers stay white.",
+      "key": "countdowns",
+      "name": "Countdowns",
+      "tooltip": "Shows each subsidy's time left: bars for an offer's time to\naccept and a reward's time to run (notification and window),\nand a ring on every subsidy notification, coloured by phase:\nwhite offer, yellow in progress, green reward running.",
       "values": [
         "Off",
         "On"

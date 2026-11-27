@@ -536,7 +536,7 @@ shot = "where-notifications"
 alt = "The notification strip's subsidy tiles with coloured rings, and under it the Subsidy Available and Subsidy Effect Active cards they open, each with a countdown bar"
 caption = "The subsidy tiles in the notification strip, and the cards two of them open."
 pins = [
-  { n = 1, x = 69.4, y = 7.7, mod = "subsidy-enhancements", feature = "greenRing", text = "Ring on each subsidy tile: yellow while in progress, green while its reward runs, white for an open offer." },
+  { n = 1, x = 69.4, y = 7.7, mod = "subsidy-enhancements", feature = "countdownRings", text = "A countdown ring on each subsidy tile: yellow while in progress, green while its reward runs, white for an open offer." },
   { n = 2, x = 83.7, y = 55.8, mod = "subsidy-enhancements", feature = "offerCountdown", text = "Subsidy Available: the bar shows how long you have left to accept." },
   { n = 3, x = 80.6, y = 91.3, mod = "subsidy-enhancements", feature = "rewardCountdown", text = "Subsidy Effect Active: the bar shows how long the reward has left." },
 ]
