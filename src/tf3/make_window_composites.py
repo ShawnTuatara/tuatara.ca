@@ -44,20 +44,21 @@ run([SUB / "SU-03d.png", SUB / "SU-01a.png", SUB / "SU-02b.png"],
 # (user, 2026-11-26), so each is cut at a column boundary into a left and a right half.
 CROPS = [
     # the statistics window, expanded, one capture per tab (where-stats-<tab>.png, 2770 x 1012 in the
-    # 3440 x 1369 game window, 2026-11-27); 998 high leaves out the game bar's buttons below it. The left
-    # half keeps the tab bar, the right half the filter bar.
-    ("where-stats-industries-left", OUT / "where-stats-industries.png", 1510, 998, 0, 0),
-    ("where-stats-industries-right", OUT / "where-stats-industries.png", 1260, 998, 1510, 0),
-    ("where-stats-towns-left", OUT / "where-stats-towns.png", 1560, 998, 0, 0),
-    ("where-stats-towns-right", OUT / "where-stats-towns.png", 1210, 998, 1560, 0),
-    ("where-stats-lines-left", OUT / "where-stats-lines.png", 1280, 998, 0, 0),
-    ("where-stats-lines-right", OUT / "where-stats-lines.png", 1490, 998, 1280, 0),
-    ("where-stats-stations-left", OUT / "where-stats-stations.png", 1180, 998, 0, 0),
-    ("where-stats-stations-right", OUT / "where-stats-stations.png", 1590, 998, 1180, 0),
-    ("where-stats-vehicles-left", OUT / "where-stats-vehicles.png", 1356, 998, 0, 0),
-    ("where-stats-vehicles-right", OUT / "where-stats-vehicles.png", 1414, 998, 1356, 0),
-    ("where-stats-warehouses-left", OUT / "where-stats-warehouses.png", 1385, 998, 0, 0),
-    ("where-stats-warehouses-right", OUT / "where-stats-warehouses.png", 1385, 998, 1385, 0),
+    # 3440 x 1369 game window, 2026-11-27), cut to the tab bar and about the first 8 rows (user, 2026-11-27:
+    # no need to go deep; the legend then fits on the screen). The left half keeps the tab bar, the right
+    # half the filter bar.
+    ("where-stats-industries-left", OUT / "where-stats-industries.png", 1510, 392, 0, 0),
+    ("where-stats-industries-right", OUT / "where-stats-industries.png", 1260, 392, 1510, 0),
+    ("where-stats-towns-left", OUT / "where-stats-towns.png", 1560, 392, 0, 0),
+    ("where-stats-towns-right", OUT / "where-stats-towns.png", 1210, 392, 1560, 0),
+    ("where-stats-lines-left", OUT / "where-stats-lines.png", 1280, 392, 0, 0),
+    ("where-stats-lines-right", OUT / "where-stats-lines.png", 1490, 392, 1280, 0),
+    ("where-stats-stations-left", OUT / "where-stats-stations.png", 1180, 392, 0, 0),
+    ("where-stats-stations-right", OUT / "where-stats-stations.png", 1590, 392, 1180, 0),
+    ("where-stats-vehicles-left", OUT / "where-stats-vehicles.png", 1356, 392, 0, 0),
+    ("where-stats-vehicles-right", OUT / "where-stats-vehicles.png", 1414, 392, 1356, 0),
+    ("where-stats-warehouses-left", OUT / "where-stats-warehouses.png", 1385, 520, 0, 0),
+    ("where-stats-warehouses-right", OUT / "where-stats-warehouses.png", 1385, 520, 1385, 0),
     # the town window of Cargo Enhancements' Wellington frame, machines picked
     ("where-town-supplies", SHOTS / "cargo-enhancements" / "CE-05b-machines.png", 580, 1150, 2826, 14),
     # the game bar's counters, no tooltip over them (user, 2026-11-26)

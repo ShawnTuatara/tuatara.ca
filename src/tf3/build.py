@@ -440,8 +440,11 @@ MODS: dict[str, Mod] = {}
 
 # ---------------------------------------------------------------- page shell
 
-def badge(status: str) -> str:
+def badge(status: str, modio: str = "") -> str:
     cls, label = STATUS[status]
+    # a live mod's badge links to its mod.io page (user, 2026-11-27)
+    if status == "live" and modio:
+        return f'<a class="badge {cls}" href="{esc(modio)}">{label}</a>'
     return f'<span class="badge {cls}">{label}</span>'
 
 
@@ -515,11 +518,17 @@ def mod_card(m: Mod, drafts: bool) -> str:
                 if img else "")
     n = len(m.features)
     count = f"<span>{n} features</span>" if n > 1 else ""
-    body = (f'<div class="card-body"><h3>{esc(m.name)}</h3><p>{md(m.card)}</p>'
-            f'<div class="card-meta">{badge(m.status)}{count}</div></div>')
+    modio = m.data.get("modio", "")
     if m.slug in Ctx.visible:
-        return f'<a class="card" href="mods/{m.slug}/">{img_html}{body}</a>'
-    return f'<div class="card off">{img_html}{body}</div>'
+        # The card's name is its link, stretched over the whole card (site.css .card-main), so the On
+        # mod.io badge can be a link of its own: links can't nest
+        name = f'<a class="card-main" href="mods/{m.slug}/">{esc(m.name)}</a>'
+        cls = "card linked"
+    else:
+        name, cls = esc(m.name), "card off"
+    body = (f'<div class="card-body"><h3>{name}</h3><p>{md(m.card)}</p>'
+            f'<div class="card-meta">{badge(m.status, modio)}{count}</div></div>')
+    return f'<div class="{cls}">{img_html}{body}</div>'
 
 
 def landing(site: dict, mods: list[Mod], drafts: bool, built: str) -> str:
@@ -671,7 +680,7 @@ def mod_page(m: Mod, drafts: bool, built: str) -> str:
                          f'alt="{esc(d.get("hero_alt", ""))}"></div>')
         else:
             (warn if drafts else err)(f"{m.slug}: hero {d['hero']} is missing")
-    facts = [badge(m.status), f'<span class="fact">Version <b>{esc(d.get("version", "?"))}</b></span>',
+    facts = [badge(m.status, d.get("modio", "")), f'<span class="fact">Version <b>{esc(d.get("version", "?"))}</b></span>',
              f'<span class="fact">Game build <b>{esc(d.get("build", SITE["build"]))}</b></span>']
     if len(m.features) > 1:
         facts.append(f'<span class="fact"><b>{len(m.features)}</b> features</span>')

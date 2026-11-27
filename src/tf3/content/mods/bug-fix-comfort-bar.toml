@@ -1,12 +1,14 @@
 modid = "tuatara_bugfix_comfort_bar"
 group = "bugfixes"
 order = 4
-status = "soon"
+status = "live"
 publish = true
-version = "0.1"
+modio = "https://mod.io/g/transportfever3/m/bug-fix-comfort-bar"
+version = "1.0"
 card = "A train's Comfort bar no longer counts the locomotive as zero comfort."
-card_image = "BF-CB-01"
 lead = "The vehicle window shows false wear on a locomotive-hauled train's Comfort bar, even on a new train. This mod counts only the parts with seats."
+hero = "BF-CB-00"
+hero_alt = "A train's Condition section before and after: a false red part and Mediocre on the Comfort bar, then full comfort, Very Good, no red."
 description = "Bug Fix - Comfort Bar for Transport Fever 3: the vehicle window's Comfort bar no longer counts a train's locomotive as zero comfort."
 compat = "Works with any map and any other mod. Seen on game build 40444, where the game bug is still there."
 

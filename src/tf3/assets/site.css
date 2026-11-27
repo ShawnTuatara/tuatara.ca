@@ -111,7 +111,15 @@ p { margin: 0 0 1em; }
 /* Content cards (entity window cards: BaseMedium surface, BaseVeryLight contour, AccentLight on hover) */
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
 .card { background: var(--base-medium); border: 1px solid var(--base-very-light); border-radius: var(--radius-card); overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: var(--text); transition: border-color .12s ease, background-color .12s ease; }
-a.card:hover { border-color: var(--accent-light); background: var(--base-light-medium); color: var(--text); }
+a.card:hover, .card.linked:hover { border-color: var(--accent-light); background: var(--base-light-medium); color: var(--text); }
+/* A linked card: its name's link covers the card, the On mod.io badge sits above it as a link of its own */
+.card.linked { position: relative; }
+.card-main { color: inherit; text-decoration: none; }
+.card-main::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.card-main:focus-visible { outline: none; }
+.card.linked:has(.card-main:focus-visible) { outline: 2px solid var(--accent-very-light); outline-offset: 2px; }
+a.badge { position: relative; z-index: 1; text-decoration: none; }
+a.badge.live:hover { background: #5fd62a; color: var(--base-very-dark); }
 .card.off { background: var(--base-dark-medium); }
 .card.off .card-img img { opacity: .75; }
 .group-sub { margin: -4px 0 12px; font-size: .9rem; }
